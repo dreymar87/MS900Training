@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MS-900 | Domain 3: Security, Compliance &amp; Trust</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1117;--surface:#181c27;--surface2:#1e2333;--surface3:#242840;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.12);--text:#e2e8f0;--muted:#64748b;--muted2:#8899aa;--c:#34d399;--cs:rgba(52,211,153,.1);--ch:rgba(52,211,153,.2)}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;min-height:100vh;line-height:1.6}
+.topnav{position:sticky;top:0;z-index:100;background:rgba(15,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;gap:4px;height:52px;overflow-x:auto}
+.topnav a{text-decoration:none;white-space:nowrap;font-size:12px;font-weight:600;padding:5px 11px;border-radius:8px;transition:all .2s;color:var(--muted)}
+.topnav a:hover{background:var(--surface2);color:var(--text)}
+.topnav a.active{background:var(--cs);color:var(--c)}
+.topnav .brand{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2);margin-right:8px;flex-shrink:0}
+.topnav .sep{color:var(--border2);margin:0 2px}
+.page{max-width:860px;margin:0 auto;padding:48px 24px 96px}
+.domain-pill{display:inline-flex;align-items:center;gap:6px;padding:4px 14px;border-radius:999px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;background:var(--cs);color:var(--c);margin-bottom:18px}
+h1{font-family:'Fraunces',serif;font-size:clamp(28px,5vw,44px);font-weight:900;line-height:1.1;letter-spacing:-.02em;color:#fff;margin-bottom:12px}
+h1 em{font-style:normal;color:var(--c)}
+.hero-sub{color:var(--muted2);font-size:14.5px;max-width:640px;line-height:1.7;margin-bottom:8px}
+.hero-stats{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:32px;margin-top:16px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 18px;font-size:13px}
+.stat-val{font-family:'Fraunces',serif;font-size:22px;font-weight:900;color:var(--c);line-height:1}
+.stat-key{font-size:11px;color:var(--muted);margin-top:3px}
+.tldr{background:var(--cs);border:1px solid rgba(52,211,153,.2);border-radius:16px;padding:20px 24px;margin-bottom:40px}
+.tldr-label{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--c);margin-bottom:10px}
+.tldr ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.tldr ul li{font-size:13.5px;padding-left:18px;position:relative;line-height:1.5}
+.tldr ul li::before{content:'→';position:absolute;left:0;color:var(--c);font-size:11px;top:3px}
+.module-wrap{margin-top:36px}
+.module-header{display:flex;align-items:flex-start;gap:16px;padding:18px 22px;background:var(--surface2);border-radius:16px 16px 0 0;border:1px solid var(--border2);border-bottom:none}
+.module-num{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px;font-weight:500;flex-shrink:0;background:var(--cs);color:var(--c);margin-top:2px}
+.module-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:3px}
+.module-desc{font-size:12.5px;color:var(--muted)}
+.module-link{margin-left:auto;flex-shrink:0;font-size:11px;font-family:'DM Mono',monospace;text-decoration:none;padding:5px 12px;border-radius:8px;border:1px solid var(--border2);color:var(--muted2);transition:all .2s;white-space:nowrap;align-self:flex-start}
+.module-link:hover{color:#fff;background:var(--surface3)}
+.module-body{border:1px solid var(--border2);border-radius:0 0 16px 16px;overflow:hidden}
+.concept{padding:20px 22px;border-bottom:1px solid var(--border)}
+.concept:last-child{border-bottom:none}
+.concept:nth-child(even){background:rgba(255,255,255,.015)}
+.concept-top{display:flex;align-items:flex-start;gap:14px}
+.skill-check{width:20px;height:20px;border-radius:5px;border:2px solid var(--border2);background:transparent;flex-shrink:0;cursor:pointer;margin-top:2px;appearance:none;-webkit-appearance:none;transition:all .2s;position:relative}
+.skill-check:checked{background:var(--c);border-color:var(--c)}
+.skill-check:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:11px;font-weight:700;color:#0f1117}
+.concept-title{font-size:14.5px;font-weight:700;color:#fff;line-height:1.4;flex:1}
+.concept-body{padding-left:34px;margin-top:10px}
+.concept-desc{font-size:13.5px;color:var(--muted2);line-height:1.65;margin-bottom:10px}
+.concept-desc strong{color:var(--text)}
+.compare-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px;border-radius:10px;overflow:hidden}
+.compare-table th{background:var(--surface3);padding:9px 14px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted2);border-bottom:1px solid var(--border2)}
+.compare-table td{padding:9px 14px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top;line-height:1.5}
+.compare-table tr:last-child td{border-bottom:none}
+.compare-table tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.callout{border-radius:10px;padding:12px 16px;font-size:13px;line-height:1.6;margin-top:10px;display:flex;gap:10px;align-items:flex-start;background:rgba(52,211,153,.07);border:1px solid rgba(52,211,153,.2)}
+.callout-icon{font-size:15px;flex-shrink:0;margin-top:1px}
+.callout-text{color:var(--text)}
+.callout-text strong{display:block;font-size:11px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.05em;color:var(--c);margin-bottom:4px}
+.key-terms{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.term{display:inline-flex;flex-direction:column;background:var(--surface3);border:1px solid var(--border2);border-radius:8px;padding:6px 10px;font-size:12px}
+.term-key{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--c);margin-bottom:2px}
+.term-val{color:var(--muted2);font-size:11.5px;line-height:1.4}
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:12px}
+.pillar{background:var(--surface3);border:1px solid var(--border2);border-radius:10px;padding:14px;text-align:center}
+.pillar-icon{font-size:22px;margin-bottom:6px}
+.pillar-name{font-size:12.5px;font-weight:700;color:#fff;margin-bottom:4px}
+.pillar-desc{font-size:11.5px;color:var(--muted2);line-height:1.4}
+.progress-banner{position:fixed;bottom:20px;right:20px;background:var(--surface2);border:1px solid var(--border2);border-radius:14px;padding:12px 18px;min-width:190px;box-shadow:0 8px 32px rgba(0,0,0,.5);z-index:90}
+.progress-label{font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px;display:flex;justify-content:space-between}
+.progress-label span{color:#fff;font-weight:700}
+.progress-track{height:5px;background:var(--surface3);border-radius:999px;overflow:hidden}
+.progress-fill{height:100%;border-radius:999px;background:var(--c);transition:width .4s ease;width:0%}
+.page-footer{margin-top:60px;padding:20px 24px;background:var(--surface);border:1px solid var(--border);border-radius:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.footer-nav{display:flex;gap:10px;flex-wrap:wrap}
+.footer-nav a{text-decoration:none;font-size:13px;font-weight:600;padding:8px 16px;border-radius:10px;border:1px solid var(--border2);color:var(--muted2);transition:all .2s}
+.footer-nav a:hover{background:var(--surface2);color:#fff}
+.footer-note{font-size:11.5px;color:var(--muted)}
+
+.nav-done{color:#34d399;font-size:10px;font-weight:700}
+.nav-started{color:#fbbf24;font-size:10px}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <span class="brand">MS-900</span>
+  <span class="sep">·</span>
+  <a href="ms900-index.html">🏠 Hub</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain1.html">01 Cloud Concepts</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain2.html">02 M365 Apps &amp; Services</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain3.html" class="active">03 Security &amp; Compliance</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain4.html">04 Pricing &amp; Licensing</a>
+  <span class="sep">·</span>
+  <a href="ms900-practice.html">⚡ Practice Quiz</a>
+  <span class="sep">·</span>
+  <a href="ms900-glossary.html">📖 Glossary</a>
+</nav>
+
+<main class="page">
+
+  <div class="domain-pill">Domain 03 · 25–30% of Exam</div>
+  <h1>Security, Compliance, <em>Privacy &amp; Trust</em></h1>
+  <p class="hero-sub">The second-largest domain. Covers identity, threat protection, Zero Trust, and compliance. Focus on understanding what each tool does — not how to configure it.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-val">5</div><div class="stat-key">Learn Modules</div></div>
+    <div class="stat"><div class="stat-val">3</div><div class="stat-key">Topic Areas</div></div>
+    <div class="stat"><div class="stat-val">25–30%</div><div class="stat-key">Exam Weight</div></div>
+    <div class="stat"><div class="stat-val">~2 hrs</div><div class="stat-key">Estimated Study</div></div>
+  </div>
+
+  <div class="tldr">
+    <div class="tldr-label">⚡ TL;DR — What You Must Know</div>
+    <ul>
+      <li><strong>Zero Trust</strong> = "Never trust, always verify" — verify identity, device, and context before granting access</li>
+      <li><strong>Entra ID</strong> = Microsoft's cloud identity service (formerly Azure Active Directory). Manages users, groups, roles, SSO</li>
+      <li><strong>MFA</strong> = two verification factors (password + phone/app). <strong>SSPR</strong> = users reset their own passwords. <strong>Conditional Access</strong> = if-then policy engine (if risky location → require MFA)</li>
+      <li><strong>Defender XDR</strong> = unified threat detection across endpoints, email, identity, and cloud apps</li>
+      <li><strong>Secure Score</strong> = a numeric measure of your M365 security posture with actionable recommendations</li>
+      <li><strong>Purview</strong> = compliance suite — sensitivity labels, DLP, insider risk, eDiscovery, auditing</li>
+      <li><strong>Priva</strong> = privacy management — discovers, monitors, and protects personal data</li>
+    </ul>
+  </div>
+
+  <!-- MODULE 1: Identity -->
+  <div class="module-wrap">
+    <div class="module-header">
+      <div class="module-num">M1</div>
+      <div>
+        <div class="module-title">Identity &amp; Access Management — Microsoft Entra ID</div>
+        <div class="module-desc">Entra ID · Identity types · MFA · SSPR · Conditional Access</div>
+      </div>
+      <a class="module-link" href="https://learn.microsoft.com/en-us/training/modules/explore-basic-services-identity-types/" target="_blank">📖 Open in Learn ↗</a>
+    </div>
+    <div class="module-body">
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="1">
+          <div class="concept-title">Microsoft Entra ID — Cloud Identity Platform</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc"><strong>Microsoft Entra ID</strong> (formerly Azure Active Directory / Azure AD) is Microsoft's cloud-based identity and access management service. Every M365 tenant uses Entra ID as its identity backbone. It authenticates users and authorizes access to M365 apps, SaaS apps, and on-premises resources.</p>
+          <div class="key-terms">
+            <div class="term"><span class="term-key">Authentication</span><span class="term-val">Verifying WHO you are (login)</span></div>
+            <div class="term"><span class="term-key">Authorization</span><span class="term-val">Verifying WHAT you can access (permissions)</span></div>
+            <div class="term"><span class="term-key">SSO</span><span class="term-val">Sign in once, access all apps (Single Sign-On)</span></div>
+            <div class="term"><span class="term-key">Tenant</span><span class="term-val">Your org's dedicated Entra ID instance</span></div>
+          </div>
+          <div class="callout" style="margin-top:10px">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>RBAC — Role-Based Access Control</strong>Entra ID uses RBAC to limit what admins can do — assign only the least-privileged role needed. Key roles to know: <strong>Global Admin</strong> (full M365 control — use sparingly) · <strong>User Admin</strong> (create/edit users and assign licenses) · <strong>Billing Admin</strong> (manage subscriptions and payments) · <strong>Security Admin</strong> (configure Defender and Secure Score). Exam tip: a scenario asking "who should manage user accounts without touching billing?" → User Admin, not Global Admin.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="2">
+          <div class="concept-title">Cloud, On-Premises &amp; Hybrid Identity</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">Organizations can manage identities in three ways depending on their infrastructure.</p>
+          <table class="compare-table">
+            <thead><tr><th>Identity Type</th><th>Where Managed</th><th>How It Works</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Cloud-only</strong></td><td>Entra ID (cloud)</td><td>Users exist only in the cloud — no on-prem AD</td></tr>
+              <tr><td><strong>On-premises</strong></td><td>Active Directory (on-prem)</td><td>Traditional AD DS; not cloud-connected</td></tr>
+              <tr><td><strong>Hybrid</strong></td><td>Both (synced)</td><td>On-prem AD synced to Entra ID via <strong>Entra Connect</strong>; one identity for both worlds</td></tr>
+            </tbody>
+          </table>
+          <div class="callout">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Exam tip</strong>Most enterprises use Hybrid identity — employees have one AD account that works on-prem AND in the cloud. Entra ID Connect is the sync tool that bridges them.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="3">
+          <div class="concept-title">MFA, SSPR &amp; Conditional Access</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">These three features work together to secure identities without creating excessive friction for users.</p>
+          <table class="compare-table">
+            <thead><tr><th>Feature</th><th>What It Does</th><th>Why It Matters</th></tr></thead>
+            <tbody>
+              <tr><td><strong>MFA</strong><br>(Multi-Factor Auth)</td><td>Requires 2+ verification factors: password + phone app / SMS / biometrics</td><td>Even if password is stolen, attacker can't get in without the second factor</td></tr>
+              <tr><td><strong>SSPR</strong><br>(Self-Service Password Reset)</td><td>Users reset their own passwords using verified methods (email, phone, security questions)</td><td>Reduces helpdesk tickets; users aren't locked out</td></tr>
+              <tr><td><strong>Conditional Access</strong></td><td>Policy engine: "IF user is signing in from an unknown location, THEN require MFA"</td><td>Contextual, risk-based access — tighter security with less friction for trusted scenarios</td></tr>
+            </tbody>
+          </table>
+          <div class="callout">
+            <span class="callout-icon">💡</span>
+            <div class="callout-text"><strong>The signals Conditional Access uses</strong>User/group identity · Device compliance state · Location (IP/country) · Client app type · Sign-in risk level (from Entra ID Protection)</div>
+          </div>
+          <div class="callout" style="background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.25);margin-top:8px">
+            <span class="callout-icon">⚠️</span>
+            <div class="callout-text"><strong style="color:#fbbf24">Scenario trap — pick the right tool</strong>
+            "User forgot their password and is locked out" → <strong>SSPR</strong> (self-service reset, no helpdesk needed).
+            "Attacker has the user's password but can't get in" → <strong>MFA</strong> (second factor blocks them).
+            "Block access from high-risk countries but allow trusted office IPs" → <strong>Conditional Access</strong> (context-based policy).
+            The exam describes a scenario — know which tool solves which problem.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODULE 2: Threat Protection -->
+  <div class="module-wrap">
+    <div class="module-header">
+      <div class="module-num">M2</div>
+      <div>
+        <div class="module-title">Threat Protection — Microsoft Defender XDR</div>
+        <div class="module-desc">Defender XDR · Defender products · Secure Score</div>
+      </div>
+      <a class="module-link" href="https://learn.microsoft.com/en-us/training/modules/describe-threat-protection-with-microsoft-365-defender/" target="_blank">📖 Open in Learn ↗</a>
+    </div>
+    <div class="module-body">
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="4">
+          <div class="concept-title">Microsoft Defender XDR — Unified Threat Protection</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc"><strong>Defender XDR</strong> (Extended Detection and Response) is Microsoft's integrated security suite that correlates threat signals across all attack surfaces — endpoints, email, identity, and cloud apps — into a single view in the <strong>Microsoft Defender Portal</strong>.</p>
+          <table class="compare-table">
+            <thead><tr><th>Defender Product</th><th>Protects</th><th>Key Capability</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Defender for Endpoint</strong></td><td>Devices (Windows, macOS, Linux, mobile)</td><td>Threat detection, EDR, vulnerability management</td></tr>
+              <tr><td><strong>Defender for Office 365</strong></td><td>Email, Teams, SharePoint, OneDrive</td><td>Anti-phishing, safe links, safe attachments</td></tr>
+              <tr><td><strong>Defender for Identity</strong></td><td>On-premises AD identities</td><td>Detects lateral movement, compromised credentials</td></tr>
+              <tr><td><strong>Defender for Cloud Apps</strong></td><td>SaaS apps (Shadow IT)</td><td>Discovers unsanctioned apps, enforces policies</td></tr>
+            </tbody>
+          </table>
+          <div class="callout">
+            <span class="callout-icon">💡</span>
+            <div class="callout-text"><strong>The XDR advantage</strong>Instead of each product working in isolation, Defender XDR correlates signals across all four pillars. An attack that starts with a phishing email → credential compromise → lateral movement is detected as one unified incident.</div>
+          </div>
+          <div class="callout" style="background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.25);margin-top:8px">
+            <span class="callout-icon">⚠️</span>
+            <div class="callout-text"><strong style="color:#fbbf24">Don't confuse these Defender products</strong>
+            <strong>for Endpoint</strong> = Windows/Mac/Linux <em>devices</em>. <strong>for Office 365</strong> = <em>email &amp; collaboration</em> (phishing, malware in attachments). <strong>for Identity</strong> = <em>on-premises Active Directory</em> accounts (NOT cloud). <strong>for Cloud Apps</strong> = <em>SaaS apps</em> and shadow IT.
+            Memory trick: the name tells you what it protects.</div>
+          </div>
+          <div class="callout" style="margin-top:8px">
+            <span class="callout-icon">🖥️</span>
+            <div class="callout-text"><strong>The Microsoft Defender Portal</strong>All four Defender products are managed from a single unified admin interface: <strong>security.microsoft.com</strong> — the Microsoft Defender Portal. Admins investigate incidents, review alerts, manage secure score, and run threat hunting from here. Separate from the Purview compliance portal (compliance.microsoft.com) and the M365 Admin Center (admin.microsoft.com).</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="4b">
+          <div class="concept-title">Common Threats &amp; How M365 Addresses Them</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">The exam tests your ability to map real-world attack types to the M365 tools that defend against them. Think of this as "if the threat is X, the answer is Y."</p>
+          <table class="compare-table">
+            <thead><tr><th>Threat Type</th><th>Attack Vector</th><th>M365 Defence</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Phishing / malicious email</strong></td><td>Fake emails trick users into clicking malicious links or attachments</td><td><strong>Defender for Office 365</strong> — Safe Links, Safe Attachments, anti-phishing policies</td></tr>
+              <tr><td><strong>Credential theft / password attacks</strong></td><td>Brute force, credential stuffing, or stolen passwords</td><td><strong>MFA</strong> + <strong>Conditional Access</strong> + <strong>SSPR</strong> — second factor blocks access even with stolen passwords</td></tr>
+              <tr><td><strong>Malware / ransomware on endpoints</strong></td><td>Malicious software installed on Windows/macOS devices</td><td><strong>Defender for Endpoint</strong> — EDR, behavioural analysis, automated remediation</td></tr>
+              <tr><td><strong>Compromised on-premises identity</strong></td><td>Attacker steals AD credentials and moves laterally</td><td><strong>Defender for Identity</strong> — monitors on-prem AD for anomalous behaviour and lateral movement</td></tr>
+              <tr><td><strong>Unsanctioned cloud apps (Shadow IT)</strong></td><td>Employees use unapproved SaaS apps that IT can't see or control</td><td><strong>Defender for Cloud Apps</strong> — discovers shadow IT, enforces session controls and policies</td></tr>
+              <tr><td><strong>Insider threats / data exfiltration</strong></td><td>Employees intentionally or accidentally leak sensitive data</td><td><strong>Purview Insider Risk Management</strong> + <strong>DLP</strong> — detects and prevents data leaks</td></tr>
+            </tbody>
+          </table>
+          <div class="callout">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Exam tip</strong>Scenario questions often describe a threat and ask "which M365 tool should be used?" Learn the threat → tool mapping above cold. The most common traps: Defender for Identity = on-prem AD threats (not cloud); Defender for Cloud Apps = shadow IT/SaaS visibility (not endpoint protection).</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="5">
+          <div class="concept-title">Microsoft Secure Score</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc"><strong>Secure Score</strong> is a numeric measurement (0–100+) of your organization's security posture in Microsoft 365. A higher score means more recommended security controls are in place. It provides actionable recommendations with estimated score improvements.</p>
+          <div class="key-terms">
+            <div class="term"><span class="term-key">Score</span><span class="term-val">Points earned for security actions completed</span></div>
+            <div class="term"><span class="term-key">Recommendations</span><span class="term-val">Specific actions to improve your score</span></div>
+            <div class="term"><span class="term-key">Comparison</span><span class="term-val">Benchmark vs. similar-sized orgs</span></div>
+            <div class="term"><span class="term-key">Trend</span><span class="term-val">Historical score tracking over time</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODULE 3: Compliance -->
+  <div class="module-wrap">
+    <div class="module-header">
+      <div class="module-num">M3</div>
+      <div>
+        <div class="module-title">Trust, Privacy, Risk &amp; Compliance</div>
+        <div class="module-desc">Zero Trust · Microsoft Purview · Sensitivity Labels · DLP · Priva</div>
+      </div>
+      <a class="module-link" href="https://learn.microsoft.com/en-us/training/modules/describe-purview-risk-compliance-governance/" target="_blank">📖 Open in Learn ↗</a>
+    </div>
+    <div class="module-body">
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="6">
+          <div class="concept-title">Zero Trust Model</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">Zero Trust is a security philosophy that replaces the old "castle and moat" model. Rather than trusting everything inside your network, Zero Trust assumes breach and verifies every request explicitly.</p>
+          <div class="pillars">
+            <div class="pillar"><div class="pillar-icon">🔍</div><div class="pillar-name">Verify Explicitly</div><div class="pillar-desc">Always authenticate using all available data points (identity, location, device, service, workload)</div></div>
+            <div class="pillar"><div class="pillar-icon">🔒</div><div class="pillar-name">Least Privilege</div><div class="pillar-desc">Limit user access with just-in-time (JIT) and just-enough-access (JEA)</div></div>
+            <div class="pillar"><div class="pillar-icon">🛡️</div><div class="pillar-name">Assume Breach</div><div class="pillar-desc">Minimize blast radius. Segment access. Encrypt. Use analytics to detect threats.</div></div>
+          </div>
+          <div class="callout">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Zero Trust → M365 feature mapping</strong>
+            The exam tests whether you can match Zero Trust principles to the specific M365 tools that implement them:
+            <br><br>
+            🔍 <strong>Verify Explicitly</strong> → <strong>MFA</strong> (verifies identity with multiple factors) + <strong>Conditional Access</strong> (evaluates every sign-in using identity, device, location, and risk signals)<br>
+            🔒 <strong>Least Privilege Access</strong> → <strong>RBAC</strong> (admin roles scoped to minimum permissions) + <strong>Entra ID Privileged Identity Management</strong> (just-in-time access)<br>
+            🛡️ <strong>Assume Breach</strong> → <strong>Defender XDR</strong> (detects breaches across all surfaces) + <strong>Purview eDiscovery &amp; Auditing</strong> (investigate when breach occurs) + <strong>Sensitivity Labels</strong> (data protected even if stolen)
+            <br><br>
+            Memory hook: <strong>MFA = Verify. RBAC = Least Privilege. Defender = Assume Breach.</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="7">
+          <div class="concept-title">Microsoft Purview — Compliance Suite</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">Microsoft Purview is the umbrella brand for Microsoft's information protection and compliance tools. It helps organizations protect sensitive data, manage risk, and meet regulatory requirements.</p>
+          <table class="compare-table">
+            <thead><tr><th>Purview Feature</th><th>What It Does</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Sensitivity Labels</strong></td><td>Classify and protect documents/emails (e.g. "Confidential" label enforces encryption automatically)</td></tr>
+              <tr><td><strong>Data Loss Prevention (DLP)</strong></td><td>Detects and prevents sharing of sensitive data (e.g. blocks emailing credit card numbers externally)</td></tr>
+              <tr><td><strong>Insider Risk Management</strong></td><td>Detects risky user behaviors like data exfiltration or policy violations from within the org</td></tr>
+              <tr><td><strong>eDiscovery</strong></td><td>Legal hold and search across emails, Teams chats, SharePoint for litigation or investigation</td></tr>
+              <tr><td><strong>Auditing</strong></td><td>Unified audit log of user and admin activities across M365 services</td></tr>
+              <tr><td><strong>Data Residency</strong></td><td>Ensures customer data is stored in specific geographic regions for regulatory compliance</td></tr>
+              <tr><td><strong>Compliance Manager</strong></td><td>Dashboard that scores your compliance posture against regulations (GDPR, ISO 27001, NIST) and provides improvement actions</td></tr>
+            </tbody>
+          </table>
+          <div class="callout" style="margin-top:10px">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Compliance Manager vs Secure Score</strong>These are two separate scores — easy to confuse. <strong>Secure Score</strong> (in the Defender Portal) measures your <em>security</em> posture. <strong>Compliance Manager</strong> (in the Purview portal) measures your <em>regulatory compliance</em> posture against specific frameworks like GDPR or ISO 27001. Both give you a score and a list of improvement actions, but they answer different questions.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="8">
+          <div class="concept-title">Microsoft Priva — Privacy Management</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc"><strong>Microsoft Priva</strong> helps organizations safeguard personal data and build a privacy-resilient workplace. It discovers where personal data lives across M365, identifies privacy risks, and enables subject rights request management.</p>
+          <div class="key-terms">
+            <div class="term"><span class="term-key">Privacy Risk Mgmt</span><span class="term-val">Identifies risks like data overexposure or data transfers</span></div>
+            <div class="term"><span class="term-key">Subject Rights Requests</span><span class="term-val">Automates GDPR/CCPA data access requests</span></div>
+            <div class="term"><span class="term-key">Service Trust Portal</span><span class="term-val">Microsoft's transparency hub — audit reports, compliance docs</span></div>
+          </div>
+          <div class="callout" style="background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.25)">
+            <span class="callout-icon">⚠️</span>
+            <div class="callout-text"><strong style="color:#fbbf24">Purview vs Priva — easy to mix up</strong><strong>Purview</strong> = protects <em>organizational</em> data (sensitivity labels, DLP, compliance, eDiscovery — think "protecting company secrets"). <strong>Priva</strong> = protects <em>individuals'</em> personal data (GDPR/CCPA rights requests, privacy risk — think "protecting people's private info"). Both live in the Purview portal, but they solve different problems.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-nav">
+      <a href="ms900-domain2.html">← Domain 2: M365 Apps &amp; Services</a>
+      <a href="ms900-domain4.html">Next: Domain 4 — Pricing &amp; Licensing →</a>
+    </div>
+    <div class="footer-note">Source: <a href="https://learn.microsoft.com/en-us/training/paths/m365-security-compliance-capabilities/" target="_blank" style="color:#34d399">Microsoft Learn Path 3</a></div>
+  </div>
+
+</main>
+
+<div class="progress-banner">
+  <div class="progress-label">Domain 3 Progress <span id="pct">0%</span></div>
+  <div class="progress-track"><div class="progress-fill" id="pfill"></div></div>
+</div>
+
+<script>
+const STORAGE_KEY = 'ms900_d3';
+const checks = document.querySelectorAll('.skill-check');
+const total = checks.length;
+function save() {
+  const state = {};
+  checks.forEach(c => { state[c.dataset.skill] = c.checked; });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  updateProgress();
+}
+function load() {
+  try {
+    const state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    checks.forEach(c => { if (state[c.dataset.skill]) c.checked = true; });
+  } catch(e){}
+  updateProgress();
+}
+function updateProgress() {
+  const done = [...checks].filter(c => c.checked).length;
+  const pct = Math.round((done / total) * 100);
+  document.getElementById('pct').textContent = pct + '%';
+  document.getElementById('pfill').style.width = pct + '%';
+}
+checks.forEach(c => c.addEventListener('change', save));
+load();
+
+// Nav completion indicators
+(function(){
+  const keys = ['ms900_d1','ms900_d2','ms900_d3','ms900_d4'];
+  const links = document.querySelectorAll('.topnav a:not([href*="practice"])');
+  links.forEach((link, i) => {
+    if(i >= keys.length) return;
+    try {
+      const state = JSON.parse(localStorage.getItem(keys[i]) || '{}');
+      const total = Object.keys(state).length;
+      const done = Object.values(state).filter(Boolean).length;
+      if(done > 0 && !link.classList.contains('active')) {
+        const badge = document.createElement('span');
+        badge.className = (done >= total && total > 0) ? 'nav-done' : 'nav-started';
+        badge.textContent = (done >= total && total > 0) ? ' ✓' : ' •';
+        link.appendChild(badge);
+      }
+    } catch(e){}
+  });
+})();
+
+</script>
+</body>
+</html>

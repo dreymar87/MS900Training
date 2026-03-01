@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MS-900 | Domain 2: M365 Apps &amp; Services</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1117;--surface:#181c27;--surface2:#1e2333;--surface3:#242840;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.12);--text:#e2e8f0;--muted:#64748b;--muted2:#8899aa;--c:#a78bfa;--cs:rgba(167,139,250,.12);--ch:rgba(167,139,250,.2)}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;min-height:100vh;line-height:1.6}
+.topnav{position:sticky;top:0;z-index:100;background:rgba(15,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;gap:4px;height:52px;overflow-x:auto}
+.topnav a{text-decoration:none;white-space:nowrap;font-size:12px;font-weight:600;padding:5px 11px;border-radius:8px;transition:all .2s;color:var(--muted)}
+.topnav a:hover{background:var(--surface2);color:var(--text)}
+.topnav a.active{background:var(--cs);color:var(--c)}
+.topnav .brand{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2);margin-right:8px;flex-shrink:0}
+.topnav .sep{color:var(--border2);margin:0 2px}
+.page{max-width:860px;margin:0 auto;padding:48px 24px 96px}
+.domain-pill{display:inline-flex;align-items:center;gap:6px;padding:4px 14px;border-radius:999px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;background:var(--cs);color:var(--c);margin-bottom:18px}
+h1{font-family:'Fraunces',serif;font-size:clamp(28px,5vw,44px);font-weight:900;line-height:1.1;letter-spacing:-.02em;color:#fff;margin-bottom:12px}
+h1 em{font-style:normal;color:var(--c)}
+.hero-sub{color:var(--muted2);font-size:14.5px;max-width:640px;line-height:1.7;margin-bottom:8px}
+.hero-stats{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:32px;margin-top:16px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 18px;font-size:13px}
+.stat-val{font-family:'Fraunces',serif;font-size:22px;font-weight:900;color:var(--c);line-height:1}
+.stat-key{font-size:11px;color:var(--muted);margin-top:3px}
+.tldr{background:var(--cs);border:1px solid rgba(167,139,250,.25);border-radius:16px;padding:20px 24px;margin-bottom:40px}
+.tldr-label{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--c);margin-bottom:10px}
+.tldr ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.tldr ul li{font-size:13.5px;padding-left:18px;position:relative;line-height:1.5}
+.tldr ul li::before{content:'→';position:absolute;left:0;color:var(--c);font-size:11px;top:3px}
+.module-wrap{margin-top:36px}
+.module-header{display:flex;align-items:flex-start;gap:16px;padding:18px 22px;background:var(--surface2);border-radius:16px 16px 0 0;border:1px solid var(--border2);border-bottom:none}
+.module-num{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px;font-weight:500;flex-shrink:0;background:var(--cs);color:var(--c);margin-top:2px}
+.module-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:3px}
+.module-desc{font-size:12.5px;color:var(--muted)}
+.module-link{margin-left:auto;flex-shrink:0;font-size:11px;font-family:'DM Mono',monospace;text-decoration:none;padding:5px 12px;border-radius:8px;border:1px solid var(--border2);color:var(--muted2);transition:all .2s;white-space:nowrap;align-self:flex-start}
+.module-link:hover{color:#fff;background:var(--surface3)}
+.module-body{border:1px solid var(--border2);border-radius:0 0 16px 16px;overflow:hidden}
+.concept{padding:20px 22px;border-bottom:1px solid var(--border)}
+.concept:last-child{border-bottom:none}
+.concept:nth-child(even){background:rgba(255,255,255,.015)}
+.concept-top{display:flex;align-items:flex-start;gap:14px}
+.skill-check{width:20px;height:20px;border-radius:5px;border:2px solid var(--border2);background:transparent;flex-shrink:0;cursor:pointer;margin-top:2px;appearance:none;-webkit-appearance:none;transition:all .2s;position:relative}
+.skill-check:checked{background:var(--c);border-color:var(--c)}
+.skill-check:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:11px;font-weight:700;color:#fff}
+.concept-title{font-size:14.5px;font-weight:700;color:#fff;line-height:1.4;flex:1}
+.concept-body{padding-left:34px;margin-top:10px}
+.concept-desc{font-size:13.5px;color:var(--muted2);line-height:1.65;margin-bottom:10px}
+.concept-desc strong{color:var(--text)}
+.compare-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px;border-radius:10px;overflow:hidden}
+.compare-table th{background:var(--surface3);padding:9px 14px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted2);border-bottom:1px solid var(--border2)}
+.compare-table td{padding:9px 14px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top;line-height:1.5}
+.compare-table tr:last-child td{border-bottom:none}
+.compare-table tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.callout{border-radius:10px;padding:12px 16px;font-size:13px;line-height:1.6;margin-top:10px;display:flex;gap:10px;align-items:flex-start;background:rgba(167,139,250,.07);border:1px solid rgba(167,139,250,.2)}
+.callout-icon{font-size:15px;flex-shrink:0;margin-top:1px}
+.callout-text{color:var(--text)}
+.callout-text strong{display:block;font-size:11px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.05em;color:var(--c);margin-bottom:4px}
+.key-terms{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.term{display:inline-flex;flex-direction:column;background:var(--surface3);border:1px solid var(--border2);border-radius:8px;padding:6px 10px;font-size:12px}
+.term-key{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--c);margin-bottom:2px}
+.term-val{color:var(--muted2);font-size:11.5px;line-height:1.4}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tag{background:var(--surface3);border:1px solid var(--border2);border-radius:6px;padding:3px 9px;font-size:11.5px;color:var(--muted2);font-family:'DM Mono',monospace}
+.progress-banner{position:fixed;bottom:20px;right:20px;background:var(--surface2);border:1px solid var(--border2);border-radius:14px;padding:12px 18px;min-width:190px;box-shadow:0 8px 32px rgba(0,0,0,.5);z-index:90}
+.progress-label{font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px;display:flex;justify-content:space-between}
+.progress-label span{color:#fff;font-weight:700}
+.progress-track{height:5px;background:var(--surface3);border-radius:999px;overflow:hidden}
+.progress-fill{height:100%;border-radius:999px;background:var(--c);transition:width .4s ease;width:0%}
+.page-footer{margin-top:60px;padding:20px 24px;background:var(--surface);border:1px solid var(--border);border-radius:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.footer-nav{display:flex;gap:10px;flex-wrap:wrap}
+.footer-nav a{text-decoration:none;font-size:13px;font-weight:600;padding:8px 16px;border-radius:10px;border:1px solid var(--border2);color:var(--muted2);transition:all .2s}
+.footer-nav a:hover{background:var(--surface2);color:#fff}
+.footer-note{font-size:11.5px;color:var(--muted)}
+
+.nav-done{color:#34d399;font-size:10px;font-weight:700}
+.nav-started{color:#fbbf24;font-size:10px}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <span class="brand">MS-900</span>
+  <span class="sep">·</span>
+  <a href="ms900-index.html">🏠 Hub</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain1.html">01 Cloud Concepts</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain2.html" class="active">02 M365 Apps &amp; Services</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain3.html">03 Security &amp; Compliance</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain4.html">04 Pricing &amp; Licensing</a>
+  <span class="sep">·</span>
+  <a href="ms900-practice.html">⚡ Practice Quiz</a>
+  <span class="sep">·</span>
+  <a href="ms900-glossary.html">📖 Glossary</a>
+</nav>
+
+<main class="page">
+
+  <div class="domain-pill">Domain 02 · 45–50% of Exam</div>
+  <h1>M365 Apps &amp; <em>Services</em></h1>
+  <p class="hero-sub">The largest domain — nearly half the exam. Covers productivity, collaboration, endpoint management, and admin tools. Know the purpose of each product, not configuration details.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-val">5</div><div class="stat-key">Learn Modules</div></div>
+    <div class="stat"><div class="stat-val">15+</div><div class="stat-key">Key Products</div></div>
+    <div class="stat"><div class="stat-val">45–50%</div><div class="stat-key">Exam Weight</div></div>
+    <div class="stat"><div class="stat-val">~2.5 hrs</div><div class="stat-key">Estimated Study</div></div>
+  </div>
+
+  <!-- IN-PAGE JUMP BAR -->
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;align-items:center">
+    <span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;flex-shrink:0">Jump to:</span>
+    <a href="#m1-productivity" style="font-size:12px;font-weight:600;color:var(--muted2);text-decoration:none;padding:4px 10px;border-radius:6px;background:var(--surface2);transition:color .2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color=''">📝 Productivity</a>
+    <a href="#m2-collaboration" style="font-size:12px;font-weight:600;color:var(--muted2);text-decoration:none;padding:4px 10px;border-radius:6px;background:var(--surface2);transition:color .2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color=''">🤝 Collaboration</a>
+    <a href="#m3-devices" style="font-size:12px;font-weight:600;color:var(--muted2);text-decoration:none;padding:4px 10px;border-radius:6px;background:var(--surface2);transition:color .2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color=''">💻 Devices &amp; Endpoints</a>
+    <a href="#m4-admin" style="font-size:12px;font-weight:600;color:var(--muted2);text-decoration:none;padding:4px 10px;border-radius:6px;background:var(--surface2);transition:color .2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color=''">⚙️ Admin</a>
+  </div>
+
+  <div class="tldr">
+    <div class="tldr-label">⚡ TL;DR — What You Must Know</div>
+    <ul>
+      <li><strong>Teams</strong> = hub for chat, meetings, calling, file sharing, and app extensions</li>
+      <li><strong>SharePoint</strong> = intranet &amp; document libraries; <strong>OneDrive</strong> = personal cloud storage; <strong>Stream</strong> = video platform</li>
+      <li><strong>Exchange/Outlook</strong> = email &amp; calendar; <strong>Exchange Online</strong> is the cloud version</li>
+      <li><strong>Intune</strong> = device + app management (MDM/MAM); <strong>Autopilot</strong> = zero-touch Windows deployment</li>
+      <li><strong>Windows 365</strong> = cloud PC streamed to any device; <strong>Azure Virtual Desktop</strong> = multi-session virtualized desktop</li>
+      <li><strong>Copilot</strong> = AI assistant embedded across M365 apps; <strong>Copilot Chat</strong> = web-grounded enterprise chat</li>
+      <li><strong>Viva</strong> = employee experience suite (Insights, Connections, Learning, Goals)</li>
+    </ul>
+  </div>
+
+  <!-- MODULE: Productivity -->
+  <div class="module-wrap" id="m1-productivity">
+    <div class="module-header">
+      <div class="module-num">M1</div>
+      <div>
+        <div class="module-title">Productivity Solutions in Microsoft 365</div>
+        <div class="module-desc">Core apps · Copilot · Project management tools</div>
+      </div>
+      <a class="module-link" href="https://learn.microsoft.com/en-us/training/modules/describe-productivity-solutions-microsoft-365/" target="_blank">📖 Open in Learn ↗</a>
+    </div>
+    <div class="module-body">
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="1">
+          <div class="concept-title">Core Microsoft 365 Apps</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">The foundation of M365 productivity. These are fully cloud-connected, always up-to-date SaaS applications — no manual patching.</p>
+          <table class="compare-table">
+            <thead><tr><th>App</th><th>Primary Purpose</th><th>Key Capability</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Word</strong></td><td>Document creation &amp; editing</td><td>Real-time co-authoring, track changes</td></tr>
+              <tr><td><strong>Excel</strong></td><td>Spreadsheets &amp; data analysis</td><td>PivotTables, Power Query, co-authoring</td></tr>
+              <tr><td><strong>PowerPoint</strong></td><td>Presentations</td><td>Designer AI, slide templates, live presentations</td></tr>
+              <tr><td><strong>OneNote</strong></td><td>Note-taking &amp; collaboration</td><td>Shared notebooks, ink-to-text, multimedia notes</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="2">
+          <div class="concept-title">Microsoft 365 Copilot &amp; Copilot Chat</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc"><strong>Copilot</strong> is Microsoft's AI layer embedded directly into M365 apps. It uses your organizational data (emails, documents, meetings) via the Microsoft Graph to generate context-aware assistance. <strong>Copilot Chat</strong> is a web-grounded, enterprise-safe AI chat experience.</p>
+          <div class="key-terms">
+            <div class="term"><span class="term-key">Copilot in Word</span><span class="term-val">Drafts, rewrites, summarizes docs</span></div>
+            <div class="term"><span class="term-key">Copilot in Teams</span><span class="term-val">Meeting summaries, action items</span></div>
+            <div class="term"><span class="term-key">Copilot in Outlook</span><span class="term-val">Email drafts, thread summaries</span></div>
+            <div class="term"><span class="term-key">Copilot Chat</span><span class="term-val">Enterprise-safe AI chat with web grounding</span></div>
+            <div class="term"><span class="term-key">Microsoft Graph</span><span class="term-val">The data backbone Copilot uses</span></div>
+          </div>
+          <div class="callout">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Exam tip</strong>Copilot is scoped to data the user already has permission to access — it doesn't bypass existing M365 permissions. This is a key distinction for security questions.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="3">
+          <div class="concept-title">Project Management Tools in M365</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">M365 includes a full suite of task &amp; project management tools at different complexity levels. Know which tool fits which scenario.</p>
+          <table class="compare-table">
+            <thead><tr><th>Tool</th><th>Best For</th><th>Complexity</th></tr></thead>
+            <tbody>
+              <tr><td><strong>To Do</strong></td><td>Personal task lists</td><td>Individual</td></tr>
+              <tr><td><strong>Planner</strong></td><td>Team task boards (Kanban-style)</td><td>Team</td></tr>
+              <tr><td><strong>Lists</strong></td><td>Structured data &amp; tracking</td><td>Team</td></tr>
+              <tr><td><strong>Loop</strong></td><td>Real-time collaborative workspaces</td><td>Team</td></tr>
+              <tr><td><strong>Forms</strong></td><td>Surveys, quizzes, data collection</td><td>Individual/Team</td></tr>
+              <tr><td><strong>Bookings</strong></td><td>External appointment scheduling</td><td>Business</td></tr>
+              <tr><td><strong>Project</strong></td><td>Complex project management, Gantt charts</td><td>Enterprise (add-on)</td></tr>
+            </tbody>
+          </table>
+          <div class="callout" style="background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.25)">
+            <span class="callout-icon">⚠️</span>
+            <div class="callout-text"><strong style="color:#fbbf24">Don't confuse these</strong>
+            <strong>To Do</strong> = MY tasks (personal). <strong>Planner</strong> = TEAM tasks (visual board). <strong>Lists</strong> = structured data/tracking (like a smart spreadsheet). <strong>Loop</strong> = live collaborative docs embedded anywhere. <strong>Project</strong> is an <em>add-on</em> — not included in base M365 plans. Exam scenarios describe a situation and ask you to pick the right tool — learn the one-line distinction for each.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODULE: Collaboration -->
+  <div class="module-wrap" id="m2-collaboration">
+    <div class="module-header">
+      <div class="module-num">M2</div>
+      <div>
+        <div class="module-title">Collaboration Solutions in Microsoft 365</div>
+        <div class="module-desc">Teams · SharePoint · OneDrive · Exchange · Viva</div>
+      </div>
+      <a class="module-link" href="https://learn.microsoft.com/en-us/training/modules/describe-collaboration-solutions-microsoft-365/" target="_blank">📖 Open in Learn ↗</a>
+    </div>
+    <div class="module-body">
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="4">
+          <div class="concept-title">Microsoft Teams — The Collaboration Hub</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">Teams is the central collaboration platform in M365. It integrates chat, video meetings, calling, file storage (via SharePoint), and extensibility through apps and connectors.</p>
+          <div class="key-terms">
+            <div class="term"><span class="term-key">Teams Chat</span><span class="term-val">Persistent 1:1 and group messaging</span></div>
+            <div class="term"><span class="term-key">Teams Meetings</span><span class="term-val">Video/audio with recording, transcripts</span></div>
+            <div class="term"><span class="term-key">Teams Phone</span><span class="term-val">PSTN calling from Teams (replaces PBX)</span></div>
+            <div class="term"><span class="term-key">Teams Channels</span><span class="term-val">Threaded conversations per topic/project</span></div>
+            <div class="term"><span class="term-key">Teams Apps</span><span class="term-val">Planner, Power Apps, Whiteboard integrations</span></div>
+          </div>
+          <div class="callout">
+            <span class="callout-icon">💡</span>
+            <div class="callout-text"><strong>Key relationship</strong>Every Team has a corresponding SharePoint site (for file storage) and an Exchange mailbox (for meeting invites). Teams is the front-end; SharePoint and Exchange are the backend.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="5">
+          <div class="concept-title">SharePoint, OneDrive &amp; Stream</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">These three services handle content storage and sharing at different scopes.</p>
+          <table class="compare-table">
+            <thead><tr><th>Service</th><th>Scope</th><th>Primary Use</th></tr></thead>
+            <tbody>
+              <tr><td><strong>SharePoint</strong></td><td>Organizational</td><td>Intranet sites, document libraries, team collaboration, workflows</td></tr>
+              <tr><td><strong>OneDrive</strong></td><td>Personal</td><td>Individual cloud file storage; sync to desktop; share with others</td></tr>
+              <tr><td><strong>Stream</strong></td><td>Organizational</td><td>Video hosting, recording storage (Teams recordings go here)</td></tr>
+            </tbody>
+          </table>
+          <div class="callout" style="background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.25)">
+            <span class="callout-icon">⚠️</span>
+            <div class="callout-text"><strong style="color:#fbbf24">Don't confuse these</strong><strong>SharePoint</strong> = team/org files (shared). <strong>OneDrive</strong> = MY files (personal, but shareable). Every Teams channel stores its files in a SharePoint library — OneDrive is not used for Teams files. <strong>Stream</strong> is video-only — Teams meeting recordings automatically go to Stream.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="6">
+          <div class="concept-title">Exchange Online &amp; Outlook</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc"><strong>Exchange Online</strong> is the cloud-hosted email and calendaring service. <strong>Outlook</strong> is the client (app) used to access it — available as desktop, web (OWA), and mobile. Exchange powers mailboxes, shared calendars, distribution groups, and resource booking (rooms, equipment).</p>
+          <div class="key-terms">
+            <div class="term"><span class="term-key">Exchange Online</span><span class="term-val">Backend email service (cloud)</span></div>
+            <div class="term"><span class="term-key">Outlook</span><span class="term-val">Client app to access email &amp; calendar</span></div>
+            <div class="term"><span class="term-key">OWA</span><span class="term-val">Outlook Web App — browser-based</span></div>
+            <div class="term"><span class="term-key">Distribution Group</span><span class="term-val">Email alias that routes to multiple users</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="6b">
+          <div class="concept-title">Extending Teams with Collaborative Apps</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">Teams is an extensible platform — organisations add purpose-built apps directly into Teams channels, meetings, and chats. The exam tests your ability to identify what each extension does.</p>
+          <table class="compare-table">
+            <thead><tr><th>App</th><th>What It Adds to Teams</th><th>Primary Use</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Whiteboard</strong></td><td>Infinite digital canvas in meetings</td><td>Real-time visual brainstorming and ideation during calls</td></tr>
+              <tr><td><strong>Planner</strong></td><td>Kanban task boards as a Teams tab</td><td>Track team tasks without leaving Teams</td></tr>
+              <tr><td><strong>Power Apps</strong></td><td>Custom no-code/low-code business apps embedded in Teams tabs</td><td>Build tailored tools (e.g. leave requests, inventory forms) without dev resources</td></tr>
+              <tr><td><strong>Power Automate</strong></td><td>Automated workflows triggered by Teams events</td><td>Automate repetitive tasks (e.g. post to channel when a form is submitted, approval flows)</td></tr>
+            </tbody>
+          </table>
+          <div class="callout">
+            <span class="callout-icon">💡</span>
+            <div class="callout-text"><strong>Copilot in collaboration</strong>Microsoft 365 Copilot also extends Teams specifically for collaboration — it summarises missed meetings, generates recap notes with action items, and can answer questions about channel content. This is the collaboration-specific Copilot capability (distinct from its productivity role in Word/Excel).</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="7">
+          <div class="concept-title">Microsoft Viva — Employee Experience</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">Viva is Microsoft's employee experience platform, integrated into Teams. It addresses engagement, learning, wellbeing, and knowledge sharing.</p>
+          <div class="key-terms">
+            <div class="term"><span class="term-key">Viva Insights</span><span class="term-val">Personal &amp; org-level productivity analytics</span></div>
+            <div class="term"><span class="term-key">Viva Connections</span><span class="term-val">Company intranet &amp; comms hub in Teams</span></div>
+            <div class="term"><span class="term-key">Viva Learning</span><span class="term-val">Learning management integrated in Teams</span></div>
+            <div class="term"><span class="term-key">Viva Goals</span><span class="term-val">OKR tracking and goal alignment</span></div>
+            <div class="term"><span class="term-key">Viva Engage</span><span class="term-val">Social communities (formerly Yammer)</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODULE: Endpoint Management -->
+  <div class="module-wrap" id="m3-devices">
+    <div class="module-header">
+      <div class="module-num">M3</div>
+      <div>
+        <div class="module-title">Device &amp; Endpoint Management in M365</div>
+        <div class="module-desc">Intune · Autopilot · Windows 365 · Azure Virtual Desktop · WaaS</div>
+      </div>
+      <a class="module-link" href="https://learn.microsoft.com/en-us/training/modules/describe-endpoint-modernization-management-concepts-deployment-options/" target="_blank">📖 Open in Learn ↗</a>
+    </div>
+    <div class="module-body">
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="8">
+          <div class="concept-title">Microsoft Intune — MDM &amp; MAM</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">Intune is the cloud-based <strong>Mobile Device Management (MDM)</strong> and <strong>Mobile Application Management (MAM)</strong> solution in M365. It lets IT enforce policies on devices (Windows, iOS, Android, macOS) and manage which apps can access company data — even on personal (BYOD) devices.</p>
+          <table class="compare-table">
+            <thead><tr><th>Capability</th><th>What It Does</th></tr></thead>
+            <tbody>
+              <tr><td><strong>MDM</strong> (Device enrollment)</td><td>Full device management — enforce encryption, compliance policies, remote wipe</td></tr>
+              <tr><td><strong>MAM</strong> (App protection)</td><td>Manage apps on personal devices without enrolling the device itself (BYOD-friendly)</td></tr>
+              <tr><td><strong>Co-management</strong></td><td>Hybrid: manage devices with both Intune and on-prem Configuration Manager simultaneously</td></tr>
+              <tr><td><strong>Endpoint Analytics</strong></td><td>Reports on device health, startup performance, app reliability</td></tr>
+              <tr><td><strong>Windows Autopatch</strong></td><td>Automates Windows and Office update management across device fleets</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="9">
+          <div class="concept-title">Windows Autopilot — Zero-Touch Provisioning</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">Windows Autopilot allows organizations to ship new devices directly to employees who self-provision them with corporate settings — no IT imaging or manual setup required. The device registers in Entra ID and pulls Intune policies automatically on first boot.</p>
+          <div class="callout">
+            <span class="callout-icon">💡</span>
+            <div class="callout-text"><strong>Analogy</strong>Autopilot is like ordering a company laptop that "configures itself" when the employee first turns it on. IT never physically touches the device.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="10">
+          <div class="concept-title">Windows 365 vs Azure Virtual Desktop</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">Both deliver cloud-based Windows desktops, but with different models. This is a common comparison question on the exam.</p>
+          <table class="compare-table">
+            <thead><tr><th></th><th>Windows 365</th><th>Azure Virtual Desktop (AVD)</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Model</strong></td><td>Fixed per-user Cloud PC (SaaS-like)</td><td>Flexible multi-session virtualization (IaaS-like)</td></tr>
+              <tr><td><strong>Complexity</strong></td><td>Simple — no infrastructure to manage</td><td>Complex — IT controls VM sizing, sessions, networking</td></tr>
+              <tr><td><strong>Pricing</strong></td><td>Fixed monthly per-user license</td><td>Pay-as-you-go (compute &amp; storage)</td></tr>
+              <tr><td><strong>Best for</strong></td><td>SMBs, predictable workloads</td><td>Enterprises needing cost optimization at scale</td></tr>
+              <tr><td><strong>Multi-session</strong></td><td>No (dedicated per user)</td><td>Yes (multiple users per VM)</td></tr>
+            </tbody>
+          </table>
+          <div class="callout" style="background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.25)">
+            <span class="callout-icon">⚠️</span>
+            <div class="callout-text"><strong style="color:#fbbf24">The exam trap</strong>Both give you a cloud Windows desktop — the difference is <em>who manages the infrastructure</em>. <strong>Windows 365</strong> = Microsoft manages everything, fixed price per user, simple. <strong>AVD</strong> = IT manages the Azure infrastructure, pay-as-you-go, complex but cheaper at scale. Scenario tip: "small org, easy setup" → Windows 365. "large enterprise, cost optimisation, multi-session" → AVD.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="11">
+          <div class="concept-title">Windows-as-a-Service (WaaS) &amp; Update Channels</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc"><strong>WaaS</strong> is Microsoft's continuous delivery model for Windows — no more big version upgrades every few years. Feature updates are delivered regularly, and organizations control rollout using <strong>deployment rings</strong>.</p>
+          <table class="compare-table">
+            <thead><tr><th>Ring</th><th>Target Audience</th><th>Update Timing</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Insider / Preview</strong></td><td>IT volunteers, early adopters</td><td>Earliest — pre-release builds</td></tr>
+              <tr><td><strong>Pilot</strong></td><td>Representative sample of production users</td><td>After Insider validation — limited production rollout</td></tr>
+              <tr><td><strong>Broad</strong></td><td>All remaining devices / general workforce</td><td>Last — fully validated, org-wide deployment</td></tr>
+            </tbody>
+          </table>
+          <div class="callout">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Exam tip — rings vs channels</strong>Deployment <strong>rings</strong> (Insider → Pilot → Broad) control <em>when</em> Windows updates reach devices. Update <strong>channels</strong> (Current, Monthly Enterprise, Semi-Annual) control <em>how often</em> Microsoft 365 Apps receive feature updates. These are two different mechanisms — don't mix them up.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODULE: Admin -->
+  <div class="module-wrap" id="m4-admin">
+    <div class="module-header">
+      <div class="module-num">M4</div>
+      <div>
+        <div class="module-title">M365 Administration Capabilities</div>
+        <div class="module-desc">Admin Center · User portal · Service-specific admin centers · Copilot Dashboard</div>
+      </div>
+      <a class="module-link" href="https://learn.microsoft.com/en-us/training/modules/describe-microsoft-365-admin-capabilities/" target="_blank">📖 Open in Learn ↗</a>
+    </div>
+    <div class="module-body">
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="12">
+          <div class="concept-title">Microsoft 365 Admin Center</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">The <strong>M365 Admin Center</strong> (admin.microsoft.com) is the central management hub for global admins. From here, admins manage users, licenses, billing, service health, and reports — and navigate to service-specific admin centers.</p>
+          <div class="key-terms">
+            <div class="term"><span class="term-key">User management</span><span class="term-val">Create, edit, delete users; assign licenses</span></div>
+            <div class="term"><span class="term-key">Usage reports</span><span class="term-val">Adoption data: Teams, Email, SharePoint activity</span></div>
+            <div class="term"><span class="term-key">Service health</span><span class="term-val">View current M365 service incidents &amp; advisories</span></div>
+            <div class="term"><span class="term-key">Message center</span><span class="term-val">Upcoming changes &amp; feature announcements</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="13">
+          <div class="concept-title">Service-Specific Admin Centers &amp; Copilot Dashboard</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">Each major M365 workload has its own admin center with deeper controls and reports.</p>
+          <table class="compare-table">
+            <thead><tr><th>Admin Center</th><th>Key Reports / Controls</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Teams Admin Center</strong></td><td>Meeting policies, call routing, Teams usage analytics, app permissions</td></tr>
+              <tr><td><strong>SharePoint Admin Center</strong></td><td>Site management, sharing settings, access controls, storage quotas</td></tr>
+              <tr><td><strong>Exchange Admin Center</strong></td><td>Mail flow rules, mailbox policies, anti-spam, message trace</td></tr>
+              <tr><td><strong>Copilot Dashboard</strong></td><td>AI usage insights — how Copilot is being used across the org, adoption metrics</td></tr>
+            </tbody>
+          </table>
+          <div class="callout">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Exam tip</strong>The Copilot Dashboard is accessed from the M365 Admin Center and helps admins monitor AI adoption — this is a newer exam addition, don't overlook it.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="14">
+          <div class="concept-title">The Microsoft 365 User Portal</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">Distinct from the Admin Center (which is admin-only), the <strong>M365 user portal</strong> is the self-service experience for end users. Accessible at <strong>office.com</strong> or <strong>myapps.microsoft.com</strong>, it lets any licensed user manage their own account and access their apps — no admin rights required.</p>
+          <table class="compare-table">
+            <thead><tr><th>Portal</th><th>Who Uses It</th><th>What They Can Do</th></tr></thead>
+            <tbody>
+              <tr><td><strong>office.com</strong></td><td>All licensed users</td><td>Launch all M365 apps (Teams, Outlook, Word, SharePoint...), access OneDrive files, install Office desktop apps</td></tr>
+              <tr><td><strong>myaccount.microsoft.com</strong></td><td>All licensed users</td><td>Manage security info, update MFA methods, view/manage devices, download Office, check assigned licenses</td></tr>
+              <tr><td><strong>myapps.microsoft.com</strong></td><td>All licensed users</td><td>Single sign-on dashboard — see and launch all apps the user has been granted access to</td></tr>
+            </tbody>
+          </table>
+          <div class="callout">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Exam tip — Admin Center vs User Portal</strong>Admin Center (admin.microsoft.com) = IT admins only; manage the whole tenant. User portal (office.com / myapps) = individual employees; manage their own experience. The exam will test this distinction in scenario questions.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-nav">
+      <a href="ms900-domain1.html">← Domain 1: Cloud Concepts</a>
+      <a href="ms900-domain3.html">Next: Domain 3 — Security &amp; Compliance →</a>
+    </div>
+    <div class="footer-note">Source: <a href="https://learn.microsoft.com/en-us/training/paths/describe-microsoft-365-core-services-concepts/" target="_blank" style="color:#a78bfa">Microsoft Learn Path 2</a></div>
+  </div>
+
+</main>
+
+<div class="progress-banner">
+  <div class="progress-label">Domain 2 Progress <span id="pct">0%</span></div>
+  <div class="progress-track"><div class="progress-fill" id="pfill"></div></div>
+</div>
+
+<script>
+const STORAGE_KEY = 'ms900_d2';
+const checks = document.querySelectorAll('.skill-check');
+const total = checks.length;
+function save() {
+  const state = {};
+  checks.forEach(c => { state[c.dataset.skill] = c.checked; });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  updateProgress();
+}
+function load() {
+  try {
+    const state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    checks.forEach(c => { if (state[c.dataset.skill]) c.checked = true; });
+  } catch(e){}
+  updateProgress();
+}
+function updateProgress() {
+  const done = [...checks].filter(c => c.checked).length;
+  const pct = Math.round((done / total) * 100);
+  document.getElementById('pct').textContent = pct + '%';
+  document.getElementById('pfill').style.width = pct + '%';
+}
+checks.forEach(c => c.addEventListener('change', save));
+load();
+
+// Nav completion indicators
+(function(){
+  const keys = ['ms900_d1','ms900_d2','ms900_d3','ms900_d4'];
+  const links = document.querySelectorAll('.topnav a:not([href*="practice"])');
+  links.forEach((link, i) => {
+    if(i >= keys.length) return;
+    try {
+      const state = JSON.parse(localStorage.getItem(keys[i]) || '{}');
+      const total = Object.keys(state).length;
+      const done = Object.values(state).filter(Boolean).length;
+      if(done > 0 && !link.classList.contains('active')) {
+        const badge = document.createElement('span');
+        badge.className = (done >= total && total > 0) ? 'nav-done' : 'nav-started';
+        badge.textContent = (done >= total && total > 0) ? ' ✓' : ' •';
+        link.appendChild(badge);
+      }
+    } catch(e){}
+  });
+})();
+
+</script>
+</body>
+</html>

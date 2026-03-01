@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MS-900 | Domain 4: Pricing, Licensing &amp; Support</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1117;--surface:#181c27;--surface2:#1e2333;--surface3:#242840;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.12);--text:#e2e8f0;--muted:#64748b;--muted2:#8899aa;--c:#fb923c;--cs:rgba(251,146,60,.1);--ch:rgba(251,146,60,.2)}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;min-height:100vh;line-height:1.6}
+.topnav{position:sticky;top:0;z-index:100;background:rgba(15,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;gap:4px;height:52px;overflow-x:auto}
+.topnav a{text-decoration:none;white-space:nowrap;font-size:12px;font-weight:600;padding:5px 11px;border-radius:8px;transition:all .2s;color:var(--muted)}
+.topnav a:hover{background:var(--surface2);color:var(--text)}
+.topnav a.active{background:var(--cs);color:var(--c)}
+.topnav .brand{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2);margin-right:8px;flex-shrink:0}
+.topnav .sep{color:var(--border2);margin:0 2px}
+.page{max-width:860px;margin:0 auto;padding:48px 24px 96px}
+.domain-pill{display:inline-flex;align-items:center;gap:6px;padding:4px 14px;border-radius:999px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;background:var(--cs);color:var(--c);margin-bottom:18px}
+h1{font-family:'Fraunces',serif;font-size:clamp(28px,5vw,44px);font-weight:900;line-height:1.1;letter-spacing:-.02em;color:#fff;margin-bottom:12px}
+h1 em{font-style:normal;color:var(--c)}
+.hero-sub{color:var(--muted2);font-size:14.5px;max-width:640px;line-height:1.7;margin-bottom:8px}
+.hero-stats{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:32px;margin-top:16px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 18px;font-size:13px}
+.stat-val{font-family:'Fraunces',serif;font-size:22px;font-weight:900;color:var(--c);line-height:1}
+.stat-key{font-size:11px;color:var(--muted);margin-top:3px}
+.tldr{background:var(--cs);border:1px solid rgba(251,146,60,.2);border-radius:16px;padding:20px 24px;margin-bottom:40px}
+.tldr-label{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--c);margin-bottom:10px}
+.tldr ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.tldr ul li{font-size:13.5px;padding-left:18px;position:relative;line-height:1.5}
+.tldr ul li::before{content:'→';position:absolute;left:0;color:var(--c);font-size:11px;top:3px}
+.module-wrap{margin-top:36px}
+.module-header{display:flex;align-items:flex-start;gap:16px;padding:18px 22px;background:var(--surface2);border-radius:16px 16px 0 0;border:1px solid var(--border2);border-bottom:none}
+.module-num{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px;font-weight:500;flex-shrink:0;background:var(--cs);color:var(--c);margin-top:2px}
+.module-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:3px}
+.module-desc{font-size:12.5px;color:var(--muted)}
+.module-link{margin-left:auto;flex-shrink:0;font-size:11px;font-family:'DM Mono',monospace;text-decoration:none;padding:5px 12px;border-radius:8px;border:1px solid var(--border2);color:var(--muted2);transition:all .2s;white-space:nowrap;align-self:flex-start}
+.module-link:hover{color:#fff;background:var(--surface3)}
+.module-body{border:1px solid var(--border2);border-radius:0 0 16px 16px;overflow:hidden}
+.concept{padding:20px 22px;border-bottom:1px solid var(--border)}
+.concept:last-child{border-bottom:none}
+.concept:nth-child(even){background:rgba(255,255,255,.015)}
+.concept-top{display:flex;align-items:flex-start;gap:14px}
+.skill-check{width:20px;height:20px;border-radius:5px;border:2px solid var(--border2);background:transparent;flex-shrink:0;cursor:pointer;margin-top:2px;appearance:none;-webkit-appearance:none;transition:all .2s;position:relative}
+.skill-check:checked{background:var(--c);border-color:var(--c)}
+.skill-check:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:11px;font-weight:700;color:#fff}
+.concept-title{font-size:14.5px;font-weight:700;color:#fff;line-height:1.4;flex:1}
+.concept-body{padding-left:34px;margin-top:10px}
+.concept-desc{font-size:13.5px;color:var(--muted2);line-height:1.65;margin-bottom:10px}
+.concept-desc strong{color:var(--text)}
+.compare-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px;border-radius:10px;overflow:hidden}
+.compare-table th{background:var(--surface3);padding:9px 14px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted2);border-bottom:1px solid var(--border2)}
+.compare-table td{padding:9px 14px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top;line-height:1.5}
+.compare-table tr:last-child td{border-bottom:none}
+.compare-table tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.callout{border-radius:10px;padding:12px 16px;font-size:13px;line-height:1.6;margin-top:10px;display:flex;gap:10px;align-items:flex-start;background:rgba(251,146,60,.07);border:1px solid rgba(251,146,60,.2)}
+.callout-icon{font-size:15px;flex-shrink:0;margin-top:1px}
+.callout-text{color:var(--text)}
+.callout-text strong{display:block;font-size:11px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.05em;color:var(--c);margin-bottom:4px}
+.key-terms{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.term{display:inline-flex;flex-direction:column;background:var(--surface3);border:1px solid var(--border2);border-radius:8px;padding:6px 10px;font-size:12px}
+.term-key{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--c);margin-bottom:2px}
+.term-val{color:var(--muted2);font-size:11.5px;line-height:1.4}
+.support-tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:12px}
+.tier-card{background:var(--surface3);border:1px solid var(--border2);border-radius:10px;padding:14px}
+.tier-name{font-size:13px;font-weight:700;color:#fff;margin-bottom:6px}
+.tier-desc{font-size:12px;color:var(--muted2);line-height:1.4;margin-bottom:8px}
+.tier-tag{display:inline-block;padding:2px 8px;border-radius:5px;font-size:10.5px;font-family:'DM Mono',monospace;font-weight:600;background:var(--cs);color:var(--c)}
+.progress-banner{position:fixed;bottom:20px;right:20px;background:var(--surface2);border:1px solid var(--border2);border-radius:14px;padding:12px 18px;min-width:190px;box-shadow:0 8px 32px rgba(0,0,0,.5);z-index:90}
+.progress-label{font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px;display:flex;justify-content:space-between}
+.progress-label span{color:#fff;font-weight:700}
+.progress-track{height:5px;background:var(--surface3);border-radius:999px;overflow:hidden}
+.progress-fill{height:100%;border-radius:999px;background:var(--c);transition:width .4s ease;width:0%}
+.page-footer{margin-top:60px;padding:20px 24px;background:var(--surface);border:1px solid var(--border);border-radius:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.footer-nav{display:flex;gap:10px;flex-wrap:wrap}
+.footer-nav a{text-decoration:none;font-size:13px;font-weight:600;padding:8px 16px;border-radius:10px;border:1px solid var(--border2);color:var(--muted2);transition:all .2s}
+.footer-nav a:hover{background:var(--surface2);color:#fff}
+.footer-note{font-size:11.5px;color:var(--muted)}
+.complete-banner{background:linear-gradient(135deg,rgba(251,146,60,.15),rgba(167,139,250,.1));border:1px solid rgba(251,146,60,.3);border-radius:16px;padding:24px;text-align:center;margin-bottom:40px}
+.complete-banner h3{font-family:'Fraunces',serif;font-size:22px;font-weight:900;color:#fff;margin-bottom:8px}
+.complete-banner p{font-size:13.5px;color:var(--muted2);margin-bottom:16px}
+.complete-banner a{display:inline-block;padding:10px 20px;background:var(--c);color:#fff;font-weight:700;font-size:13px;border-radius:10px;text-decoration:none;transition:opacity .2s}
+.complete-banner a:hover{opacity:.85}
+
+.nav-done{color:#34d399;font-size:10px;font-weight:700}
+.nav-started{color:#fbbf24;font-size:10px}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <span class="brand">MS-900</span>
+  <span class="sep">·</span>
+  <a href="ms900-index.html">🏠 Hub</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain1.html">01 Cloud Concepts</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain2.html">02 M365 Apps &amp; Services</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain3.html">03 Security &amp; Compliance</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain4.html" class="active">04 Pricing &amp; Licensing</a>
+  <span class="sep">·</span>
+  <a href="ms900-practice.html">⚡ Practice Quiz</a>
+  <span class="sep">·</span>
+  <a href="ms900-glossary.html">📖 Glossary</a>
+</nav>
+
+<main class="page">
+
+  <div class="domain-pill">Domain 04 · 10–15% of Exam</div>
+  <h1>Pricing, Licensing <em>&amp; Support</em></h1>
+  <p class="hero-sub">The smallest domain, but easy marks if you know the basics. Understand how organizations buy M365, what license types exist, and how to get help when things break.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-val">2</div><div class="stat-key">Learn Modules</div></div>
+    <div class="stat"><div class="stat-val">3</div><div class="stat-key">Topic Areas</div></div>
+    <div class="stat"><div class="stat-val">10–15%</div><div class="stat-key">Exam Weight</div></div>
+    <div class="stat"><div class="stat-val">~45 min</div><div class="stat-key">Estimated Study</div></div>
+  </div>
+
+  <div class="tldr">
+    <div class="tldr-label">⚡ TL;DR — What You Must Know</div>
+    <ul>
+      <li><strong>Three buying channels:</strong> Enterprise Agreement (EA) for large orgs · Cloud Solution Provider (CSP) for SMBs · Direct billing from Microsoft</li>
+      <li><strong>Business plans</strong> (up to 300 users): Basic, Standard, Premium. <strong>Enterprise plans</strong> (unlimited): E3 and E5</li>
+      <li><strong>Base license</strong> = the core M365 plan. <strong>Add-on license</strong> = extras bolted on (e.g. Copilot, Teams Phone, Defender P2)</li>
+      <li><strong>Billing:</strong> monthly or annual commitment; per-user per-month pricing model</li>
+      <li><strong>Support:</strong> admin submits ticket in Admin Center → Microsoft (or CSP) responds. Severity determines response time</li>
+      <li><strong>SLA:</strong> Microsoft guarantees 99.9% uptime for most M365 services. Downtime can earn <strong>service credits</strong></li>
+      <li><strong>Service health:</strong> check real-time status at admin.microsoft.com or Entra Admin Center</li>
+    </ul>
+  </div>
+
+  <!-- MODULE 1: Pricing & Licensing -->
+  <div class="module-wrap">
+    <div class="module-header">
+      <div class="module-num">M1</div>
+      <div>
+        <div class="module-title">Microsoft 365 Pricing, Licensing &amp; Billing</div>
+        <div class="module-desc">Pricing models · License types · Billing options</div>
+      </div>
+      <a class="module-link" href="https://learn.microsoft.com/en-us/training/modules/identify-licensing-options-available-microsoft-365/" target="_blank">📖 Open in Learn ↗</a>
+    </div>
+    <div class="module-body">
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="1">
+          <div class="concept-title">The Three Purchasing Channels</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">Organizations can buy Microsoft 365 licenses through three routes. The exam tests your ability to match the right model to an org's size and needs.</p>
+          <table class="compare-table">
+            <thead><tr><th>Channel</th><th>Best For</th><th>Key Traits</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Enterprise Agreement (EA)</strong></td><td>500+ users / large orgs</td><td>3-year commitment; volume discounts; annual upfront payment; predictable costs</td></tr>
+              <tr><td><strong>Cloud Solution Provider (CSP)</strong></td><td>SMBs (any size, min 1 user)</td><td>Monthly billing through a Microsoft partner; flexible; partner provides support</td></tr>
+              <tr><td><strong>Direct / Microsoft.com</strong></td><td>Small orgs / individuals</td><td>Buy directly; credit card; monthly or annual; self-support via documentation</td></tr>
+            </tbody>
+          </table>
+          <div class="callout">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Key CSP distinction</strong>When buying through a CSP partner, the partner handles billing AND first-level support — not Microsoft directly. The CSP escalates to Microsoft only if they can't resolve the issue.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="2">
+          <div class="concept-title">M365 License Plans — Business vs Enterprise</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">Microsoft 365 comes in plan families. The most important distinction is <strong>Business</strong> (≤300 users) vs. <strong>Enterprise</strong> (unlimited users).</p>
+          <table class="compare-table">
+            <thead><tr><th>Plan</th><th>User Limit</th><th>Key Inclusions</th></tr></thead>
+            <tbody>
+              <tr><td><strong>M365 Business Basic</strong></td><td>≤300</td><td>Web/mobile Office apps, Teams, Exchange, SharePoint, OneDrive</td></tr>
+              <tr><td><strong>M365 Business Standard</strong></td><td>≤300</td><td>Above + desktop Office apps</td></tr>
+              <tr><td><strong>M365 Business Premium</strong></td><td>≤300</td><td>Above + Intune + Entra ID P1 + Defender for Business</td></tr>
+              <tr><td><strong>M365 E3</strong></td><td>Unlimited</td><td>Desktop apps + advanced compliance + Intune + Entra ID P1</td></tr>
+              <tr><td><strong>M365 E5</strong></td><td>Unlimited</td><td>E3 + advanced security (Defender P2, Purview) + Power BI Pro + Teams Phone</td></tr>
+            </tbody>
+          </table>
+          <div class="callout">
+            <span class="callout-icon">💡</span>
+            <div class="callout-text"><strong>Exam scenario pattern</strong>"An org has 400 users and needs advanced threat protection" → Must be Enterprise (E3 or E5) because Business plans cap at 300.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="3">
+          <div class="concept-title">Base Licensing vs Add-On Licensing</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">M365 uses a modular licensing model. Every user needs a <strong>base plan</strong>; additional capabilities can be added through <strong>add-on licenses</strong> assigned to specific users.</p>
+          <div class="key-terms">
+            <div class="term"><span class="term-key">Base License</span><span class="term-val">Core M365 plan (e.g. M365 E3 — the foundation)</span></div>
+            <div class="term"><span class="term-key">Add-On License</span><span class="term-val">Extra features bolted on top (per user)</span></div>
+          </div>
+          <table class="compare-table" style="margin-top:12px">
+            <thead><tr><th>Common Add-Ons</th><th>What It Adds</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Microsoft 365 Copilot</strong></td><td>AI assistant in all M365 apps (requires E3/E5 base)</td></tr>
+              <tr><td><strong>Teams Phone</strong></td><td>PSTN calling capability in Teams</td></tr>
+              <tr><td><strong>Microsoft Defender P2</strong></td><td>Advanced identity protection (if not already in plan)</td></tr>
+              <tr><td><strong>Power BI Pro</strong></td><td>Full Power BI sharing and collaboration</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="4">
+          <div class="concept-title">Billing Options &amp; License Management</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">Microsoft 365 subscriptions are priced <strong>per-user, per-month</strong>. Admins manage all billing and license assignments from the <strong>Microsoft 365 Admin Center</strong>.</p>
+          <div class="key-terms">
+            <div class="term"><span class="term-key">Monthly billing</span><span class="term-val">Flexible, slightly higher per-unit cost</span></div>
+            <div class="term"><span class="term-key">Annual commitment</span><span class="term-val">Lower cost; billed monthly or upfront annually</span></div>
+            <div class="term"><span class="term-key">License assignment</span><span class="term-val">Admin assigns/removes licenses per user in Admin Center</span></div>
+            <div class="term"><span class="term-key">License reclamation</span><span class="term-val">When users leave, licenses can be reassigned</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODULE 2: Support -->
+  <div class="module-wrap">
+    <div class="module-header">
+      <div class="module-num">M2</div>
+      <div>
+        <div class="module-title">Support Offerings for Microsoft 365 Services</div>
+        <div class="module-desc">Support channels · SLAs · Service credits · Service health</div>
+      </div>
+      <a class="module-link" href="https://learn.microsoft.com/en-us/training/modules/describe-support-offerings-for-microsoft-365-services/" target="_blank">📖 Open in Learn ↗</a>
+    </div>
+    <div class="module-body">
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="5">
+          <div class="concept-title">How to Get Support for M365</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">Support for M365 is tiered. The primary channel for admins is the <strong>Microsoft 365 Admin Center</strong>, where support tickets (called "service requests") are submitted with a severity level.</p>
+          <div class="support-tiers">
+            <div class="tier-card">
+              <div class="tier-name">📞 Microsoft Support</div>
+              <div class="tier-desc">Admin opens ticket in Admin Center. Phone support available. Available 24/7 for critical issues.</div>
+              <div class="tier-tag">Direct</div>
+            </div>
+            <div class="tier-card">
+              <div class="tier-name">🤝 CSP Partner Support</div>
+              <div class="tier-desc">If purchased via CSP, the partner is first-line support. They escalate to Microsoft if needed.</div>
+              <div class="tier-tag">Partner-led</div>
+            </div>
+            <div class="tier-card">
+              <div class="tier-name">🌐 Community &amp; Docs</div>
+              <div class="tier-desc">Microsoft Tech Community, Q&amp;A forums, Microsoft Learn documentation for self-service help.</div>
+              <div class="tier-tag">Self-service</div>
+            </div>
+          </div>
+
+          <p class="concept-desc" style="margin-top:14px;margin-bottom:8px"><strong>How to file a support request</strong> — step by step:</p>
+          <table class="compare-table">
+            <thead><tr><th>Step</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td><strong>1. Open Admin Center</strong></td><td>Go to <strong>admin.microsoft.com</strong> → Sign in as admin</td></tr>
+              <tr><td><strong>2. Navigate to Support</strong></td><td>Left nav → <strong>Support</strong> → <strong>New service request</strong></td></tr>
+              <tr><td><strong>3. Describe the issue</strong></td><td>Type a description — virtual agent suggests self-help first</td></tr>
+              <tr><td><strong>4. Escalate to agent</strong></td><td>Select <strong>"Contact support"</strong> for phone or email with a Microsoft engineer</td></tr>
+              <tr><td><strong>5. Assign severity</strong></td><td>Sev A (critical, service down) · Sev B (impaired) · Sev C (general question)</td></tr>
+            </tbody>
+          </table>
+
+          <p class="concept-desc" style="margin-top:14px;margin-bottom:8px"><strong>Microsoft support plan tiers</strong> — what's included at each level:</p>
+          <table class="compare-table">
+            <thead><tr><th>Plan</th><th>Who It's For</th><th>Key Features</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Basic / Subscription</strong></td><td>Included with all M365 plans</td><td>Self-help resources, community forums, billing support, submit tickets for break-fix issues</td></tr>
+              <tr><td><strong>Developer</strong></td><td>Dev/test tenants</td><td>Technical support for development scenarios during business hours</td></tr>
+              <tr><td><strong>Standard</strong></td><td>SMB / growing orgs</td><td>24/7 break-fix support, 1-hour critical response SLA, designated support contacts</td></tr>
+              <tr><td><strong>Professional Direct</strong></td><td>Business-critical workloads</td><td>Proactive guidance, advisory services, faster response times, dedicated account team</td></tr>
+              <tr><td><strong>Unified (Premier)</strong></td><td>Enterprise</td><td>Deepest integration, designated Technical Account Manager (TAM), on-site support available</td></tr>
+            </tbody>
+          </table>
+
+          <div class="callout">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Exam tip — three things to know cold</strong>
+            1. Support requests are filed in the <strong>M365 Admin Center → Support</strong> (not the Defender or Purview portals).
+            2. Severity A = critical business impact, 24/7 response. Severity C = general question, next business day.
+            3. CSP customers contact their <strong>partner first</strong>, not Microsoft — the partner is first-line support.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="6">
+          <div class="concept-title">Service Level Agreements (SLAs) &amp; Service Credits</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">Microsoft publishes <strong>SLAs</strong> that guarantee uptime for each M365 service. If Microsoft fails to meet the SLA, organizations can claim <strong>service credits</strong> as compensation — applied to future billing.</p>
+          <table class="compare-table">
+            <thead><tr><th>Uptime Guaranteed</th><th>Meaning</th><th>Max Downtime / Month</th></tr></thead>
+            <tbody>
+              <tr><td><strong>99.9%</strong></td><td>Standard SLA for most M365 services</td><td>~43.8 minutes/month</td></tr>
+              <tr><td><strong>&lt;99.9%</strong></td><td>SLA breach → eligible for service credits</td><td>Service credit % scales with outage severity</td></tr>
+            </tbody>
+          </table>
+          <div class="key-terms" style="margin-top:12px">
+            <div class="term"><span class="term-key">Service Credit</span><span class="term-val">Billing credit issued when SLA is breached — NOT a cash refund</span></div>
+            <div class="term"><span class="term-key">Financially-backed SLA</span><span class="term-val">Microsoft's formal contractual uptime commitment</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="7">
+          <div class="concept-title">Checking Service Health Status</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">Admins can check the real-time health of all M365 services through two portals. This lets you quickly determine if an issue is on Microsoft's side or within your tenant.</p>
+          <table class="compare-table">
+            <thead><tr><th>Portal</th><th>Path to Service Health</th><th>What You See</th></tr></thead>
+            <tbody>
+              <tr><td><strong>M365 Admin Center</strong></td><td>admin.microsoft.com → Health → Service health</td><td>Current incidents, advisories, affected services, resolution timeline</td></tr>
+              <tr><td><strong>Entra Admin Center</strong></td><td>entra.microsoft.com → Service health</td><td>Identity-specific health (Entra ID authentication issues)</td></tr>
+            </tbody>
+          </table>
+          <div class="callout">
+            <span class="callout-icon">💡</span>
+            <div class="callout-text"><strong>Message Center</strong>Also in the Admin Center, the Message Center shows planned changes, new features, and maintenance notifications — separate from incident-based service health alerts.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WHAT'S NEXT -->
+  <div class="module-wrap" style="margin-top:48px">
+    <div class="module-header" style="border-radius:16px 16px 0 0">
+      <div class="module-num" style="background:rgba(251,146,60,.15);color:#fb923c">→</div>
+      <div>
+        <div class="module-title">What's Next — Your Full Study Path</div>
+        <div class="module-desc">You've read all 4 domains. Here's the recommended path to exam day.</div>
+      </div>
+    </div>
+    <div class="module-body">
+      <div style="padding:20px 22px;display:flex;flex-direction:column;gap:0">
+
+        <div style="display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--border)">
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(52,211,153,.15);color:#34d399;font-family:'DM Mono',monospace;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:3px">✅ Read all 4 domain pages — <em style="color:#34d399;font-style:normal">Done!</em></div>
+            <div style="font-size:13px;color:var(--muted2);line-height:1.5">You've covered every skill on the official MS-900 skills measured list.</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--border)">
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(79,142,247,.15);color:#4f8ef7;font-family:'DM Mono',monospace;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:3px">Take the Practice Quiz</div>
+            <div style="font-size:13px;color:var(--muted2);line-height:1.5">Use the MS-900 Practice page to test active recall across all domains. Identify your weak spots before spending more time reading.</div>
+            <a href="ms900-practice.html" style="display:inline-block;margin-top:8px;font-size:12px;font-family:'DM Mono',monospace;padding:5px 14px;border-radius:8px;background:rgba(79,142,247,.12);color:#4f8ef7;text-decoration:none;border:1px solid rgba(79,142,247,.25)">Open Practice Quiz →</a>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--border)">
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(167,139,250,.15);color:#a78bfa;font-family:'DM Mono',monospace;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:3px">Revisit weak domains</div>
+            <div style="font-size:13px;color:var(--muted2);line-height:1.5">For any domain where you scored below 70% on the quiz, re-read those concept cards and pay attention to the <span style="color:#fbbf24">⚠️ Don't confuse</span> callouts.</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--border)">
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(251,146,60,.15);color:#fb923c;font-family:'DM Mono',monospace;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">4</div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:3px">Microsoft's Official Practice Assessment</div>
+            <div style="font-size:13px;color:var(--muted2);line-height:1.5">50 free official questions from Microsoft. Format mirrors the real exam. Do this after the practice quiz when you feel confident — treat your score as a go/no-go signal.</div>
+            <a href="https://learn.microsoft.com/en-us/credentials/certifications/exams/ms-900/practice/assessment?assessment-type=practice&assessmentId=50" target="_blank" style="display:inline-block;margin-top:8px;font-size:12px;font-family:'DM Mono',monospace;padding:5px 14px;border-radius:8px;background:rgba(251,146,60,.12);color:#fb923c;text-decoration:none;border:1px solid rgba(251,146,60,.25)">Take Microsoft's Practice Assessment ↗</a>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:16px;align-items:flex-start;padding:16px 0">
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(52,211,153,.15);color:#34d399;font-family:'DM Mono',monospace;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">5</div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:3px">Book &amp; sit the exam 🎯</div>
+            <div style="font-size:13px;color:var(--muted2);line-height:1.5">Schedule at <strong style="color:var(--text)">certiport.com</strong> or <strong style="color:var(--text)">pearsonvue.com</strong>. Available in-person or online proctored. Passing score: <strong style="color:#34d399">700 / 1000</strong>. Exam retires <strong style="color:#f87171">March 31, 2026</strong> — don't leave it too late.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPLETION BANNER -->
+
+  <div class="complete-banner">
+    <h3>🎉 You've covered all 4 domains!</h3>
+    <p>Time to validate your knowledge with Microsoft's free official practice assessment before booking your exam.</p>
+    <a href="https://learn.microsoft.com/en-us/credentials/certifications/exams/ms-900/practice/assessment?assessment-type=practice&assessmentId=50" target="_blank">Take the Free Practice Assessment →</a>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-nav">
+      <a href="ms900-domain3.html">← Domain 3: Security &amp; Compliance</a>
+      <a href="ms900-domain1.html">Start Over: Domain 1 →</a>
+    </div>
+    <div class="footer-note">Source: <a href="https://learn.microsoft.com/en-us/training/paths/m365-licensing-service-support/" target="_blank" style="color:#fb923c">Microsoft Learn Path 4</a></div>
+  </div>
+
+</main>
+
+<div class="progress-banner">
+  <div class="progress-label">Domain 4 Progress <span id="pct">0%</span></div>
+  <div class="progress-track"><div class="progress-fill" id="pfill"></div></div>
+</div>
+
+<script>
+const STORAGE_KEY = 'ms900_d4';
+const checks = document.querySelectorAll('.skill-check');
+const total = checks.length;
+function save() {
+  const state = {};
+  checks.forEach(c => { state[c.dataset.skill] = c.checked; });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  updateProgress();
+}
+function load() {
+  try {
+    const state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    checks.forEach(c => { if (state[c.dataset.skill]) c.checked = true; });
+  } catch(e){}
+  updateProgress();
+}
+function updateProgress() {
+  const done = [...checks].filter(c => c.checked).length;
+  const pct = Math.round((done / total) * 100);
+  document.getElementById('pct').textContent = pct + '%';
+  document.getElementById('pfill').style.width = pct + '%';
+}
+checks.forEach(c => c.addEventListener('change', save));
+load();
+
+// Nav completion indicators
+(function(){
+  const keys = ['ms900_d1','ms900_d2','ms900_d3','ms900_d4'];
+  const links = document.querySelectorAll('.topnav a:not([href*="practice"])');
+  links.forEach((link, i) => {
+    if(i >= keys.length) return;
+    try {
+      const state = JSON.parse(localStorage.getItem(keys[i]) || '{}');
+      const total = Object.keys(state).length;
+      const done = Object.values(state).filter(Boolean).length;
+      if(done > 0 && !link.classList.contains('active')) {
+        const badge = document.createElement('span');
+        badge.className = (done >= total && total > 0) ? 'nav-done' : 'nav-started';
+        badge.textContent = (done >= total && total > 0) ? ' ✓' : ' •';
+        link.appendChild(badge);
+      }
+    } catch(e){}
+  });
+})();
+
+</script>
+</body>
+</html>

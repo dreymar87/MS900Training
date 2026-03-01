@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MS-900 | Glossary</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1117;--surface:#181c27;--surface2:#1e2333;--surface3:#242840;
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.12);
+  --text:#e2e8f0;--muted:#64748b;--muted2:#8899aa;
+  --d1:#4f8ef7;--d1s:rgba(79,142,247,.12);--d1b:rgba(79,142,247,.25);
+  --d2:#a78bfa;--d2s:rgba(167,139,250,.12);--d2b:rgba(167,139,250,.25);
+  --d3:#34d399;--d3s:rgba(52,211,153,.12);--d3b:rgba(52,211,153,.25);
+  --d4:#fb923c;--d4s:rgba(251,146,60,.12);--d4b:rgba(251,146,60,.25);
+  --amber:#fbbf24;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;min-height:100vh;line-height:1.6}
+
+/* NAV */
+.topnav{position:sticky;top:0;z-index:100;background:rgba(15,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;gap:4px;height:52px;overflow-x:auto}
+.topnav a{text-decoration:none;white-space:nowrap;font-size:12px;font-weight:600;padding:5px 11px;border-radius:8px;transition:all .2s;color:var(--muted)}
+.topnav a:hover{background:var(--surface2);color:var(--text)}
+.topnav a.active{background:rgba(251,191,36,.12);color:var(--amber)}
+.topnav .brand{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2);margin-right:8px;flex-shrink:0}
+.topnav .sep{color:var(--border2);margin:0 2px}
+.nav-done{color:#34d399;font-size:10px;font-weight:700}
+.nav-started{color:#fbbf24;font-size:10px}
+
+/* PAGE */
+.page{max-width:860px;margin:0 auto;padding:48px 24px 96px}
+
+/* HERO */
+.glos-pill{display:inline-flex;align-items:center;gap:6px;padding:4px 14px;border-radius:999px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;background:rgba(251,191,36,.12);color:var(--amber);margin-bottom:18px}
+h1{font-family:'Fraunces',serif;font-size:clamp(26px,5vw,42px);font-weight:900;line-height:1.1;letter-spacing:-.02em;color:#fff;margin-bottom:10px}
+h1 em{font-style:normal;color:var(--amber)}
+.hero-sub{color:var(--muted2);font-size:14px;max-width:580px;line-height:1.7;margin-bottom:32px}
+
+/* DOMAIN LEGEND */
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted2)}
+.leg-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+
+/* SEARCH */
+.search-wrap{position:relative;margin-bottom:32px}
+.search-input{width:100%;background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:12px 16px 12px 44px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border-color .2s}
+.search-input:focus{border-color:var(--amber)}
+.search-input::placeholder{color:var(--muted)}
+.search-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:16px;pointer-events:none}
+.search-count{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)}
+
+/* ALPHA JUMP BAR */
+.alpha-bar{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:28px;align-items:center}
+.alpha-btn{font-family:'DM Mono',monospace;font-size:11px;font-weight:600;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:7px;border:1px solid var(--border2);background:var(--surface);color:var(--muted2);cursor:pointer;text-decoration:none;transition:all .18s}
+.alpha-btn:hover:not(.empty){background:var(--surface2);color:#fff;border-color:rgba(255,255,255,.25)}
+.alpha-btn.has-terms{color:var(--text);border-color:rgba(255,255,255,.18)}
+.alpha-btn.empty{opacity:.22;cursor:default;pointer-events:none}
+.alpha-btn.active{background:var(--c);color:#000 !important;border-color:var(--c);font-weight:700}
+.alpha-all-btn{font-family:'DM Mono',monospace;font-size:11px;font-weight:700;padding:0 12px;height:30px;display:flex;align-items:center;border-radius:7px;border:1px solid var(--border2);background:var(--surface);color:var(--muted2);cursor:pointer;text-decoration:none;transition:all .18s;white-space:nowrap;margin-right:6px}
+.alpha-all-btn:hover{background:var(--surface2);color:#fff}
+.alpha-all-btn.active{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.3)}
+.filter-status{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-left:8px;white-space:nowrap}
+
+/* LETTER SECTION */
+.letter-section{margin-bottom:4px}
+.letter-heading{font-family:'Fraunces',serif;font-size:28px;font-weight:900;color:rgba(255,255,255,.08);margin-bottom:10px;margin-top:36px;line-height:1;letter-spacing:-.02em}
+
+/* TERM CARD */
+.term-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin-bottom:8px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.term-card:hover{border-color:var(--border2)}
+.term-card.hidden{display:none}
+.term-left{flex:1;min-width:0}
+.term-name{font-size:14.5px;font-weight:700;color:#fff;margin-bottom:4px;line-height:1.3}
+.term-acronym{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-left:6px;font-weight:400}
+.term-def{font-size:13.5px;color:var(--muted2);line-height:1.65}
+.term-def strong{color:var(--text)}
+.term-right{display:flex;flex-direction:column;gap:5px;align-items:flex-end;flex-shrink:0}
+.d-tag{font-family:'DM Mono',monospace;font-size:9px;font-weight:700;padding:2px 8px;border-radius:5px;white-space:nowrap;letter-spacing:.04em}
+.d1-tag{background:var(--d1s);color:var(--d1);border:1px solid var(--d1b)}
+.d2-tag{background:var(--d2s);color:var(--d2);border:1px solid var(--d2b)}
+.d3-tag{background:var(--d3s);color:var(--d3);border:1px solid var(--d3b)}
+.d4-tag{background:var(--d4s);color:var(--d4);border:1px solid var(--d4b)}
+.study-link{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);text-decoration:none;transition:color .2s;white-space:nowrap}
+.study-link:hover{color:#fff}
+
+/* NO RESULTS */
+.no-results{text-align:center;padding:40px;color:var(--muted);font-size:14px;display:none}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <span class="brand">MS-900</span>
+  <span class="sep">·</span>
+  <a href="ms900-index.html">🏠 Hub</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain1.html" id="nav-d1">01 Cloud Concepts</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain2.html" id="nav-d2">02 M365 Apps &amp; Services</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain3.html" id="nav-d3">03 Security &amp; Compliance</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain4.html" id="nav-d4">04 Pricing &amp; Licensing</a>
+  <span class="sep">·</span>
+  <a href="ms900-practice.html">⚡ Practice Quiz</a>
+  <span class="sep">·</span>
+  <a href="ms900-glossary.html" class="active">📖 Glossary</a>
+</nav>
+
+<main class="page">
+
+  <div class="glos-pill">📖 Reference Glossary</div>
+  <h1>MS-900 <em>Glossary</em></h1>
+  <p class="hero-sub">100 terms across all 4 exam domains. Use the search or jump to a letter. Every term links back to the study page where it's explained in full context.</p>
+  <p style="font-size:13px;color:var(--muted2);margin-bottom:24px">⭐ = high-priority exam term — know these cold before sitting the exam.</p>
+
+  <div class="legend">
+    <div class="leg-item"><div class="leg-dot" style="background:#4f8ef7"></div>Domain 1 — Cloud Concepts</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#a78bfa"></div>Domain 2 — M365 Apps &amp; Services</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#34d399"></div>Domain 3 — Security &amp; Compliance</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#fb923c"></div>Domain 4 — Pricing &amp; Licensing</div>
+  </div>
+
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" class="search-input" id="search" placeholder="Search terms, acronyms, or definitions..." oninput="onSearchInput()">
+    <span class="search-count" id="search-count">100 terms</span>
+  </div>
+
+  <div class="alpha-bar" id="alpha-bar"></div>
+  <div id="no-results" class="no-results">No terms match your search.</div>
+
+  <!-- ═══════════════════ A ═══════════════════ -->
+  <div class="letter-section" id="letter-A">
+    <div class="letter-heading">A</div>
+
+    <div class="term-card" data-term="add-on license add-on licensing modular per user">
+      <div class="term-left">
+        <div class="term-name">Add-On License</div>
+        <div class="term-def">An optional license that adds specific capabilities on top of a user's base M365 plan. Add-ons are assigned per user and require a qualifying base plan — examples include <strong>Microsoft 365 Copilot</strong>, <strong>Teams Phone</strong>, and <strong>Microsoft Defender P2</strong>.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d4-tag">D4</span><a class="study-link" href="ms900-domain4.html">→ Domain 4</a></div>
+    </div>
+
+    <div class="term-card" data-term="agility provision resources cloud benefit">
+      <div class="term-left">
+        <div class="term-name">Agility</div>
+        <div class="term-def">A cloud benefit describing the ability to provision new resources — virtual machines, storage, services — in minutes rather than weeks. Enables organisations to respond rapidly to changing business needs without procurement delays.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d1-tag">D1</span><a class="study-link" href="ms900-domain1.html">→ Domain 1</a></div>
+    </div>
+
+    <div class="term-card" data-term="annual commitment billing subscription yearly">
+      <div class="term-left">
+        <div class="term-name">Annual Commitment</div>
+        <div class="term-def">A Microsoft 365 billing option where the customer commits to a 12-month subscription. Offers a lower per-user monthly cost than month-to-month billing. Can be paid monthly in instalments or as a single annual upfront payment.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d4-tag">D4</span><a class="study-link" href="ms900-domain4.html">→ Domain 4</a></div>
+    </div>
+
+    <div class="term-card" data-term="auditing audit log user admin activities purview">
+      <div class="term-left">
+        <div class="term-name">Auditing <span class="term-acronym">Purview feature</span></div>
+        <div class="term-def">A Microsoft Purview feature that maintains a <strong>unified audit log</strong> recording user and admin activities across all M365 services — file access, permission changes, sign-in events, and more. Used for security investigations and compliance reporting.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="authentication login verify identity who you are">
+      <div class="term-left">
+        <div class="term-name">Authentication</div>
+        <div class="term-def">The process of verifying <strong>who you are</strong> — confirming identity before granting access. In M365, handled by Microsoft Entra ID through password verification, MFA prompts, and biometrics. Distinct from authorisation (what you can access once authenticated).</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="authorization permissions access what you can access">
+      <div class="term-left">
+        <div class="term-name">Authorization</div>
+        <div class="term-def">The process of determining <strong>what an authenticated user can access</strong> — which files, apps, and resources they have permission to use. In M365, controlled by Entra ID roles, SharePoint permissions, and Conditional Access policies.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="AVD azure virtual desktop multi-session VDI">
+      <div class="term-left">
+        <div class="term-name">⭐ Azure Virtual Desktop <span class="term-acronym">AVD</span></div>
+        <div class="term-def">A cloud-based Windows desktop virtualisation service running on Azure infrastructure. Unlike Windows 365, AVD supports <strong>multi-session</strong> Windows (multiple users per VM), uses pay-as-you-go pricing, and requires IT to configure and manage the Azure infrastructure. Best for large enterprises optimising cost at scale.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════ B ═══════════════════ -->
+  <div class="letter-section" id="letter-B">
+    <div class="letter-heading">B</div>
+
+    <div class="term-card" data-term="base license base plan core subscription foundation">
+      <div class="term-left">
+        <div class="term-name">Base License</div>
+        <div class="term-def">The foundational M365 subscription plan a user must have before any add-ons can be assigned — e.g. <strong>M365 Business Premium</strong> or <strong>M365 E3</strong>. Every licensed user needs a base plan; add-ons cannot be purchased standalone.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d4-tag">D4</span><a class="study-link" href="ms900-domain4.html">→ Domain 4</a></div>
+    </div>
+
+    <div class="term-card" data-term="bookings appointments scheduling external clients">
+      <div class="term-left">
+        <div class="term-name">Microsoft Bookings</div>
+        <div class="term-def">An M365 app that provides a public-facing booking page where external clients can self-schedule appointments with staff. Automatically syncs with the team's Outlook calendars and sends confirmations. Designed for customer-facing scheduling (clinics, consultations, etc.).</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════ C ═══════════════════ -->
+  <div class="letter-section" id="letter-C">
+    <div class="letter-heading">C</div>
+
+    <div class="term-card" data-term="capex capital expenditure upfront hardware purchase">
+      <div class="term-left">
+        <div class="term-name">⭐ CapEx <span class="term-acronym">Capital Expenditure</span></div>
+        <div class="term-def">A large, upfront investment in physical infrastructure — servers, networking equipment, on-premises datacentres. Traditional IT used CapEx heavily. Cloud computing shifts this to <strong>OpEx</strong> (ongoing operational costs), eliminating large one-time hardware purchases.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d1-tag">D1</span><a class="study-link" href="ms900-domain1.html">→ Domain 1</a></div>
+    </div>
+
+    <div class="term-card" data-term="cloud solution provider CSP partner reseller SMB billing support">
+      <div class="term-left">
+        <div class="term-name">⭐ Cloud Solution Provider <span class="term-acronym">CSP</span></div>
+        <div class="term-def">A Microsoft purchasing channel where organisations buy M365 licenses through a certified Microsoft partner. The partner handles billing, invoicing, and <strong>first-line support</strong>. Best for SMBs wanting a managed service relationship. The CSP escalates to Microsoft only if they cannot resolve an issue.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d4-tag">D4</span><a class="study-link" href="ms900-domain4.html">→ Domain 4</a></div>
+    </div>
+
+    <div class="term-card" data-term="co-management configuration manager intune hybrid device management">
+      <div class="term-left">
+        <div class="term-name">Co-management</div>
+        <div class="term-def">A Microsoft Intune capability that allows devices to be managed by <strong>both Intune (cloud) and on-premises Configuration Manager simultaneously</strong>. Enables organisations to migrate from traditional on-prem device management to cloud gradually, without a hard cutover.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="conditional access policy if then location device risk MFA">
+      <div class="term-left">
+        <div class="term-name">⭐ Conditional Access</div>
+        <div class="term-def">A Microsoft Entra ID policy engine that evaluates contextual signals — user identity, device compliance, location, app type, sign-in risk — and enforces access conditions dynamically. Example: <em>"If signing in from an unknown country, require MFA."</em> More flexible than blanket MFA; applies tighter controls only when risk signals are present.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="compliance manager regulatory compliance score GDPR ISO NIST purview dashboard">
+      <div class="term-left">
+        <div class="term-name">⭐ Compliance Manager</div>
+        <div class="term-def">A Microsoft Purview dashboard that <strong>scores an organisation's compliance posture against specific regulatory frameworks</strong> — GDPR, ISO 27001, NIST, HIPAA, and more. Provides a compliance score, maps M365 settings to regulatory controls, and recommends improvement actions. Distinct from Secure Score: Secure Score = security posture; Compliance Manager = regulatory compliance posture.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="consumption based billing pay as you go usage">
+      <div class="term-left">
+        <div class="term-name">Consumption-Based Billing</div>
+        <div class="term-def">A cloud pricing model where customers pay only for what they use — compute hours, storage consumed, API calls made. Contrasts with buying fixed hardware upfront. M365 SaaS plans use per-user subscription pricing rather than pure consumption billing.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d1-tag">D1</span><a class="study-link" href="ms900-domain1.html">→ Domain 1</a></div>
+    </div>
+
+    <div class="term-card" data-term="copilot chat enterprise AI web grounding chat interface">
+      <div class="term-left">
+        <div class="term-name">Copilot Chat</div>
+        <div class="term-def">A web-grounded, enterprise-safe AI chat experience available to all M365 users (including those without a Copilot add-on license). Unlike full M365 Copilot, Copilot Chat uses public web data rather than the organisation's internal M365 data. Accessible via Microsoft Teams and the browser.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════ D ═══════════════════ -->
+  <div class="letter-section" id="letter-D">
+    <div class="letter-heading">D</div>
+
+    <div class="term-card" data-term="data residency geography region regulatory compliance EU GDPR sovereignty">
+      <div class="term-left">
+        <div class="term-name">Data Residency</div>
+        <div class="term-def">A Microsoft Purview feature that ensures an organisation's M365 customer data is stored in <strong>specific geographic regions</strong> (e.g. EU-only datacentres). Helps meet regulatory requirements such as GDPR that mandate data stays within certain borders.
+        <br><br><em style="color:#8899aa;font-size:12.5px">Related: <strong style="color:#a0aab8">Data Sovereignty</strong> refers to the legal principle that data is subject to the laws of the country where it's stored. Data Residency is Microsoft's technical implementation of data sovereignty commitments. The MS-900 exam tests "data residency" — data sovereignty is the underlying concept that explains why it matters.</em></div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="defender cloud apps shadow IT SaaS unsanctioned">
+      <div class="term-left">
+        <div class="term-name">Defender for Cloud Apps</div>
+        <div class="term-def">A Microsoft Defender XDR product that discovers <strong>Shadow IT</strong> (unsanctioned SaaS apps employees use without IT approval), enforces session controls on cloud apps, and monitors user behaviour across cloud services. Protects the cloud app attack surface.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="defender endpoint EDR device windows mac malware vulnerability">
+      <div class="term-left">
+        <div class="term-name">⭐ Defender for Endpoint</div>
+        <div class="term-def">A Microsoft Defender XDR product that protects <strong>devices</strong> (Windows, macOS, Linux, iOS, Android) through Endpoint Detection and Response (EDR), threat analytics, and vulnerability management. Detects malware, ransomware, and suspicious process behaviour on the device itself.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="defender identity on premises active directory lateral movement AD">
+      <div class="term-left">
+        <div class="term-name">Defender for Identity</div>
+        <div class="term-def">A Microsoft Defender XDR product that monitors <strong>on-premises Active Directory</strong> for signs of compromised identities and lateral movement attacks. Detects pass-the-hash, pass-the-ticket, reconnaissance, and other AD-specific attack patterns. Note: protects on-prem AD, not cloud-only Entra ID.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="defender office 365 email phishing safe links safe attachments teams sharepoint">
+      <div class="term-left">
+        <div class="term-name">⭐ Defender for Office 365</div>
+        <div class="term-def">A Microsoft Defender XDR product that protects <strong>email and M365 collaboration tools</strong> (Outlook, Teams, SharePoint, OneDrive) from phishing, malware, and malicious links. Key features include Safe Links (rewrites and checks URLs at click time) and Safe Attachments (detonates attachments in a sandbox before delivery).</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="defender XDR extended detection response unified portal correlation cross product">
+      <div class="term-left">
+        <div class="term-name">⭐ Defender XDR <span class="term-acronym">Extended Detection &amp; Response</span></div>
+        <div class="term-def">Microsoft's unified security platform that correlates threat signals from all Defender products — endpoint, email, identity, and cloud apps — into a <strong>single incident view</strong> in the Microsoft Defender Portal. Enables analysts to see the full attack chain rather than isolated product-by-product alerts.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="defender portal security microsoft com unified admin security centre manage incidents">
+      <div class="term-left">
+        <div class="term-name">Microsoft Defender Portal</div>
+        <div class="term-def">The unified admin interface for all Microsoft Defender security products, accessed at <strong>security.microsoft.com</strong>. Admins investigate incidents, review alerts, manage Microsoft Secure Score, run threat hunting, and configure all four Defender products from a single pane. Separate from the <strong>Purview compliance portal</strong> (compliance.microsoft.com) and the <strong>M365 Admin Center</strong> (admin.microsoft.com).</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="deployment rings WaaS windows update insider pilot broad rollout">
+      <div class="term-left">
+        <div class="term-name">⭐ Deployment Rings</div>
+        <div class="term-def">A Windows-as-a-Service (WaaS) mechanism for controlling <strong>when Windows updates reach different groups of devices</strong>. Three rings: <strong>Insider/Preview</strong> (early testers) → <strong>Pilot</strong> (representative production users) → <strong>Broad</strong> (entire organisation). Allows IT to catch issues before updates reach all devices.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="distribution group email alias multiple recipients routing">
+      <div class="term-left">
+        <div class="term-name">Distribution Group</div>
+        <div class="term-def">An Exchange Online object that acts as an <strong>email alias routing to multiple recipients</strong>. Sending to "sales@contoso.com" delivers to everyone in the Sales distribution group. Unlike Microsoft 365 Groups, distribution groups are email-only — they don't include Teams, SharePoint, or shared mailboxes.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="DLP data loss prevention sensitive data block email credit card">
+      <div class="term-left">
+        <div class="term-name">⭐ DLP <span class="term-acronym">Data Loss Prevention</span></div>
+        <div class="term-def">A Microsoft Purview feature that <strong>detects and prevents the sharing of sensitive data</strong> — such as credit card numbers, national IDs, or health records — across M365 services. DLP policies can block emails, show warning prompts, or log incidents when sensitive content is detected.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════ E ═══════════════════ -->
+  <div class="letter-section" id="letter-E">
+    <div class="letter-heading">E</div>
+
+    <div class="term-card" data-term="ediscovery legal hold search litigation investigation teams email sharepoint">
+      <div class="term-left">
+        <div class="term-name">eDiscovery</div>
+        <div class="term-def">A Microsoft Purview feature enabling organisations to <strong>search, preserve, and export content</strong> across M365 (emails, Teams chats, SharePoint documents) for legal proceedings or internal investigations. Supports legal hold — preventing content from being deleted while under investigation.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="elasticity auto scale up down cloud benefit dynamic">
+      <div class="term-left">
+        <div class="term-name">Elasticity</div>
+        <div class="term-def">A cloud benefit describing the ability to <strong>automatically scale resources both up and down</strong> in response to demand. Distinct from scalability (which is just scaling up/out). Elasticity means paying for more at peak times and automatically releasing unused resources when demand drops.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d1-tag">D1</span><a class="study-link" href="ms900-domain1.html">→ Domain 1</a></div>
+    </div>
+
+    <div class="term-card" data-term="endpoint analytics device health startup performance reporting intune">
+      <div class="term-left">
+        <div class="term-name">Endpoint Analytics</div>
+        <div class="term-def">A Microsoft Intune feature providing <strong>reporting on device health, startup performance, and application reliability</strong>. Helps IT identify devices with slow boot times or frequent crashes before users report issues. Part of the Microsoft Intune endpoint management suite.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="enterprise agreement EA volume discount 3 year large org 500">
+      <div class="term-left">
+        <div class="term-name">⭐ Enterprise Agreement <span class="term-acronym">EA</span></div>
+        <div class="term-def">A Microsoft purchasing channel designed for organisations with <strong>500+ users</strong>. Provides volume licensing discounts in exchange for a <strong>3-year commitment</strong> with annual payments directly to Microsoft. Offers the lowest per-unit cost but requires long-term commitment and larger upfront planning.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d4-tag">D4</span><a class="study-link" href="ms900-domain4.html">→ Domain 4</a></div>
+    </div>
+
+    <div class="term-card" data-term="entra connect sync on premises AD azure active directory hybrid">
+      <div class="term-left">
+        <div class="term-name">Entra Connect</div>
+        <div class="term-def">The Microsoft synchronisation tool that bridges <strong>on-premises Active Directory and Microsoft Entra ID</strong> for hybrid identity. Syncs user accounts, groups, and passwords so employees use one set of credentials on-prem and in the cloud. Formerly called Azure AD Connect.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="exchange online email calendar cloud backend mailbox">
+      <div class="term-left">
+        <div class="term-name">Exchange Online</div>
+        <div class="term-def">Microsoft's <strong>cloud-hosted email and calendaring service</strong>. The backend that powers Outlook mailboxes, shared calendars, distribution groups, and resource booking in M365. Outlook (desktop/web/mobile) is the client used to access Exchange Online. Included in all M365 plans.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════ F ═══════════════════ -->
+  <div class="letter-section" id="letter-F">
+    <div class="letter-heading">F</div>
+
+    <div class="term-card" data-term="financially backed SLA contractual uptime guarantee">
+      <div class="term-left">
+        <div class="term-name">Financially-Backed SLA</div>
+        <div class="term-def">Microsoft's formal, contractual uptime commitment. If Microsoft fails to meet the published SLA (e.g. 99.9% uptime), customers can claim <strong>service credits</strong> as financial compensation. "Financially-backed" distinguishes these from informal promises — the commitment is written into the service agreement.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d4-tag">D4</span><a class="study-link" href="ms900-domain4.html">→ Domain 4</a></div>
+    </div>
+
+    <div class="term-card" data-term="forms surveys quizzes polls data collection">
+      <div class="term-left">
+        <div class="term-name">Microsoft Forms</div>
+        <div class="term-def">An M365 app for creating <strong>surveys, quizzes, polls, and data collection forms</strong>. Results are collected in real-time and can be exported to Excel. Commonly used for feedback, assessments, event registrations, and quick polls. Distinct from Microsoft Lists (structured data) and Bookings (appointment scheduling).</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════ G ═══════════════════ -->
+  <div class="letter-section" id="letter-G">
+    <div class="letter-heading">G</div>
+
+    <div class="term-card" data-term="microsoft 365 groups shared mailbox teams sharepoint group backbone">
+      <div class="term-left">
+        <div class="term-name">⭐ Microsoft 365 Groups</div>
+        <div class="term-def">The <strong>underlying identity object that powers team collaboration</strong> in M365. When you create a Microsoft Team, a shared mailbox, or a SharePoint team site, an M365 Group is automatically created behind the scenes — it defines the membership and ties together the shared inbox (Exchange), file storage (SharePoint), and Teams workspace. Groups are managed in Entra ID. Distinct from Distribution Groups (email-only, no Teams/SharePoint backend).</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════ H ═══════════════════ -->
+  <div class="letter-section" id="letter-H">
+    <div class="letter-heading">H</div>
+
+    <div class="term-card" data-term="high availability uptime SLA 99.9 cloud benefit">
+      <div class="term-left">
+        <div class="term-name">High Availability</div>
+        <div class="term-def">A cloud benefit describing a service's ability to remain operational and accessible even during failures. Microsoft guarantees high availability via <strong>SLAs</strong> (e.g. 99.9% uptime for M365) through geo-redundant datacentres, automatic failover, and load balancing.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d1-tag">D1</span><a class="study-link" href="ms900-domain1.html">→ Domain 1</a></div>
+    </div>
+
+    <div class="term-card" data-term="hybrid cloud on premises public cloud connected both">
+      <div class="term-left">
+        <div class="term-name">⭐ Hybrid Cloud</div>
+        <div class="term-def">A cloud deployment model that <strong>combines on-premises infrastructure with a public cloud</strong> (e.g. Azure), connected so they can share data and workloads. Common in enterprise M365 deployments where organisations sync on-prem Active Directory to Entra ID while keeping some systems on-premises.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d1-tag">D1</span><a class="study-link" href="ms900-domain1.html">→ Domain 1</a></div>
+    </div>
+
+    <div class="term-card" data-term="hybrid identity entra connect sync on premises cloud single sign on">
+      <div class="term-left">
+        <div class="term-name">Hybrid Identity</div>
+        <div class="term-def">An identity model where <strong>on-premises Active Directory accounts are synchronised to Microsoft Entra ID</strong> via Entra Connect. Employees use a single set of credentials that works both on the corporate network and in cloud services. The most common identity model for established enterprises migrating to M365.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════ I ═══════════════════ -->
+  <div class="letter-section" id="letter-I">
+    <div class="letter-heading">I</div>
+
+    <div class="term-card" data-term="IaaS infrastructure as a service VMs networking storage OS">
+      <div class="term-left">
+        <div class="term-name">⭐ IaaS <span class="term-acronym">Infrastructure as a Service</span></div>
+        <div class="term-def">A cloud service model where Microsoft provides virtualised <strong>compute, networking, and storage infrastructure</strong>, while the customer manages the OS, middleware, applications, and data. Example: Azure Virtual Machines. Gives the most control, requires the most management. M365 is not IaaS — it's SaaS.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d1-tag">D1</span><a class="study-link" href="ms900-domain1.html">→ Domain 1</a></div>
+    </div>
+
+    <div class="term-card" data-term="insider risk management behaviour data exfiltration policy violation employee">
+      <div class="term-left">
+        <div class="term-name">Insider Risk Management</div>
+        <div class="term-def">A Microsoft Purview feature that uses machine learning to <strong>detect risky user behaviours</strong> within the organisation — such as unusual file downloads, data exfiltration before departure, or policy violations. Analyses M365 signals to surface potential insider threats while respecting privacy controls.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="intune MDM MAM mobile device management application BYOD endpoint">
+      <div class="term-left">
+        <div class="term-name">⭐ Microsoft Intune</div>
+        <div class="term-def">Microsoft's cloud-based <strong>Mobile Device Management (MDM) and Mobile Application Management (MAM)</strong> solution. Allows IT to enrol and manage devices (Windows, iOS, Android, macOS), enforce compliance policies, deploy apps, and wipe corporate data remotely. Included in Microsoft 365 Business Premium, E3, and E5.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════ L ═══════════════════ -->
+  <div class="letter-section" id="letter-L">
+    <div class="letter-heading">L</div>
+
+    <div class="term-card" data-term="license assignment admin assign user admin center">
+      <div class="term-left">
+        <div class="term-name">License Assignment</div>
+        <div class="term-def">The administrative act of granting a specific M365 license to a user, performed in the <strong>Microsoft 365 Admin Center</strong>. Until a license is assigned, the user cannot access the corresponding M365 services. Licenses can be assigned individually or via group-based licensing in Entra ID.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d4-tag">D4</span><a class="study-link" href="ms900-domain4.html">→ Domain 4</a></div>
+    </div>
+
+    <div class="term-card" data-term="license reclamation reassign departing user offboarding">
+      <div class="term-left">
+        <div class="term-name">License Reclamation</div>
+        <div class="term-def">The process of removing a license from a user who no longer needs it — typically when an employee leaves — and <strong>reassigning it to a new user</strong>. M365 licenses are not consumed permanently; reclaiming unused licenses reduces ongoing subscription costs.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d4-tag">D4</span><a class="study-link" href="ms900-domain4.html">→ Domain 4</a></div>
+    </div>
+
+    <div class="term-card" data-term="lists structured data tracking team SharePoint">
+      <div class="term-left">
+        <div class="term-name">Microsoft Lists</div>
+        <div class="term-def">An M365 app for creating <strong>structured, configurable lists to track data</strong> — assets, issues, contacts, inventory. Built on SharePoint, Lists supports custom columns, views, conditional formatting, and Power Automate integrations. Think smart spreadsheet for team tracking, not personal tasks (To Do) or visual boards (Planner).</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="loop collaborative workspace real time canvas coauthoring">
+      <div class="term-left">
+        <div class="term-name">Microsoft Loop</div>
+        <div class="term-def">An M365 app providing <strong>portable, real-time collaborative workspaces</strong> — Loop components (tables, lists, notes) can be embedded in Teams, Outlook, and Word and stay in sync everywhere. Designed for fluid, cross-app collaboration where content follows the team rather than living in one place.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════ M ═══════════════════ -->
+  <div class="letter-section" id="letter-M">
+    <div class="letter-heading">M</div>
+
+    <div class="term-card" data-term="MAM mobile application management BYOD personal device app protection">
+      <div class="term-left">
+        <div class="term-name">⭐ MAM <span class="term-acronym">Mobile Application Management</span></div>
+        <div class="term-def">A Microsoft Intune capability that manages and protects <strong>corporate apps on a device without enrolling the device itself</strong>. Ideal for BYOD — IT can enforce policies on the Outlook or Teams app (requiring PIN, blocking copy-paste) without touching the employee's personal phone data.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="MDM mobile device management enrollment compliance policy remote wipe">
+      <div class="term-left">
+        <div class="term-name">⭐ MDM <span class="term-acronym">Mobile Device Management</span></div>
+        <div class="term-def">A Microsoft Intune capability that provides <strong>full management of enrolled devices</strong> — enforcing encryption, compliance policies, app deployment, and remote wipe. Requires the device to be enrolled (registered) with Intune. Used for corporate-owned devices. Compare with MAM, which doesn't require device enrolment.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="message center admin center announcements planned changes features">
+      <div class="term-left">
+        <div class="term-name">Message Center</div>
+        <div class="term-def">A section of the <strong>Microsoft 365 Admin Center</strong> that communicates <strong>planned service changes, new features, and maintenance notifications</strong> from Microsoft. Distinct from Service Health (which reports live incidents). Admins use the Message Center to stay ahead of upcoming changes that may require preparation.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="MFA multi factor authentication second factor two step verification">
+      <div class="term-left">
+        <div class="term-name">⭐ MFA <span class="term-acronym">Multi-Factor Authentication</span></div>
+        <div class="term-def">A security mechanism requiring users to verify identity with <strong>two or more factors</strong>: something you know (password), something you have (phone/authenticator app), or something you are (biometrics). Prevents account takeover even when passwords are stolen — the attacker can't satisfy the second factor.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="microsoft 365 M365 full bundle intune security device management">
+      <div class="term-left">
+        <div class="term-name">Microsoft 365 <span class="term-acronym">M365</span></div>
+        <div class="term-def">Microsoft's full productivity, security, and device management bundle. Includes everything in <strong>Office 365</strong> (apps + cloud services) plus <strong>Microsoft Intune</strong> (device management), advanced security features, and (in E3/E5 plans) Windows 11 Enterprise licensing. Think: Office 365 + Intune + Security.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d1-tag">D1</span><a class="study-link" href="ms900-domain1.html">→ Domain 1</a></div>
+    </div>
+
+    <div class="term-card" data-term="microsoft copilot AI assistant M365 apps graph embedded productivity">
+      <div class="term-left">
+        <div class="term-name">⭐ Microsoft 365 Copilot</div>
+        <div class="term-def">An AI assistant embedded across M365 apps — Word, Excel, Teams, Outlook, PowerPoint. Uses <strong>Microsoft Graph</strong> to access the user's own organisational data (emails, documents, meetings) to generate contextually relevant drafts, summaries, and insights. Requires an add-on license on top of a qualifying base plan. Respects existing M365 permissions — it won't surface content the user can't already access.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="microsoft entra ID azure active directory AAD identity cloud">
+      <div class="term-left">
+        <div class="term-name">⭐ Microsoft Entra ID</div>
+        <div class="term-def">Microsoft's <strong>cloud-based identity and access management service</strong> — the identity backbone of every M365 tenant. Formerly known as Azure Active Directory (Azure AD). Handles authentication, single sign-on (SSO), MFA, Conditional Access, and user/group management for all M365 and Azure services.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="microsoft graph API data backbone unified emails calendar files">
+      <div class="term-left">
+        <div class="term-name">Microsoft Graph</div>
+        <div class="term-def">Microsoft's unified <strong>API and data connection layer</strong> that links all M365 services — emails, calendar, Teams messages, files, contacts, and more — into a single programmable interface. Powers M365 Copilot by providing contextual organisational data. Also enables developers to build apps that integrate with M365.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="microsoft planner kanban task board team todo done in progress">
+      <div class="term-left">
+        <div class="term-name">Microsoft Planner</div>
+        <div class="term-def">An M365 app providing <strong>Kanban-style team task boards</strong> with "To Do / In Progress / Done" columns. Designed for team-level task tracking. Can be added as a Teams tab. Distinct from Microsoft To Do (personal tasks) and Microsoft Project (complex enterprise project management).</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="microsoft priva privacy personal data GDPR subject rights requests">
+      <div class="term-left">
+        <div class="term-name">Microsoft Priva</div>
+        <div class="term-def">A Microsoft solution for <strong>personal data privacy management</strong>. Discovers where personal data lives across M365, identifies privacy risks (overexposure, unexpected transfers), and automates handling of GDPR/CCPA subject rights requests. Contrast with Purview: Priva protects <em>individuals'</em> data; Purview protects <em>organisational</em> data.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="microsoft purview compliance information protection DLP labels eDiscovery insider risk">
+      <div class="term-left">
+        <div class="term-name">⭐ Microsoft Purview</div>
+        <div class="term-def">The umbrella brand for Microsoft's <strong>information protection and compliance suite</strong>. Covers Sensitivity Labels, Data Loss Prevention (DLP), Insider Risk Management, eDiscovery, Auditing, and Data Residency. Accessible via the Purview compliance portal. Protects organisational data and ensures regulatory compliance.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="microsoft teams hub chat meetings calling channels files collaboration">
+      <div class="term-left">
+        <div class="term-name">⭐ Microsoft Teams</div>
+        <div class="term-def">Microsoft's primary <strong>collaboration and communication hub</strong> in M365, integrating chat, video meetings, voice calling (Teams Phone), file sharing, and extensibility through apps. Files are stored in SharePoint; meeting recordings go to Stream; Exchange powers meeting invites. The central interface for most M365 workloads.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="microsoft to do personal tasks individual checklist reminders">
+      <div class="term-left">
+        <div class="term-name">Microsoft To Do</div>
+        <div class="term-def">An M365 app for managing <strong>personal task lists and individual to-do items</strong>. Integrates with Outlook (flagged emails become tasks) and Planner. Designed for individual use — contrast with Planner (team Kanban boards) and Lists (structured team data tracking).</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="microsoft whiteboard digital canvas visual brainstorming meetings teams">
+      <div class="term-left">
+        <div class="term-name">Microsoft Whiteboard</div>
+        <div class="term-def">A digital infinite canvas for <strong>visual brainstorming and collaboration</strong>, available as a Teams extension during meetings. Participants can draw, add sticky notes, and annotate in real time. Designed to replicate physical whiteboard sessions in remote or hybrid meetings.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════ O ═══════════════════ -->
+  <div class="letter-section" id="letter-O">
+    <div class="letter-heading">O</div>
+
+    <div class="term-card" data-term="office 365 productivity apps subset exchange sharepoint teams">
+      <div class="term-left">
+        <div class="term-name">Office 365</div>
+        <div class="term-def">Microsoft's <strong>cloud productivity suite</strong> — a subset of Microsoft 365. Includes core apps (Word, Excel, PowerPoint, Outlook, Teams) and cloud services (Exchange Online, SharePoint, OneDrive). Does <em>not</em> include Intune (device management) or the advanced security features added in Microsoft 365. Being phased out as a standalone brand.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d1-tag">D1</span><a class="study-link" href="ms900-domain1.html">→ Domain 1</a></div>
+    </div>
+
+    <div class="term-card" data-term="onedrive personal file storage cloud sync BYOD individual">
+      <div class="term-left">
+        <div class="term-name">⭐ OneDrive</div>
+        <div class="term-def">Microsoft's <strong>personal cloud file storage</strong> service — each user gets their own OneDrive storage space for individual files that can sync to the desktop and be selectively shared. Contrast with SharePoint (team/organisational file storage). Teams channel files are stored in SharePoint, not OneDrive.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="opex operational expenditure pay as you go ongoing monthly costs">
+      <div class="term-left">
+        <div class="term-name">⭐ OpEx <span class="term-acronym">Operational Expenditure</span></div>
+        <div class="term-def">Ongoing, predictable operational costs — like monthly subscription fees. Cloud computing shifts IT spend from <strong>CapEx</strong> (large upfront hardware) to <strong>OpEx</strong> (recurring subscription), improving cash flow and allowing costs to scale with actual usage.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d1-tag">D1</span><a class="study-link" href="ms900-domain1.html">→ Domain 1</a></div>
+    </div>
+
+    <div class="term-card" data-term="OWA outlook web app browser email calendar web access">
+      <div class="term-left">
+        <div class="term-name">OWA <span class="term-acronym">Outlook Web App</span></div>
+        <div class="term-def">The <strong>browser-based version of Outlook</strong> for accessing Exchange Online email and calendar without installing the desktop app. Available at outlook.office.com. Functionally equivalent to the desktop app for most tasks. Also referred to as Outlook on the web.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════ P ═══════════════════ -->
+  <div class="letter-section" id="letter-P">
+    <div class="letter-heading">P</div>
+
+    <div class="term-card" data-term="PaaS platform as a service managed runtime app code azure app service">
+      <div class="term-left">
+        <div class="term-name">⭐ PaaS <span class="term-acronym">Platform as a Service</span></div>
+        <div class="term-def">A cloud service model where Microsoft manages the <strong>infrastructure and runtime platform</strong>, and the customer manages only their application code and data. Example: Azure App Service. Removes OS and middleware management burden. M365 is not PaaS — it's SaaS (Microsoft manages the entire application).</div>
+      </div>
+      <div class="term-right"><span class="d-tag d1-tag">D1</span><a class="study-link" href="ms900-domain1.html">→ Domain 1</a></div>
+    </div>
+
+    <div class="term-card" data-term="power apps no code low code custom app Teams tab business">
+      <div class="term-left">
+        <div class="term-name">Power Apps</div>
+        <div class="term-def">A Microsoft platform for building <strong>custom no-code/low-code business applications</strong> that can be embedded as Teams tabs. Allows non-developers to create tailored tools — leave request forms, inventory trackers, approval workflows — without writing traditional code. Part of the Microsoft Power Platform.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="power automate workflow automation approval flow trigger teams forms">
+      <div class="term-left">
+        <div class="term-name">Power Automate</div>
+        <div class="term-def">A Microsoft platform for <strong>building automated workflows</strong> triggered by events across M365 and third-party services. Examples: automatically post to a Teams channel when a new Form response arrives; send an approval email when a file is uploaded to SharePoint. Can be integrated directly into Teams. Part of the Microsoft Power Platform.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="privacy risk management personal data overexposure priva discover">
+      <div class="term-left">
+        <div class="term-name">Privacy Risk Management</div>
+        <div class="term-def">A Microsoft Priva feature that <strong>identifies and surfaces privacy risks</strong> in M365 — such as personal data being overexposed (shared too broadly), transferred to unexpected locations, or held beyond retention limits. Generates alerts and policy recommendations to help organisations proactively reduce privacy exposure.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="private cloud dedicated organisation own infrastructure on premises">
+      <div class="term-left">
+        <div class="term-name">Private Cloud</div>
+        <div class="term-def">A cloud deployment model where the infrastructure is <strong>owned and used exclusively by a single organisation</strong>. Can be hosted on-premises in the organisation's own datacentre or with a third party. Provides maximum control and customisation but at higher cost — no sharing of infrastructure with other tenants.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d1-tag">D1</span><a class="study-link" href="ms900-domain1.html">→ Domain 1</a></div>
+    </div>
+
+    <div class="term-card" data-term="public cloud shared infrastructure azure microsoft any customer multi tenant">
+      <div class="term-left">
+        <div class="term-name">⭐ Public Cloud</div>
+        <div class="term-def">A cloud deployment model where <strong>infrastructure is owned and operated by a cloud provider</strong> (e.g. Microsoft Azure) and shared across multiple customers (multi-tenant). Highly scalable and cost-effective. Microsoft 365 is delivered from the public cloud — organisations don't own the underlying infrastructure.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d1-tag">D1</span><a class="study-link" href="ms900-domain1.html">→ Domain 1</a></div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════ R ═══════════════════ -->
+  <div class="letter-section" id="letter-R">
+    <div class="letter-heading">R</div>
+
+    <div class="term-card" data-term="RBAC role based access control admin roles global user billing security least privilege">
+      <div class="term-left">
+        <div class="term-name">⭐ RBAC <span class="term-acronym">Role-Based Access Control</span></div>
+        <div class="term-def">A security model used in Microsoft Entra ID to <strong>grant admins only the permissions their role requires</strong> — no more. Key M365 admin roles: <strong>Global Admin</strong> (full control of all M365 — use sparingly), <strong>User Admin</strong> (create/manage users and assign licenses), <strong>Billing Admin</strong> (manage subscriptions and payments), <strong>Security Admin</strong> (configure Defender and security settings), <strong>SharePoint Admin</strong> (manage SharePoint sites). Exam principle: always assign the <em>least privileged</em> role that allows the task to be done.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="reliability fault tolerance geo redundancy disaster recovery cloud">
+      <div class="term-left">
+        <div class="term-name">Reliability</div>
+        <div class="term-def">A cloud benefit describing a service's <strong>resilience to failures</strong> through fault tolerance and geographic redundancy. Microsoft runs M365 across multiple datacentres in multiple regions — if one fails, traffic automatically routes to another. Enables the high availability SLA guarantees.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d1-tag">D1</span><a class="study-link" href="ms900-domain1.html">→ Domain 1</a></div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════ S ═══════════════════ -->
+  <div class="letter-section" id="letter-S">
+    <div class="letter-heading">S</div>
+
+    <div class="term-card" data-term="SaaS software as a service fully managed application M365 teams outlook">
+      <div class="term-left">
+        <div class="term-name">⭐ SaaS <span class="term-acronym">Software as a Service</span></div>
+        <div class="term-def">A cloud service model where Microsoft manages <strong>everything</strong> — infrastructure, OS, runtime, and the application itself. The customer manages only their data and users. Microsoft 365 is SaaS. No servers to maintain, no OS patches to apply — Microsoft handles it all. Maximum abstraction, minimum customer management burden.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d1-tag">D1</span><a class="study-link" href="ms900-domain1.html">→ Domain 1</a></div>
+    </div>
+
+    <div class="term-card" data-term="scalability scale up out demand capacity cloud benefit">
+      <div class="term-left">
+        <div class="term-name">Scalability</div>
+        <div class="term-def">A cloud benefit describing the ability to <strong>increase resources to handle growing demand</strong> — scaling up (more powerful hardware) or scaling out (more instances). Unlike elasticity (which also scales down), scalability focuses on the upward growth capacity. M365 scales globally with no capacity limits for the customer to manage.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d1-tag">D1</span><a class="study-link" href="ms900-domain1.html">→ Domain 1</a></div>
+    </div>
+
+    <div class="term-card" data-term="secure score security posture numeric measurement recommendations M365">
+      <div class="term-left">
+        <div class="term-name">⭐ Microsoft Secure Score</div>
+        <div class="term-def">A <strong>numeric measurement (0–100+) of an organisation's M365 security posture</strong>. Points are earned for each recommended security action completed. Provides a prioritised list of actions with estimated score improvements, and enables benchmarking against similar organisations. Accessed via the Microsoft Defender Portal.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="sensitivity labels classify protect encrypt confidential watermark">
+      <div class="term-left">
+        <div class="term-name">⭐ Sensitivity Labels</div>
+        <div class="term-def">A Microsoft Purview feature that allows organisations to <strong>classify and protect documents and emails</strong> by applying labels (e.g. "Public", "Confidential", "Highly Confidential"). Labels can automatically apply encryption, add watermarks, restrict forwarding, and control sharing permissions. Labels travel with the document wherever it goes.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="service credit billing compensation SLA breach downtime refund">
+      <div class="term-left">
+        <div class="term-name">⭐ Service Credit</div>
+        <div class="term-def">A <strong>billing credit applied to future M365 invoices</strong> when Microsoft fails to meet its SLA (e.g. if uptime drops below 99.9%). Critically, service credits are <em>not</em> cash refunds — they offset future charges. The credit percentage scales with the severity of the outage.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d4-tag">D4</span><a class="study-link" href="ms900-domain4.html">→ Domain 4</a></div>
+    </div>
+
+    <div class="term-card" data-term="service trust portal audit reports ISO SOC compliance certifications Microsoft transparency">
+      <div class="term-left">
+        <div class="term-name">Service Trust Portal</div>
+        <div class="term-def">Microsoft's public <strong>transparency and compliance documentation hub</strong> at servicetrust.microsoft.com. Contains third-party audit reports, compliance certifications (ISO 27001, SOC 2, FedRAMP, GDPR), data protection documentation, and whitepapers. Used by organisations to verify Microsoft's compliance posture.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="shadow IT unsanctioned SaaS apps employees unapproved discover">
+      <div class="term-left">
+        <div class="term-name">Shadow IT</div>
+        <div class="term-def"><strong>Cloud apps and services used by employees without IT approval</strong> — e.g. uploading files to a personal Dropbox, using a free project tool, or connecting an unapproved app to company data. Shadow IT creates security and compliance risks. Microsoft Defender for Cloud Apps discovers and helps govern shadow IT.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="shared responsibility model customer microsoft cloud security split">
+      <div class="term-left">
+        <div class="term-name">⭐ Shared Responsibility Model</div>
+        <div class="term-def">The framework defining how security responsibilities are <strong>divided between Microsoft and the customer</strong> depending on the service model. Microsoft always manages physical infrastructure. Customers always manage their data and identities. Who manages the OS and applications depends on whether it's IaaS, PaaS, or SaaS. Key exam rule: <em>data and identities are always the customer's responsibility.</em></div>
+      </div>
+      <div class="term-right"><span class="d-tag d1-tag">D1</span><a class="study-link" href="ms900-domain1.html">→ Domain 1</a></div>
+    </div>
+
+    <div class="term-card" data-term="sharepoint intranet document library team site collaboration org files">
+      <div class="term-left">
+        <div class="term-name">⭐ SharePoint</div>
+        <div class="term-def">Microsoft's <strong>organisational content management and intranet platform</strong>. Provides document libraries, team sites, intranet pages, and workflow automation. Every Microsoft Teams team has a corresponding SharePoint site for file storage. Contrast with OneDrive (personal files) and Stream (video).</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="SLA service level agreement uptime guarantee 99.9 percent contractual">
+      <div class="term-left">
+        <div class="term-name">⭐ SLA <span class="term-acronym">Service Level Agreement</span></div>
+        <div class="term-def">Microsoft's <strong>contractual uptime guarantee</strong> for each M365 service — typically <strong>99.9%</strong>, equating to ~44 minutes maximum downtime per month. If Microsoft breaches the SLA, organisations can claim service credits. The SLA is "financially-backed" — it's a formal commitment, not a best-effort promise.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d4-tag">D4</span><a class="study-link" href="ms900-domain4.html">→ Domain 4</a></div>
+    </div>
+
+    <div class="term-card" data-term="SSO single sign on one login all apps seamless access">
+      <div class="term-left">
+        <div class="term-name">SSO <span class="term-acronym">Single Sign-On</span></div>
+        <div class="term-def">An authentication capability where users <strong>sign in once</strong> and gain access to all connected applications without re-entering credentials. In M365, Entra ID provides SSO across all M365 apps, Azure services, and thousands of third-party SaaS apps. Improves user experience and reduces password fatigue.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="SSPR self service password reset user locked out no helpdesk">
+      <div class="term-left">
+        <div class="term-name">⭐ SSPR <span class="term-acronym">Self-Service Password Reset</span></div>
+        <div class="term-def">A Microsoft Entra ID feature allowing users to <strong>reset their own passwords without contacting the helpdesk</strong>, using pre-registered verification methods (email, phone, authenticator app, security questions). Reduces IT support tickets and prevents productivity loss from lockouts. Distinct from MFA (which secures sign-in) and Conditional Access (which governs access policies).</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="stream video hosting teams recordings media platform">
+      <div class="term-left">
+        <div class="term-name">Microsoft Stream</div>
+        <div class="term-def">Microsoft's <strong>cloud video hosting platform</strong> in M365. Teams meeting recordings are automatically saved to Stream (stored in OneDrive or SharePoint). Supports video search via transcripts, sharing within the organisation, and channels for organising videos. Video-only — not a document or file storage service.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="subject rights requests GDPR CCPA data access individual privacy priva">
+      <div class="term-left">
+        <div class="term-name">Subject Rights Requests</div>
+        <div class="term-def">A Microsoft Priva feature that <strong>automates the handling of GDPR/CCPA data subject requests</strong> — when individuals ask an organisation to provide, correct, or delete their personal data. Priva searches across M365 for relevant data, manages the review workflow, and tracks response deadlines to ensure regulatory compliance.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════ T ═══════════════════ -->
+  <div class="letter-section" id="letter-T">
+    <div class="letter-heading">T</div>
+
+    <div class="term-card" data-term="teams chat persistent messaging 1:1 group">
+      <div class="term-left">
+        <div class="term-name">Teams Chat</div>
+        <div class="term-def">Persistent <strong>1:1 and group instant messaging</strong> within Microsoft Teams. Unlike channel conversations (which are project-topic-based), chats are direct conversations between individuals or small groups. Supports file sharing, reactions, GIFs, and Loop components. Chat history is searchable and persists indefinitely.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="teams meetings video audio recording transcription participants">
+      <div class="term-left">
+        <div class="term-name">Teams Meetings</div>
+        <div class="term-def">Video and audio conferencing within Microsoft Teams, supporting recording, live transcription, breakout rooms, polls, and screen sharing. Recordings are saved to <strong>Microsoft Stream</strong>. Available to internal and external (guest) participants via a browser or the Teams app. Also supports large-scale webinars and live events.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="teams phone PSTN calling replace PBX direct routing calling plan">
+      <div class="term-left">
+        <div class="term-name">Teams Phone</div>
+        <div class="term-def">A Microsoft Teams capability (and add-on license) that enables <strong>PSTN (public telephone network) calling</strong> directly from Teams — replacing traditional office PBX phone systems. Users can make and receive external calls using their Teams app. Requires a Teams Phone add-on license and a calling plan or direct routing setup.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="tenant organisation dedicated instance entra ID M365">
+      <div class="term-left">
+        <div class="term-name">Tenant</div>
+        <div class="term-def">An organisation's <strong>dedicated, isolated instance of Microsoft Entra ID and M365 services</strong>. When a company signs up for M365, Microsoft provisions a tenant — a logically separated environment containing all the org's users, groups, data, and settings. One organisation = one tenant (typically). Tenants are globally identified by a unique domain (e.g. contoso.onmicrosoft.com).</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════ V ═══════════════════ -->
+  <div class="letter-section" id="letter-V">
+    <div class="letter-heading">V</div>
+
+    <div class="term-card" data-term="viva employee experience platform engagement wellbeing Teams">
+      <div class="term-left">
+        <div class="term-name">Microsoft Viva</div>
+        <div class="term-def">Microsoft's <strong>employee experience platform</strong>, integrated into Teams. A suite of apps designed to improve engagement, learning, wellbeing, and knowledge sharing. Includes Viva Insights, Connections, Learning, Goals, and Engage. Viva apps surface inside Teams so employees don't need to switch between separate platforms.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="viva connections intranet company news hub Teams portal comms">
+      <div class="term-left">
+        <div class="term-name">Viva Connections</div>
+        <div class="term-def">A Viva app that brings the <strong>company intranet and internal communications directly into Microsoft Teams</strong>. Employees see company news, announcements, HR resources, and links to tools — without leaving Teams. Built on SharePoint as the content backend.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="viva engage social communities yammer employee network discussion">
+      <div class="term-left">
+        <div class="term-name">Viva Engage</div>
+        <div class="term-def">A Viva app providing <strong>enterprise social networking and community features</strong> — formerly Yammer. Enables org-wide and interest-based community conversations, leadership Q&As, and knowledge sharing beyond formal team structures. Integrated into Teams as a communities platform.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="viva goals OKR objective key results tracking goal alignment">
+      <div class="term-left">
+        <div class="term-name">Viva Goals</div>
+        <div class="term-def">A Viva app for <strong>OKR (Objectives and Key Results) tracking and goal alignment</strong> across the organisation. Teams set objectives and track key results, with progress visible to managers and aligned to organisational goals. Integrates with Teams for weekly check-ins and progress updates.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="viva insights productivity analytics wellbeing meeting hours focus time personal manager">
+      <div class="term-left">
+        <div class="term-name">Viva Insights</div>
+        <div class="term-def">A Viva app providing <strong>personal and organisational productivity and wellbeing analytics</strong> — meeting hours, focus time, after-hours work, collaboration patterns. Individuals see their own data privately; managers see aggregated (anonymised) team data. Helps identify burnout risk and improve work habits.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="viva learning LMS learning management training courses Teams">
+      <div class="term-left">
+        <div class="term-name">Viva Learning</div>
+        <div class="term-def">A Viva app that integrates <strong>learning content directly into Microsoft Teams</strong> — surfacing courses from LinkedIn Learning, Microsoft Learn, third-party LMSes, and internal content. Employees can discover, share, and complete training without leaving Teams. Managers can assign and track learning.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════ W ═══════════════════ -->
+  <div class="letter-section" id="letter-W">
+    <div class="letter-heading">W</div>
+
+    <div class="term-card" data-term="WaaS windows as a service continuous delivery update model no big version">
+      <div class="term-left">
+        <div class="term-name">WaaS <span class="term-acronym">Windows-as-a-Service</span></div>
+        <div class="term-def">Microsoft's <strong>continuous delivery model for Windows updates</strong> — replacing the old "major version every few years" approach. Feature updates are delivered on a regular cadence. Organisations manage rollout via <strong>deployment rings</strong> (Insider → Pilot → Broad) to control which devices receive updates when. Reduces large migration projects.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="windows 365 cloud PC SaaS fixed price per user simple no infrastructure">
+      <div class="term-left">
+        <div class="term-name">⭐ Windows 365</div>
+        <div class="term-def">Microsoft's <strong>Cloud PC service</strong> — a dedicated, personal Windows desktop streamed to any device. SaaS-like: Microsoft manages all infrastructure, fixed per-user monthly pricing, no Azure configuration required. Best for SMBs and predictable workloads. Contrast with Azure Virtual Desktop (multi-session, pay-as-you-go, IT-managed infrastructure).</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="windows autopatch automated update management patch fleet windows office">
+      <div class="term-left">
+        <div class="term-name">Windows Autopatch</div>
+        <div class="term-def">A Microsoft Intune feature that <strong>automates Windows and Microsoft 365 Apps update management</strong> across a device fleet. IT enrols devices, and Autopatch handles update scheduling, deployment ring progression, and monitoring — removing the manual effort of managing patches at scale. Reduces update-related helpdesk burden.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="windows autopilot zero touch provisioning self setup new device ship directly">
+      <div class="term-left">
+        <div class="term-name">⭐ Windows Autopilot</div>
+        <div class="term-def">A Microsoft deployment technology enabling <strong>zero-touch device provisioning</strong> — new devices can be shipped directly to employees who configure them on first boot, with corporate policies automatically applied via Entra ID registration and Intune MDM enrolment. IT never needs to physically touch the device.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════ Z ═══════════════════ -->
+  <div class="letter-section" id="letter-Z">
+    <div class="letter-heading">Z</div>
+
+    <div class="term-card" data-term="zero trust never trust always verify assume breach least privilege security model">
+      <div class="term-left">
+        <div class="term-name">⭐ Zero Trust</div>
+        <div class="term-def">A security philosophy replacing the "castle and moat" model — instead of trusting all traffic inside the network, Zero Trust <strong>assumes breach and verifies every request explicitly</strong>. Three principles: <strong>Verify Explicitly</strong> (always authenticate using all signals), <strong>Least Privilege Access</strong> (minimum permissions needed), <strong>Assume Breach</strong> (design for containment, encrypt, segment). MFA and Conditional Access are practical Zero Trust implementations.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+const POPULATED = ['A','B','C','D','E','F','G','H','I','L','M','O','P','R','S','T','V','W','Z'];
+const ALL_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+let activeLetter = null; // null = show all
+
+// ── BUILD ALPHA BAR ──────────────────────────────────────────────
+const bar = document.getElementById('alpha-bar');
+
+// "All" button
+const allBtn = document.createElement('button');
+allBtn.className = 'alpha-all-btn active';
+allBtn.id = 'btn-all';
+allBtn.textContent = 'All';
+allBtn.onclick = () => setLetterFilter(null);
+bar.appendChild(allBtn);
+
+// Letter buttons
+ALL_LETTERS.forEach(l => {
+  const btn = document.createElement('button');
+  btn.className = 'alpha-btn ' + (POPULATED.includes(l) ? 'has-terms' : 'empty');
+  btn.textContent = l;
+  btn.id = 'alpha-' + l;
+  if (POPULATED.includes(l)) btn.onclick = () => setLetterFilter(l);
+  bar.appendChild(btn);
+});
+
+// ── LETTER FILTER ────────────────────────────────────────────────
+function setLetterFilter(letter) {
+  // Clear search when switching letters
+  const searchEl = document.getElementById('search');
+  if (letter !== null) searchEl.value = '';
+
+  activeLetter = letter;
+
+  // Update button active states
+  document.getElementById('btn-all').classList.toggle('active', letter === null);
+  ALL_LETTERS.forEach(l => {
+    const btn = document.getElementById('alpha-' + l);
+    if (btn) btn.classList.toggle('active', l === letter);
+  });
+
+  applyFilters();
+  // Scroll to top of glossary content
+  document.getElementById('alpha-bar').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+// ── SEARCH ───────────────────────────────────────────────────────
+function onSearchInput() {
+  // Typing in search clears letter filter → show all letters
+  if (activeLetter !== null) {
+    activeLetter = null;
+    document.getElementById('btn-all').classList.add('active');
+    ALL_LETTERS.forEach(l => {
+      const btn = document.getElementById('alpha-' + l);
+      if (btn) btn.classList.remove('active');
+    });
+  }
+  applyFilters();
+}
+
+// ── CORE FILTER ──────────────────────────────────────────────────
+function applyFilters() {
+  const q = document.getElementById('search').value.toLowerCase().trim();
+  const cards = document.querySelectorAll('.term-card');
+  let visible = 0;
+
+  cards.forEach(card => {
+    const section = card.closest('.letter-section');
+    const sectionLetter = section ? section.id.replace('letter-', '') : null;
+
+    // Letter filter
+    const letterMatch = activeLetter === null || sectionLetter === activeLetter;
+
+    // Search filter
+    const termName  = card.querySelector('.term-name').textContent.toLowerCase();
+    const termDef   = card.querySelector('.term-def').textContent.toLowerCase();
+    const dataTerms = (card.dataset.term || '').toLowerCase();
+    const searchMatch = !q || termName.includes(q) || termDef.includes(q) || dataTerms.includes(q);
+
+    const show = letterMatch && searchMatch;
+    card.classList.toggle('hidden', !show);
+    if (show) visible++;
+  });
+
+  // Show/hide letter section headings
+  document.querySelectorAll('.letter-section').forEach(section => {
+    const hasVisible = section.querySelectorAll('.term-card:not(.hidden)').length > 0;
+    section.style.display = hasVisible ? '' : 'none';
+  });
+
+  // Update count label
+  const countEl = document.getElementById('search-count');
+  if (activeLetter && !q) {
+    countEl.textContent = visible + ' term' + (visible !== 1 ? 's' : '') + ' · ' + activeLetter;
+  } else if (q) {
+    countEl.textContent = visible + ' match' + (visible !== 1 ? 'es' : '');
+  } else {
+    countEl.textContent = '100 terms';
+  }
+
+  document.getElementById('no-results').style.display = visible === 0 ? 'block' : 'none';
+}
+
+// ── NAV COMPLETION INDICATORS ────────────────────────────────────
+(function(){
+  const keys = ['ms900_d1','ms900_d2','ms900_d3','ms900_d4'];
+  const domainTotals = [6, 15, 9, 7];
+  ['nav-d1','nav-d2','nav-d3','nav-d4'].forEach((id, i) => {
+    const link = document.getElementById(id);
+    if (!link) return;
+    try {
+      const s = JSON.parse(localStorage.getItem(keys[i]) || '{}');
+      const done = Object.values(s).filter(Boolean).length;
+      if (done > 0) {
+        const badge = document.createElement('span');
+        badge.className = done >= domainTotals[i] ? 'nav-done' : 'nav-started';
+        badge.textContent = done >= domainTotals[i] ? ' ✓' : ' •';
+        link.appendChild(badge);
+      }
+    } catch(e) {}
+  });
+})();
+</script>
+</body>
+</html>

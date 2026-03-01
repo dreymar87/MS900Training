@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MS-900 | Study Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1117;--surface:#181c27;--surface2:#1e2333;--surface3:#242840;
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.12);
+  --text:#e2e8f0;--muted:#64748b;--muted2:#8899aa;
+  --d1:#4f8ef7;--d1s:rgba(79,142,247,.1);--d1b:rgba(79,142,247,.25);
+  --d2:#a78bfa;--d2s:rgba(167,139,250,.1);--d2b:rgba(167,139,250,.25);
+  --d3:#34d399;--d3s:rgba(52,211,153,.1);--d3b:rgba(52,211,153,.25);
+  --d4:#fb923c;--d4s:rgba(251,146,60,.1);--d4b:rgba(251,146,60,.25);
+  --amber:#fbbf24;--ambers:rgba(251,191,36,.1);--amberb:rgba(251,191,36,.25);
+  --correct:#34d399;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;min-height:100vh;line-height:1.6}
+
+/* NAV */
+.topnav{position:sticky;top:0;z-index:100;background:rgba(15,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;gap:4px;height:52px;overflow-x:auto}
+.topnav a{text-decoration:none;white-space:nowrap;font-size:12px;font-weight:600;padding:5px 11px;border-radius:8px;transition:all .2s;color:var(--muted)}
+.topnav a:hover{background:var(--surface2);color:var(--text)}
+.topnav a.active{background:var(--ambers);color:var(--amber)}
+.topnav .brand{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2);margin-right:8px;flex-shrink:0}
+.topnav .sep{color:var(--border2);margin:0 2px}
+.nav-done{color:#34d399;font-size:10px;font-weight:700}
+.nav-started{color:#fbbf24;font-size:10px}
+
+/* PAGE */
+.page{max-width:900px;margin:0 auto;padding:48px 24px 96px}
+
+/* HERO */
+.eyebrow{display:inline-flex;align-items:center;gap:6px;padding:4px 14px;border-radius:999px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;background:var(--ambers);color:var(--amber);margin-bottom:18px}
+h1{font-family:'Fraunces',serif;font-size:clamp(30px,6vw,52px);font-weight:900;line-height:1.05;letter-spacing:-.025em;color:#fff;margin-bottom:14px}
+h1 em{font-style:normal;color:var(--amber)}
+.hero-sub{color:var(--muted2);font-size:15px;max-width:600px;line-height:1.75;margin-bottom:36px}
+
+/* COUNTDOWN */
+.countdown-wrap{background:var(--surface);border:1px solid var(--border2);border-radius:16px;padding:20px 24px;margin-bottom:40px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.countdown-label{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;flex-shrink:0}
+.countdown-units{display:flex;gap:12px;flex-wrap:wrap}
+.countdown-unit{text-align:center}
+.countdown-num{font-family:'Fraunces',serif;font-size:28px;font-weight:900;color:var(--amber);line-height:1;display:block}
+.countdown-unit-label{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.countdown-sep{font-family:'Fraunces',serif;font-size:24px;font-weight:900;color:var(--border2);align-self:flex-start;padding-top:2px}
+.exam-note{margin-left:auto;font-size:12px;color:var(--muted);line-height:1.5;text-align:right;flex-shrink:0}
+.exam-note strong{color:#f87171;display:block;font-size:11px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+
+/* OVERALL PROGRESS */
+.overall-progress{background:var(--surface);border:1px solid var(--border2);border-radius:16px;padding:22px 24px;margin-bottom:40px}
+.op-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.op-title{font-size:13px;font-weight:700;color:#fff}
+.op-pct{font-family:'Fraunces',serif;font-size:22px;font-weight:900;color:var(--amber)}
+.op-track{height:8px;background:var(--surface3);border-radius:999px;overflow:hidden;margin-bottom:16px}
+.op-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--d1),var(--d2),var(--d3),var(--d4));transition:width .6s ease;width:0%}
+.op-domains{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.op-domain{background:var(--surface2);border-radius:10px;padding:10px 12px}
+.op-domain-label{font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.op-domain-bar{height:4px;border-radius:999px;background:var(--surface3);overflow:hidden;margin-bottom:6px}
+.op-domain-fill{height:100%;border-radius:999px;transition:width .6s ease;width:0%}
+.op-domain-stat{font-size:11px;color:var(--muted2)}
+.op-domain-stat strong{color:var(--text)}
+
+/* DOMAIN CARDS */
+.domains-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:40px}
+@media(max-width:600px){.domains-grid{grid-template-columns:1fr}}
+.domain-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;text-decoration:none;transition:border-color .2s,transform .15s;display:block}
+.domain-card:hover{transform:translateY(-2px)}
+.dc-header{padding:16px 20px 14px;border-bottom:1px solid var(--border)}
+.dc-pill{display:inline-flex;padding:3px 10px;border-radius:999px;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+.dc-title{font-family:'Fraunces',serif;font-size:17px;font-weight:700;color:#fff;line-height:1.25;margin-bottom:4px}
+.dc-sub{font-size:12px;color:var(--muted2);line-height:1.5}
+.dc-body{padding:14px 20px}
+.dc-stats{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.dc-stat{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2)}
+.dc-stat strong{color:var(--text)}
+.dc-progress-wrap{display:flex;align-items:center;gap:8px}
+.dc-track{flex:1;height:5px;background:var(--surface3);border-radius:999px;overflow:hidden}
+.dc-fill{height:100%;border-radius:999px;transition:width .5s ease;width:0%}
+.dc-pct{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);min-width:28px;text-align:right}
+.dc-status{font-size:11px;font-weight:600;margin-top:8px}
+
+/* OTHER PAGES */
+.tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:48px}
+@media(max-width:600px){.tools-grid{grid-template-columns:1fr}}
+.tool-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 20px;text-decoration:none;display:block;transition:border-color .2s,transform .15s}
+.tool-card:hover{transform:translateY(-2px)}
+.tool-icon{font-size:22px;margin-bottom:10px}
+.tool-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:4px}
+.tool-desc{font-size:12.5px;color:var(--muted2);line-height:1.55}
+
+/* HOW TO USE */
+.how-section{margin-bottom:48px}
+.section-heading{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:16px}
+.steps{display:flex;flex-direction:column;gap:0}
+.step{display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border)}
+.step:last-child{border-bottom:none}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--ambers);color:var(--amber);font-family:'DM Mono',monospace;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.step-text{font-size:13.5px;color:var(--muted2);line-height:1.6;flex:1}
+.step-text strong{color:#fff}
+
+/* EXAM FACTS */
+.facts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:48px}
+@media(max-width:500px){.facts-grid{grid-template-columns:1fr 1fr}}
+.fact{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;text-align:center}
+.fact-val{font-family:'Fraunces',serif;font-size:24px;font-weight:900;color:var(--amber);line-height:1;margin-bottom:4px}
+.fact-label{font-size:11px;color:var(--muted);line-height:1.4}
+
+/* EXTERNAL LINKS */
+.ext-links{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:48px}
+.ext-link{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:9px;border:1px solid var(--border2);background:var(--surface);font-size:12px;font-weight:600;color:var(--muted2);text-decoration:none;transition:all .2s;font-family:'DM Mono',monospace}
+.ext-link:hover{border-color:rgba(255,255,255,.25);color:#fff;background:var(--surface2)}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <span class="brand">MS-900</span>
+  <span class="sep">·</span>
+  <a href="ms900-index.html" class="active">🏠 Hub</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain1.html" id="nav-d1">01 Cloud Concepts</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain2.html" id="nav-d2">02 M365 Apps &amp; Services</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain3.html" id="nav-d3">03 Security &amp; Compliance</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain4.html" id="nav-d4">04 Pricing &amp; Licensing</a>
+  <span class="sep">·</span>
+  <a href="ms900-practice.html">⚡ Practice Quiz</a>
+  <span class="sep">·</span>
+  <a href="ms900-glossary.html">📖 Glossary</a>
+</nav>
+
+<main class="page">
+
+  <div class="eyebrow">🎯 MS-900 Study System</div>
+  <h1>Your MS-900<br><em>Study Hub</em></h1>
+  <p class="hero-sub">Everything you need to pass Microsoft 365 Fundamentals — organised, tracked, and built for focus. Six pages, one system.</p>
+
+  <!-- COUNTDOWN -->
+  <div class="countdown-wrap">
+    <div class="countdown-label">⏳ Exam retires in</div>
+    <div class="countdown-units">
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-days">--</span>
+        <span class="countdown-unit-label">days</span>
+      </div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-hours">--</span>
+        <span class="countdown-unit-label">hours</span>
+      </div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-mins">--</span>
+        <span class="countdown-unit-label">mins</span>
+      </div>
+    </div>
+    <div class="exam-note">
+      <strong>⚠️ Retires 31 March 2026</strong>
+      Passing score: 700 / 1000<br>
+      Book at pearsonvue.com
+    </div>
+  </div>
+
+  <!-- OVERALL PROGRESS -->
+  <div class="overall-progress">
+    <div class="op-header">
+      <div class="op-title">Overall Study Progress</div>
+      <div class="op-pct" id="op-pct">0%</div>
+    </div>
+    <div class="op-track"><div class="op-fill" id="op-fill"></div></div>
+    <div class="op-domains">
+      <div class="op-domain">
+        <div class="op-domain-label" style="color:var(--d1)">Domain 1</div>
+        <div class="op-domain-bar"><div class="op-domain-fill" id="d1-fill" style="background:var(--d1)"></div></div>
+        <div class="op-domain-stat"><strong id="d1-stat">0/6</strong> skills</div>
+      </div>
+      <div class="op-domain">
+        <div class="op-domain-label" style="color:var(--d2)">Domain 2</div>
+        <div class="op-domain-bar"><div class="op-domain-fill" id="d2-fill" style="background:var(--d2)"></div></div>
+        <div class="op-domain-stat"><strong id="d2-stat">0/15</strong> skills</div>
+      </div>
+      <div class="op-domain">
+        <div class="op-domain-label" style="color:var(--d3)">Domain 3</div>
+        <div class="op-domain-bar"><div class="op-domain-fill" id="d3-fill" style="background:var(--d3)"></div></div>
+        <div class="op-domain-stat"><strong id="d3-stat">0/9</strong> skills</div>
+      </div>
+      <div class="op-domain">
+        <div class="op-domain-label" style="color:var(--d4)">Domain 4</div>
+        <div class="op-domain-bar"><div class="op-domain-fill" id="d4-fill" style="background:var(--d4)"></div></div>
+        <div class="op-domain-stat"><strong id="d4-stat">0/7</strong> skills</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOMAIN CARDS -->
+  <div class="section-heading">Study Domains</div>
+  <div class="domains-grid">
+
+    <a href="ms900-domain1.html" class="domain-card" id="dc-d1" style="border-color:var(--d1b)">
+      <div class="dc-header">
+        <div class="dc-pill" style="background:var(--d1s);color:var(--d1)">Domain 01 · 5–10%</div>
+        <div class="dc-title">Cloud Concepts</div>
+        <div class="dc-sub">IaaS / PaaS / SaaS, deployment models, shared responsibility, CapEx vs OpEx</div>
+      </div>
+      <div class="dc-body">
+        <div class="dc-stats">
+          <div class="dc-stat"><strong>6</strong> skills</div>
+          <div class="dc-stat"><strong>4</strong> tables</div>
+          <div class="dc-stat"><strong>2</strong> callouts</div>
+        </div>
+        <div class="dc-progress-wrap">
+          <div class="dc-track"><div class="dc-fill" id="d1c-fill" style="background:var(--d1)"></div></div>
+          <div class="dc-pct" id="d1c-pct">0%</div>
+        </div>
+        <div class="dc-status" id="d1c-status" style="color:var(--muted)">Not started</div>
+      </div>
+    </a>
+
+    <a href="ms900-domain2.html" class="domain-card" id="dc-d2" style="border-color:var(--d2b)">
+      <div class="dc-header">
+        <div class="dc-pill" style="background:var(--d2s);color:var(--d2)">Domain 02 · 45–50%</div>
+        <div class="dc-title">M365 Apps &amp; Services</div>
+        <div class="dc-sub">Copilot, Teams, SharePoint, Intune, Viva, Windows 365, WaaS, Admin Center</div>
+      </div>
+      <div class="dc-body">
+        <div class="dc-stats">
+          <div class="dc-stat"><strong>15</strong> skills</div>
+          <div class="dc-stat"><strong>9</strong> tables</div>
+          <div class="dc-stat"><strong>10</strong> callouts</div>
+        </div>
+        <div class="dc-progress-wrap">
+          <div class="dc-track"><div class="dc-fill" id="d2c-fill" style="background:var(--d2)"></div></div>
+          <div class="dc-pct" id="d2c-pct">0%</div>
+        </div>
+        <div class="dc-status" id="d2c-status" style="color:var(--muted)">Not started</div>
+      </div>
+    </a>
+
+    <a href="ms900-domain3.html" class="domain-card" id="dc-d3" style="border-color:var(--d3b)">
+      <div class="dc-header">
+        <div class="dc-pill" style="background:var(--d3s);color:var(--d3)">Domain 03 · 25–30%</div>
+        <div class="dc-title">Security, Compliance &amp; Trust</div>
+        <div class="dc-sub">Entra ID, MFA, Defender XDR, Zero Trust, Purview, Priva, RBAC, Compliance Manager</div>
+      </div>
+      <div class="dc-body">
+        <div class="dc-stats">
+          <div class="dc-stat"><strong>9</strong> skills</div>
+          <div class="dc-stat"><strong>5</strong> tables</div>
+          <div class="dc-stat"><strong>11</strong> callouts</div>
+        </div>
+        <div class="dc-progress-wrap">
+          <div class="dc-track"><div class="dc-fill" id="d3c-fill" style="background:var(--d3)"></div></div>
+          <div class="dc-pct" id="d3c-pct">0%</div>
+        </div>
+        <div class="dc-status" id="d3c-status" style="color:var(--muted)">Not started</div>
+      </div>
+    </a>
+
+    <a href="ms900-domain4.html" class="domain-card" id="dc-d4" style="border-color:var(--d4b)">
+      <div class="dc-header">
+        <div class="dc-pill" style="background:var(--d4s);color:var(--d4)">Domain 04 · 10–15%</div>
+        <div class="dc-title">Pricing, Licensing &amp; Support</div>
+        <div class="dc-sub">EA vs CSP vs Direct, Business vs Enterprise plans, SLAs, support tiers, service credits</div>
+      </div>
+      <div class="dc-body">
+        <div class="dc-stats">
+          <div class="dc-stat"><strong>7</strong> skills</div>
+          <div class="dc-stat"><strong>7</strong> tables</div>
+          <div class="dc-stat"><strong>4</strong> callouts</div>
+        </div>
+        <div class="dc-progress-wrap">
+          <div class="dc-track"><div class="dc-fill" id="d4c-fill" style="background:var(--d4)"></div></div>
+          <div class="dc-pct" id="d4c-pct">0%</div>
+        </div>
+        <div class="dc-status" id="d4c-status" style="color:var(--muted)">Not started</div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- TOOLS -->
+  <div class="section-heading">Study Tools</div>
+  <div class="tools-grid" style="margin-bottom:48px">
+    <a href="ms900-practice.html" class="tool-card" style="border-color:var(--amberb)">
+      <div class="tool-icon">⚡</div>
+      <div class="tool-title">Practice Quiz</div>
+      <div class="tool-desc">40 scenario-style questions across all 4 domains with instant feedback, explanations, and per-domain scoring. Progress saves automatically. <span id="quiz-status" style="color:var(--amber);font-weight:600"></span></div>
+    </a>
+    <a href="ms900-glossary.html" class="tool-card" style="border-color:rgba(255,255,255,.15)">
+      <div class="tool-icon">📖</div>
+      <div class="tool-title">Glossary</div>
+      <div class="tool-desc">100 terms across all 4 domains with live search, alphabetical jump bar, domain colour tags, and links back to where each term is taught. Last-night revision essential.</div>
+    </a>
+  </div>
+
+  <!-- HOW TO USE -->
+  <div class="how-section">
+    <div class="section-heading">Recommended Study Path</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text"><strong>Read Domain 1</strong> — Cloud Concepts (5–10%). Shortest domain, essential foundation. Check off each skill card as you read it.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text"><strong>Read Domain 3</strong> — Security &amp; Compliance (25–30%). Do this before D2 — understanding identity and security makes the app layer in D2 click much faster.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text"><strong>Read Domain 2</strong> — M365 Apps &amp; Services (45–50%). Largest domain. Use the in-page jump bar to navigate between the 5 module sections. Pay close attention to the ⚠️ confusion callouts.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text"><strong>Read Domain 4</strong> — Pricing &amp; Licensing (10–15%). Quickest read. Then follow the "What's Next" study path at the bottom of the page.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-text"><strong>Take the Practice Quiz</strong>. Aim for 80%+ before moving on. Use your wrong answers to identify which domain pages to re-read.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-text"><strong>Skim the Glossary</strong> — focus on the ⭐ high-priority terms. These are the highest-frequency exam concepts. Good for the night before.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">7</div>
+        <div class="step-text"><strong>Take Microsoft's official free practice assessment</strong> (50 questions, real exam format). If you score 700+, book the exam. If not, revisit weak areas.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXAM FACTS -->
+  <div class="section-heading">Exam at a Glance</div>
+  <div class="facts-grid">
+    <div class="fact"><div class="fact-val">700</div><div class="fact-label">Passing score out of 1000</div></div>
+    <div class="fact"><div class="fact-val">40–60</div><div class="fact-label">Questions (approx)</div></div>
+    <div class="fact"><div class="fact-val">65</div><div class="fact-label">Minutes allowed</div></div>
+    <div class="fact"><div class="fact-val">Free</div><div class="fact-label">Retakes with Microsoft learn resources</div></div>
+    <div class="fact"><div class="fact-val">31 Mar</div><div class="fact-label">Exam retirement date (2026)</div></div>
+    <div class="fact"><div class="fact-val">∞</div><div class="fact-label">Cert never expires once earned</div></div>
+  </div>
+
+  <!-- EXTERNAL LINKS -->
+  <div class="section-heading">Official Resources</div>
+  <div class="ext-links">
+    <a href="https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ms-900" target="_blank" class="ext-link">📋 Official Skills Guide ↗</a>
+    <a href="https://learn.microsoft.com/en-us/credentials/certifications/exams/ms-900/practice/assessment?assessment-type=practice&assessmentId=50" target="_blank" class="ext-link">🧪 Free Practice Assessment ↗</a>
+    <a href="https://learn.microsoft.com/en-us/training/courses/ms-900t01" target="_blank" class="ext-link">🎓 MS-900 Training Course ↗</a>
+    <a href="https://home.pearsonvue.com/microsoft" target="_blank" class="ext-link">🗓️ Book at Pearson VUE ↗</a>
+    <a href="https://aka.ms/examdemo" target="_blank" class="ext-link">🖥️ Exam Sandbox Demo ↗</a>
+    <a href="https://techcommunity.microsoft.com/t5/microsoft-365/bd-p/microsoft-365" target="_blank" class="ext-link">💬 Tech Community ↗</a>
+  </div>
+
+</main>
+
+<script>
+// COUNTDOWN to March 31 2026 11:59 PM CST
+function updateCountdown() {
+  const target = new Date('2026-03-31T23:59:00-06:00');
+  const now = new Date();
+  const diff = target - now;
+  if (diff <= 0) {
+    document.getElementById('cd-days').textContent = '0';
+    document.getElementById('cd-hours').textContent = '00';
+    document.getElementById('cd-mins').textContent = '00';
+    return;
+  }
+  const days = Math.floor(diff / (1000*60*60*24));
+  const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+  const mins = Math.floor((diff % (1000*60*60)) / (1000*60));
+  document.getElementById('cd-days').textContent = days;
+  document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+  document.getElementById('cd-mins').textContent = String(mins).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown, 30000);
+
+// DOMAIN PROGRESS from localStorage
+const domainConfig = [
+  { key:'ms900_d1', total:6,  fillId:'d1-fill', statId:'d1-stat', cardFillId:'d1c-fill', cardPctId:'d1c-pct', cardStatusId:'d1c-status' },
+  { key:'ms900_d2', total:15, fillId:'d2-fill', statId:'d2-stat', cardFillId:'d2c-fill', cardPctId:'d2c-pct', cardStatusId:'d2c-status' },
+  { key:'ms900_d3', total:9,  fillId:'d3-fill', statId:'d3-stat', cardFillId:'d3c-fill', cardPctId:'d3c-pct', cardStatusId:'d3c-status' },
+  { key:'ms900_d4', total:7,  fillId:'d4-fill', statId:'d4-stat', cardFillId:'d4c-fill', cardPctId:'d4c-pct', cardStatusId:'d4c-status' },
+];
+
+let totalDone = 0;
+const grandTotal = 37;
+
+domainConfig.forEach((d, i) => {
+  let done = 0;
+  try {
+    const state = JSON.parse(localStorage.getItem(d.key) || '{}');
+    done = Object.values(state).filter(Boolean).length;
+  } catch(e) {}
+
+  totalDone += done;
+  const pct = Math.round((done / d.total) * 100);
+
+  document.getElementById(d.fillId).style.width = pct + '%';
+  document.getElementById(d.statId).textContent = done + '/' + d.total;
+  document.getElementById(d.cardFillId).style.width = pct + '%';
+  document.getElementById(d.cardPctId).textContent = pct + '%';
+
+  const statusEl = document.getElementById(d.cardStatusId);
+  if (done === 0) {
+    statusEl.textContent = 'Not started';
+    statusEl.style.color = 'var(--muted)';
+  } else if (done < d.total) {
+    statusEl.textContent = `In progress — ${done} of ${d.total} skills checked`;
+    statusEl.style.color = 'var(--amber)';
+  } else {
+    statusEl.textContent = '✓ Complete';
+    statusEl.style.color = 'var(--correct)';
+  }
+});
+
+const overallPct = Math.round((totalDone / grandTotal) * 100);
+document.getElementById('op-pct').textContent = overallPct + '%';
+document.getElementById('op-fill').style.width = overallPct + '%';
+
+// QUIZ progress
+try {
+  const quizState = JSON.parse(localStorage.getItem('ms900_practice') || '{}');
+  const answered = Object.keys(quizState).length;
+  const correct = Object.values(quizState).filter(s => s.correct).length;
+  if (answered > 0) {
+    const pct = Math.round((correct / 40) * 100);
+    document.getElementById('quiz-status').textContent = `Last score: ${correct}/40 (${pct}%)`;
+  }
+} catch(e) {}
+
+// NAV completion badges
+const keys = ['ms900_d1','ms900_d2','ms900_d3','ms900_d4'];
+const domainTotals = [6,15,9,7];
+['nav-d1','nav-d2','nav-d3','nav-d4'].forEach((id, i) => {
+  const link = document.getElementById(id);
+  if (!link) return;
+  try {
+    const s = JSON.parse(localStorage.getItem(keys[i]) || '{}');
+    const done = Object.values(s).filter(Boolean).length;
+    if (done > 0) {
+      const badge = document.createElement('span');
+      badge.className = done >= domainTotals[i] ? 'nav-done' : 'nav-started';
+      badge.textContent = done >= domainTotals[i] ? ' ✓' : ' •';
+      link.appendChild(badge);
+    }
+  } catch(e) {}
+});
+</script>
+</body>
+</html>

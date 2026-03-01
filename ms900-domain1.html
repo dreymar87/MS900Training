@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MS-900 | Domain 1: Cloud Concepts</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ─── BASE ─────────────────────────────────────── */
+:root{--bg:#0f1117;--surface:#181c27;--surface2:#1e2333;--surface3:#242840;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.12);--text:#e2e8f0;--muted:#64748b;--muted2:#8899aa;--c:#4f8ef7;--cs:rgba(79,142,247,.12);--ch:rgba(79,142,247,.2)}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;min-height:100vh;line-height:1.6}
+
+/* ─── NAV ───────────────────────────────────────── */
+.topnav{position:sticky;top:0;z-index:100;background:rgba(15,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;gap:4px;height:52px;overflow-x:auto}
+.topnav a{text-decoration:none;white-space:nowrap;font-size:12px;font-weight:600;padding:5px 11px;border-radius:8px;transition:all .2s;color:var(--muted)}
+.topnav a:hover{background:var(--surface2);color:var(--text)}
+.topnav a.active{background:var(--cs);color:var(--c)}
+.topnav .brand{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2);margin-right:8px;flex-shrink:0}
+.topnav .sep{color:var(--border2);margin:0 2px}
+
+/* ─── PAGE ───────────────────────────────────────── */
+.page{max-width:860px;margin:0 auto;padding:48px 24px 96px}
+
+/* ─── HERO ───────────────────────────────────────── */
+.domain-pill{display:inline-flex;align-items:center;gap:6px;padding:4px 14px;border-radius:999px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;background:var(--cs);color:var(--c);margin-bottom:18px}
+h1{font-family:'Fraunces',serif;font-size:clamp(28px,5vw,44px);font-weight:900;line-height:1.1;letter-spacing:-.02em;color:#fff;margin-bottom:12px}
+h1 em{font-style:normal;color:var(--c)}
+.hero-sub{color:var(--muted2);font-size:14.5px;max-width:640px;line-height:1.7;margin-bottom:8px}
+.hero-stats{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:32px;margin-top:16px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 18px;font-size:13px}
+.stat-val{font-family:'Fraunces',serif;font-size:22px;font-weight:900;color:var(--c);line-height:1}
+.stat-key{font-size:11px;color:var(--muted);margin-top:3px}
+
+/* ─── TLDR ───────────────────────────────────────── */
+.tldr{background:var(--cs);border:1px solid rgba(79,142,247,.25);border-radius:16px;padding:20px 24px;margin-bottom:40px}
+.tldr-label{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--c);margin-bottom:10px}
+.tldr ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.tldr ul li{font-size:13.5px;padding-left:18px;position:relative;line-height:1.5}
+.tldr ul li::before{content:'→';position:absolute;left:0;color:var(--c);font-size:11px;top:3px}
+
+/* ─── MODULE ─────────────────────────────────────── */
+.module-wrap{margin-top:36px}
+.module-header{display:flex;align-items:flex-start;gap:16px;padding:18px 22px;background:var(--surface2);border-radius:16px 16px 0 0;border:1px solid var(--border2);border-bottom:none}
+.module-num{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px;font-weight:500;flex-shrink:0;background:var(--cs);color:var(--c);margin-top:2px}
+.module-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:3px}
+.module-desc{font-size:12.5px;color:var(--muted)}
+.module-link{margin-left:auto;flex-shrink:0;font-size:11px;font-family:'DM Mono',monospace;text-decoration:none;padding:5px 12px;border-radius:8px;border:1px solid var(--border2);color:var(--muted2);transition:all .2s;white-space:nowrap;align-self:flex-start}
+.module-link:hover{color:#fff;background:var(--surface3)}
+.module-body{border:1px solid var(--border2);border-radius:0 0 16px 16px;overflow:hidden}
+
+/* ─── CONCEPT ─────────────────────────────────────── */
+.concept{padding:20px 22px;border-bottom:1px solid var(--border)}
+.concept:last-child{border-bottom:none}
+.concept:nth-child(even){background:rgba(255,255,255,.015)}
+.concept-top{display:flex;align-items:flex-start;gap:14px}
+.skill-check{width:20px;height:20px;border-radius:5px;border:2px solid var(--border2);background:transparent;flex-shrink:0;cursor:pointer;margin-top:2px;appearance:none;-webkit-appearance:none;transition:all .2s;position:relative}
+.skill-check:checked{background:var(--c);border-color:var(--c)}
+.skill-check:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:11px;font-weight:700;color:#fff}
+.concept-title{font-size:14.5px;font-weight:700;color:#fff;line-height:1.4;flex:1}
+.concept-body{padding-left:34px;margin-top:10px}
+.concept-desc{font-size:13.5px;color:var(--muted2);line-height:1.65;margin-bottom:10px}
+.concept-desc strong{color:var(--text)}
+
+/* ─── TABLE ─────────────────────────────────────── */
+.compare-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px;border-radius:10px;overflow:hidden}
+.compare-table th{background:var(--surface3);padding:9px 14px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted2);border-bottom:1px solid var(--border2)}
+.compare-table td{padding:9px 14px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top;line-height:1.5}
+.compare-table tr:last-child td{border-bottom:none}
+.compare-table tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.badge{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600;font-family:'DM Mono',monospace}
+.badge-blue{background:var(--cs);color:var(--c)}
+.badge-green{background:rgba(52,211,153,.12);color:#34d399}
+.badge-purple{background:rgba(167,139,250,.12);color:#a78bfa}
+
+/* ─── CALLOUT ─────────────────────────────────────── */
+.callout{border-radius:10px;padding:12px 16px;font-size:13px;line-height:1.6;margin-top:10px;display:flex;gap:10px;align-items:flex-start;background:rgba(79,142,247,.07);border:1px solid rgba(79,142,247,.2)}
+.callout-icon{font-size:15px;flex-shrink:0;margin-top:1px}
+.callout-text{color:var(--text)}
+.callout-text strong{display:block;font-size:11px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.05em;color:var(--c);margin-bottom:4px}
+
+/* ─── KEY TERMS ─────────────────────────────────────── */
+.key-terms{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.term{display:inline-flex;flex-direction:column;background:var(--surface3);border:1px solid var(--border2);border-radius:8px;padding:6px 10px;font-size:12px}
+.term-key{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--c);margin-bottom:2px}
+.term-val{color:var(--muted2);font-size:11.5px;line-height:1.4}
+
+/* ─── PROGRESS ─────────────────────────────────────── */
+.progress-banner{position:fixed;bottom:20px;right:20px;background:var(--surface2);border:1px solid var(--border2);border-radius:14px;padding:12px 18px;min-width:190px;box-shadow:0 8px 32px rgba(0,0,0,.5);z-index:90}
+.progress-label{font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px;display:flex;justify-content:space-between}
+.progress-label span{color:#fff;font-weight:700}
+.progress-track{height:5px;background:var(--surface3);border-radius:999px;overflow:hidden}
+.progress-fill{height:100%;border-radius:999px;background:var(--c);transition:width .4s ease;width:0%}
+
+/* ─── FOOTER ─────────────────────────────────────── */
+.page-footer{margin-top:60px;padding:20px 24px;background:var(--surface);border:1px solid var(--border);border-radius:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.footer-nav{display:flex;gap:10px;flex-wrap:wrap}
+.footer-nav a{text-decoration:none;font-size:13px;font-weight:600;padding:8px 16px;border-radius:10px;border:1px solid var(--border2);color:var(--muted2);transition:all .2s}
+.footer-nav a:hover{background:var(--surface2);color:#fff}
+.footer-note{font-size:11.5px;color:var(--muted)}
+
+.nav-done{color:#34d399;font-size:10px;font-weight:700}
+.nav-started{color:#fbbf24;font-size:10px}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <span class="brand">MS-900</span>
+  <span class="sep">·</span>
+  <a href="ms900-index.html">🏠 Hub</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain1.html" class="active">01 Cloud Concepts</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain2.html">02 M365 Apps &amp; Services</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain3.html">03 Security &amp; Compliance</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain4.html">04 Pricing &amp; Licensing</a>
+  <span class="sep">·</span>
+  <a href="ms900-practice.html">⚡ Practice Quiz</a>
+  <span class="sep">·</span>
+  <a href="ms900-glossary.html">📖 Glossary</a>
+</nav>
+
+<main class="page">
+
+  <!-- HERO -->
+  <div class="domain-pill">Domain 01 · 5–10% of Exam</div>
+  <h1>Cloud <em>Concepts</em></h1>
+  <p class="hero-sub">The foundation of everything. Understand the "what and why" of cloud before diving into M365 specifics. Two modules, three core topics — lean but high-impact.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-val">2</div><div class="stat-key">Learn Modules</div></div>
+    <div class="stat"><div class="stat-val">3</div><div class="stat-key">Core Topics</div></div>
+    <div class="stat"><div class="stat-val">5–10%</div><div class="stat-key">Exam Weight</div></div>
+    <div class="stat"><div class="stat-val">~45 min</div><div class="stat-key">Estimated Study</div></div>
+  </div>
+
+  <!-- TLDR -->
+  <div class="tldr">
+    <div class="tldr-label">⚡ TL;DR — What You Must Know</div>
+    <ul>
+      <li>Cloud = renting compute/storage/software over the internet instead of owning hardware</li>
+      <li><strong>IaaS</strong> = you manage VMs &amp; OS; <strong>PaaS</strong> = you manage app code only; <strong>SaaS</strong> = you just use the app (M365 is SaaS)</li>
+      <li><strong>Public cloud</strong> = shared infra (Azure); <strong>Private</strong> = dedicated to one org; <strong>Hybrid</strong> = both connected</li>
+      <li>Office 365 = productivity apps only. Microsoft 365 = Office 365 + device management + security</li>
+      <li>Cloud benefits: OpEx vs CapEx, scalability, high availability, no hardware to manage</li>
+    </ul>
+  </div>
+
+  <!-- MODULE 1 -->
+  <div class="module-wrap">
+    <div class="module-header">
+      <div class="module-num">M1</div>
+      <div>
+        <div class="module-title">Describe Cloud Computing</div>
+        <div class="module-desc">Cloud concepts · Deployment models · Shared responsibility</div>
+      </div>
+      <a class="module-link" href="https://learn.microsoft.com/en-us/training/modules/describe-cloud-compute/" target="_blank">📖 Open in Learn ↗</a>
+    </div>
+    <div class="module-body">
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="1">
+          <div class="concept-title">What is Cloud Computing?</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">Cloud computing is the delivery of computing services — including servers, storage, databases, networking, software, and analytics — over the internet. Instead of buying and maintaining physical data centers, you rent capacity from a cloud provider and pay only for what you use (<strong>OpEx model</strong> vs. traditional upfront CapEx).</p>
+          <div class="key-terms">
+            <div class="term"><span class="term-key">CapEx</span><span class="term-val">Upfront hardware purchase</span></div>
+            <div class="term"><span class="term-key">OpEx</span><span class="term-val">Pay-as-you-go, ongoing</span></div>
+            <div class="term"><span class="term-key">Consumption-based</span><span class="term-val">Billed only on usage</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="2">
+          <div class="concept-title">Shared Responsibility Model</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">In cloud, security responsibilities are split between <strong>Microsoft</strong> (the provider) and <strong>you</strong> (the customer). What you're responsible for depends on the service model — the higher up the stack, the less you manage.</p>
+          <table class="compare-table">
+            <thead><tr><th>Responsibility</th><th>On-Premises</th><th>IaaS</th><th>PaaS</th><th>SaaS</th></tr></thead>
+            <tbody>
+              <tr><td>Physical datacenter</td><td>Customer</td><td><span class="badge badge-blue">Microsoft</span></td><td><span class="badge badge-blue">Microsoft</span></td><td><span class="badge badge-blue">Microsoft</span></td></tr>
+              <tr><td>OS / Virtual Machines</td><td>Customer</td><td>Customer</td><td><span class="badge badge-blue">Microsoft</span></td><td><span class="badge badge-blue">Microsoft</span></td></tr>
+              <tr><td>Applications</td><td>Customer</td><td>Customer</td><td>Customer</td><td><span class="badge badge-blue">Microsoft</span></td></tr>
+              <tr><td>Data &amp; Identities</td><td>Customer</td><td>Customer</td><td>Customer</td><td>Customer</td></tr>
+            </tbody>
+          </table>
+          <div class="callout">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Exam tip</strong>Data, identities, and endpoints are ALWAYS the customer's responsibility regardless of service model — this is a common exam question.</div>
+          </div>
+          <div class="callout" style="background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.25);margin-top:8px">
+            <span class="callout-icon">⚠️</span>
+            <div class="callout-text"><strong style="color:#fbbf24">Don't mix up service model vs deployment model</strong>
+            These are two different classifications — easy to conflate. <strong>Service model</strong> (IaaS/PaaS/SaaS) = <em>what</em> is managed for you. <strong>Deployment model</strong> (Public/Private/Hybrid) = <em>where</em> the infrastructure lives and who can access it. M365 is both a <em>SaaS service model</em> <strong>and</strong> delivered from the <em>public cloud deployment model</em> — these answers are independent.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="3">
+          <div class="concept-title">Public, Private &amp; Hybrid Cloud Models</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">Cloud deployment comes in three flavors. Microsoft Azure is a <strong>public cloud</strong>. Many enterprises run <strong>hybrid</strong> to connect their on-premises datacenters to Azure services.</p>
+          <table class="compare-table">
+            <thead><tr><th>Model</th><th>Who Owns the Infra</th><th>Who Can Use It</th><th>Key Trait</th></tr></thead>
+            <tbody>
+              <tr><td><span class="badge badge-blue">Public</span></td><td>Cloud provider (Microsoft)</td><td>Any paying customer</td><td>Shared, scalable, low cost</td></tr>
+              <tr><td><span class="badge badge-purple">Private</span></td><td>The organization itself</td><td>That org only</td><td>Full control, high cost</td></tr>
+              <tr><td><span class="badge badge-green">Hybrid</span></td><td>Both</td><td>Both</td><td>Flexibility, data residency</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODULE 2 -->
+  <div class="module-wrap">
+    <div class="module-header">
+      <div class="module-num">M2</div>
+      <div>
+        <div class="module-title">Cloud Service Types &amp; M365 vs Office 365</div>
+        <div class="module-desc">IaaS · PaaS · SaaS · Benefits of cloud · Office 365 vs Microsoft 365</div>
+      </div>
+      <a class="module-link" href="https://learn.microsoft.com/en-us/training/modules/describe-cloud-service-types/" target="_blank">📖 Open in Learn ↗</a>
+    </div>
+    <div class="module-body">
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="4">
+          <div class="concept-title">IaaS, PaaS &amp; SaaS — The Service Models</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">These three models represent increasing levels of abstraction. Think of it as renting vs. leasing vs. buying a car.</p>
+          <table class="compare-table">
+            <thead><tr><th>Model</th><th>What You Get</th><th>You Manage</th><th>Microsoft Example</th></tr></thead>
+            <tbody>
+              <tr><td><strong>IaaS</strong></td><td>VMs, networking, storage</td><td>OS, middleware, apps, data</td><td>Azure Virtual Machines</td></tr>
+              <tr><td><strong>PaaS</strong></td><td>Managed runtime/platform</td><td>App code &amp; data only</td><td>Azure App Service</td></tr>
+              <tr><td><strong>SaaS</strong></td><td>Fully managed application</td><td>Just your data &amp; users</td><td>Microsoft 365, Teams, Outlook</td></tr>
+            </tbody>
+          </table>
+          <div class="callout">
+            <span class="callout-icon">💡</span>
+            <div class="callout-text"><strong>The MS-900 angle</strong>Microsoft 365 is a SaaS product. You don't manage servers, OS patches, or app updates — Microsoft handles all of that. Your job is managing users, data, and policies.</div>
+          </div>
+          <div class="callout" style="background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.25);margin-top:8px">
+            <span class="callout-icon">⚠️</span>
+            <div class="callout-text"><strong style="color:#fbbf24">Don't confuse the three models</strong>
+            The exam will give you a scenario and ask which model fits. The key question is: <em>who manages the OS?</em> — <strong>IaaS</strong>: you manage OS + everything above it. <strong>PaaS</strong>: Microsoft manages OS and runtime; you manage only your code and data. <strong>SaaS</strong>: Microsoft manages everything — you just use the app.
+            Quick check: "needs to manage their own OS" → IaaS. "Just wants to deploy code" → PaaS. "Just wants to use an app" → SaaS (M365 is SaaS).</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="5">
+          <div class="concept-title">Office 365 vs Microsoft 365 — Key Differences</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">This distinction comes up in exam questions regularly. <strong>Office 365</strong> is the subset of productivity apps; <strong>Microsoft 365</strong> is the full bundle.</p>
+          <table class="compare-table">
+            <thead><tr><th>Feature</th><th>Office 365</th><th>Microsoft 365</th></tr></thead>
+            <tbody>
+              <tr><td>Core apps (Word, Excel, Teams...)</td><td>✅</td><td>✅</td></tr>
+              <tr><td>Exchange Online / SharePoint</td><td>✅</td><td>✅</td></tr>
+              <tr><td>Microsoft Intune (device mgmt)</td><td>❌</td><td>✅</td></tr>
+              <tr><td>Advanced security &amp; compliance</td><td>Limited</td><td>✅ (varies by plan)</td></tr>
+              <tr><td>Windows 11 Enterprise license</td><td>❌</td><td>✅ (E3/E5 plans)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="6">
+          <div class="concept-title">Benefits of Cloud &amp; Hybrid Work</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">Know these cloud benefits — they're frequently tested in scenario questions asking "why would an organization move to the cloud?"</p>
+          <div class="key-terms">
+            <div class="term"><span class="term-key">High Availability</span><span class="term-val">Uptime guarantees via SLAs (e.g. 99.9%)</span></div>
+            <div class="term"><span class="term-key">Scalability</span><span class="term-val">Scale up/out on demand</span></div>
+            <div class="term"><span class="term-key">Elasticity</span><span class="term-val">Auto-scale up AND down</span></div>
+            <div class="term"><span class="term-key">Reliability</span><span class="term-val">Fault tolerance, geo-redundancy</span></div>
+            <div class="term"><span class="term-key">Agility</span><span class="term-val">Provision resources in minutes</span></div>
+            <div class="term"><span class="term-key">CapEx → OpEx</span><span class="term-val">Trade big upfront spend for monthly billing</span></div>
+          </div>
+          <p class="concept-desc" style="margin-top:12px"><strong>Hybrid work</strong> refers to the model where employees split time between office and remote. Cloud-based M365 makes this seamless — apps, files, meetings, and devices are all managed centrally and accessible from anywhere.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER NAV -->
+  <div class="page-footer">
+    <div class="footer-nav">
+      <a href="ms900-domain2.html">Next: Domain 2 — M365 Apps &amp; Services →</a>
+    </div>
+    <div class="footer-note">Source: <a href="https://learn.microsoft.com/en-us/training/paths/microsoft-azure-fundamentals-describe-cloud-concepts/" target="_blank" style="color:#4f8ef7">Microsoft Learn Path 1</a></div>
+  </div>
+
+</main>
+
+<!-- PROGRESS WIDGET -->
+<div class="progress-banner">
+  <div class="progress-label">Domain 1 Progress <span id="pct">0%</span></div>
+  <div class="progress-track"><div class="progress-fill" id="pfill"></div></div>
+</div>
+
+<script>
+const STORAGE_KEY = 'ms900_d1';
+const checks = document.querySelectorAll('.skill-check');
+const total = checks.length;
+
+function save() {
+  const state = {};
+  checks.forEach(c => { state[c.dataset.skill] = c.checked; });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  updateProgress();
+}
+
+function load() {
+  try {
+    const state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    checks.forEach(c => { if (state[c.dataset.skill]) c.checked = true; });
+  } catch(e){}
+  updateProgress();
+}
+
+function updateProgress() {
+  const done = [...checks].filter(c => c.checked).length;
+  const pct = Math.round((done / total) * 100);
+  document.getElementById('pct').textContent = pct + '%';
+  document.getElementById('pfill').style.width = pct + '%';
+}
+
+checks.forEach(c => c.addEventListener('change', save));
+load();
+
+// Nav completion indicators
+(function(){
+  const keys = ['ms900_d1','ms900_d2','ms900_d3','ms900_d4'];
+  const links = document.querySelectorAll('.topnav a:not([href*="practice"])');
+  links.forEach((link, i) => {
+    if(i >= keys.length) return;
+    try {
+      const state = JSON.parse(localStorage.getItem(keys[i]) || '{}');
+      const total = Object.keys(state).length;
+      const done = Object.values(state).filter(Boolean).length;
+      if(done > 0 && !link.classList.contains('active')) {
+        const badge = document.createElement('span');
+        badge.className = (done >= total && total > 0) ? 'nav-done' : 'nav-started';
+        badge.textContent = (done >= total && total > 0) ? ' ✓' : ' •';
+        link.appendChild(badge);
+      }
+    } catch(e){}
+  });
+})();
+
+</script>
+</body>
+</html>
