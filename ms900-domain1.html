@@ -68,6 +68,9 @@ h1 em{font-style:normal;color:var(--c)}
 .compare-table td{padding:9px 14px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top;line-height:1.5}
 .compare-table tr:last-child td{border-bottom:none}
 .compare-table tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:12px}
+.table-wrap .compare-table{margin-top:0;min-width:480px}
+@media(max-width:600px){.compare-table th{padding:7px 10px;font-size:10px}.compare-table td{padding:7px 10px;font-size:12px}}
 .badge{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600;font-family:'DM Mono',monospace}
 .badge-blue{background:var(--cs);color:var(--c)}
 .badge-green{background:rgba(52,211,153,.12);color:#34d399}
@@ -182,7 +185,7 @@ h1 em{font-style:normal;color:var(--c)}
         </div>
         <div class="concept-body">
           <p class="concept-desc">In cloud, security responsibilities are split between <strong>Microsoft</strong> (the provider) and <strong>you</strong> (the customer). What you're responsible for depends on the service model — the higher up the stack, the less you manage.</p>
-          <table class="compare-table">
+          <div class="table-wrap"><table class="compare-table">
             <thead><tr><th>Responsibility</th><th>On-Premises</th><th>IaaS</th><th>PaaS</th><th>SaaS</th></tr></thead>
             <tbody>
               <tr><td>Physical datacenter</td><td>Customer</td><td><span class="badge badge-blue">Microsoft</span></td><td><span class="badge badge-blue">Microsoft</span></td><td><span class="badge badge-blue">Microsoft</span></td></tr>
@@ -190,7 +193,7 @@ h1 em{font-style:normal;color:var(--c)}
               <tr><td>Applications</td><td>Customer</td><td>Customer</td><td>Customer</td><td><span class="badge badge-blue">Microsoft</span></td></tr>
               <tr><td>Data &amp; Identities</td><td>Customer</td><td>Customer</td><td>Customer</td><td>Customer</td></tr>
             </tbody>
-          </table>
+          </table></div>
           <div class="callout">
             <span class="callout-icon">📌</span>
             <div class="callout-text"><strong>Exam tip</strong>Data, identities, and endpoints are ALWAYS the customer's responsibility regardless of service model — this is a common exam question.</div>
@@ -210,14 +213,14 @@ h1 em{font-style:normal;color:var(--c)}
         </div>
         <div class="concept-body">
           <p class="concept-desc">Cloud deployment comes in three flavors. Microsoft Azure is a <strong>public cloud</strong>. Many enterprises run <strong>hybrid</strong> to connect their on-premises datacenters to Azure services.</p>
-          <table class="compare-table">
+          <div class="table-wrap"><table class="compare-table">
             <thead><tr><th>Model</th><th>Who Owns the Infra</th><th>Who Can Use It</th><th>Key Trait</th></tr></thead>
             <tbody>
               <tr><td><span class="badge badge-blue">Public</span></td><td>Cloud provider (Microsoft)</td><td>Any paying customer</td><td>Shared, scalable, low cost</td></tr>
               <tr><td><span class="badge badge-purple">Private</span></td><td>The organization itself</td><td>That org only</td><td>Full control, high cost</td></tr>
               <tr><td><span class="badge badge-green">Hybrid</span></td><td>Both</td><td>Both</td><td>Flexibility, data residency</td></tr>
             </tbody>
-          </table>
+          </table></div>
         </div>
       </div>
 
@@ -243,14 +246,14 @@ h1 em{font-style:normal;color:var(--c)}
         </div>
         <div class="concept-body">
           <p class="concept-desc">These three models represent increasing levels of abstraction. Think of it as renting vs. leasing vs. buying a car.</p>
-          <table class="compare-table">
+          <div class="table-wrap"><table class="compare-table">
             <thead><tr><th>Model</th><th>What You Get</th><th>You Manage</th><th>Microsoft Example</th></tr></thead>
             <tbody>
               <tr><td><strong>IaaS</strong></td><td>VMs, networking, storage</td><td>OS, middleware, apps, data</td><td>Azure Virtual Machines</td></tr>
               <tr><td><strong>PaaS</strong></td><td>Managed runtime/platform</td><td>App code &amp; data only</td><td>Azure App Service</td></tr>
               <tr><td><strong>SaaS</strong></td><td>Fully managed application</td><td>Just your data &amp; users</td><td>Microsoft 365, Teams, Outlook</td></tr>
             </tbody>
-          </table>
+          </table></div>
           <div class="callout">
             <span class="callout-icon">💡</span>
             <div class="callout-text"><strong>The MS-900 angle</strong>Microsoft 365 is a SaaS product. You don't manage servers, OS patches, or app updates — Microsoft handles all of that. Your job is managing users, data, and policies.</div>
@@ -271,7 +274,7 @@ h1 em{font-style:normal;color:var(--c)}
         </div>
         <div class="concept-body">
           <p class="concept-desc">This distinction comes up in exam questions regularly. <strong>Office 365</strong> is the subset of productivity apps; <strong>Microsoft 365</strong> is the full bundle.</p>
-          <table class="compare-table">
+          <div class="table-wrap"><table class="compare-table">
             <thead><tr><th>Feature</th><th>Office 365</th><th>Microsoft 365</th></tr></thead>
             <tbody>
               <tr><td>Core apps (Word, Excel, Teams...)</td><td>✅</td><td>✅</td></tr>
@@ -280,7 +283,7 @@ h1 em{font-style:normal;color:var(--c)}
               <tr><td>Advanced security &amp; compliance</td><td>Limited</td><td>✅ (varies by plan)</td></tr>
               <tr><td>Windows 11 Enterprise license</td><td>❌</td><td>✅ (E3/E5 plans)</td></tr>
             </tbody>
-          </table>
+          </table></div>
         </div>
       </div>
 

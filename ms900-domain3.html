@@ -53,6 +53,9 @@ h1 em{font-style:normal;color:var(--c)}
 .compare-table td{padding:9px 14px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top;line-height:1.5}
 .compare-table tr:last-child td{border-bottom:none}
 .compare-table tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:12px}
+.table-wrap .compare-table{margin-top:0;min-width:480px}
+@media(max-width:600px){.compare-table th{padding:7px 10px;font-size:10px}.compare-table td{padding:7px 10px;font-size:12px}}
 .callout{border-radius:10px;padding:12px 16px;font-size:13px;line-height:1.6;margin-top:10px;display:flex;gap:10px;align-items:flex-start;background:rgba(52,211,153,.07);border:1px solid rgba(52,211,153,.2)}
 .callout-icon{font-size:15px;flex-shrink:0;margin-top:1px}
 .callout-text{color:var(--text)}
@@ -165,14 +168,14 @@ h1 em{font-style:normal;color:var(--c)}
         </div>
         <div class="concept-body">
           <p class="concept-desc">Organizations can manage identities in three ways depending on their infrastructure.</p>
-          <table class="compare-table">
+          <div class="table-wrap"><table class="compare-table">
             <thead><tr><th>Identity Type</th><th>Where Managed</th><th>How It Works</th></tr></thead>
             <tbody>
               <tr><td><strong>Cloud-only</strong></td><td>Entra ID (cloud)</td><td>Users exist only in the cloud — no on-prem AD</td></tr>
               <tr><td><strong>On-premises</strong></td><td>Active Directory (on-prem)</td><td>Traditional AD DS; not cloud-connected</td></tr>
               <tr><td><strong>Hybrid</strong></td><td>Both (synced)</td><td>On-prem AD synced to Entra ID via <strong>Entra Connect</strong>; one identity for both worlds</td></tr>
             </tbody>
-          </table>
+          </table></div>
           <div class="callout">
             <span class="callout-icon">📌</span>
             <div class="callout-text"><strong>Exam tip</strong>Most enterprises use Hybrid identity — employees have one AD account that works on-prem AND in the cloud. Entra ID Connect is the sync tool that bridges them.</div>
@@ -187,14 +190,14 @@ h1 em{font-style:normal;color:var(--c)}
         </div>
         <div class="concept-body">
           <p class="concept-desc">These three features work together to secure identities without creating excessive friction for users.</p>
-          <table class="compare-table">
+          <div class="table-wrap"><table class="compare-table">
             <thead><tr><th>Feature</th><th>What It Does</th><th>Why It Matters</th></tr></thead>
             <tbody>
               <tr><td><strong>MFA</strong><br>(Multi-Factor Auth)</td><td>Requires 2+ verification factors: password + phone app / SMS / biometrics</td><td>Even if password is stolen, attacker can't get in without the second factor</td></tr>
               <tr><td><strong>SSPR</strong><br>(Self-Service Password Reset)</td><td>Users reset their own passwords using verified methods (email, phone, security questions)</td><td>Reduces helpdesk tickets; users aren't locked out</td></tr>
               <tr><td><strong>Conditional Access</strong></td><td>Policy engine: "IF user is signing in from an unknown location, THEN require MFA"</td><td>Contextual, risk-based access — tighter security with less friction for trusted scenarios</td></tr>
             </tbody>
-          </table>
+          </table></div>
           <div class="callout">
             <span class="callout-icon">💡</span>
             <div class="callout-text"><strong>The signals Conditional Access uses</strong>User/group identity · Device compliance state · Location (IP/country) · Client app type · Sign-in risk level (from Entra ID Protection)</div>
@@ -232,7 +235,7 @@ h1 em{font-style:normal;color:var(--c)}
         </div>
         <div class="concept-body">
           <p class="concept-desc"><strong>Defender XDR</strong> (Extended Detection and Response) is Microsoft's integrated security suite that correlates threat signals across all attack surfaces — endpoints, email, identity, and cloud apps — into a single view in the <strong>Microsoft Defender Portal</strong>.</p>
-          <table class="compare-table">
+          <div class="table-wrap"><table class="compare-table">
             <thead><tr><th>Defender Product</th><th>Protects</th><th>Key Capability</th></tr></thead>
             <tbody>
               <tr><td><strong>Defender for Endpoint</strong></td><td>Devices (Windows, macOS, Linux, mobile)</td><td>Threat detection, EDR, vulnerability management</td></tr>
@@ -240,7 +243,7 @@ h1 em{font-style:normal;color:var(--c)}
               <tr><td><strong>Defender for Identity</strong></td><td>On-premises AD identities</td><td>Detects lateral movement, compromised credentials</td></tr>
               <tr><td><strong>Defender for Cloud Apps</strong></td><td>SaaS apps (Shadow IT)</td><td>Discovers unsanctioned apps, enforces policies</td></tr>
             </tbody>
-          </table>
+          </table></div>
           <div class="callout">
             <span class="callout-icon">💡</span>
             <div class="callout-text"><strong>The XDR advantage</strong>Instead of each product working in isolation, Defender XDR correlates signals across all four pillars. An attack that starts with a phishing email → credential compromise → lateral movement is detected as one unified incident.</div>
@@ -265,7 +268,7 @@ h1 em{font-style:normal;color:var(--c)}
         </div>
         <div class="concept-body">
           <p class="concept-desc">The exam tests your ability to map real-world attack types to the M365 tools that defend against them. Think of this as "if the threat is X, the answer is Y."</p>
-          <table class="compare-table">
+          <div class="table-wrap"><table class="compare-table">
             <thead><tr><th>Threat Type</th><th>Attack Vector</th><th>M365 Defence</th></tr></thead>
             <tbody>
               <tr><td><strong>Phishing / malicious email</strong></td><td>Fake emails trick users into clicking malicious links or attachments</td><td><strong>Defender for Office 365</strong> — Safe Links, Safe Attachments, anti-phishing policies</td></tr>
@@ -275,7 +278,7 @@ h1 em{font-style:normal;color:var(--c)}
               <tr><td><strong>Unsanctioned cloud apps (Shadow IT)</strong></td><td>Employees use unapproved SaaS apps that IT can't see or control</td><td><strong>Defender for Cloud Apps</strong> — discovers shadow IT, enforces session controls and policies</td></tr>
               <tr><td><strong>Insider threats / data exfiltration</strong></td><td>Employees intentionally or accidentally leak sensitive data</td><td><strong>Purview Insider Risk Management</strong> + <strong>DLP</strong> — detects and prevents data leaks</td></tr>
             </tbody>
-          </table>
+          </table></div>
           <div class="callout">
             <span class="callout-icon">📌</span>
             <div class="callout-text"><strong>Exam tip</strong>Scenario questions often describe a threat and ask "which M365 tool should be used?" Learn the threat → tool mapping above cold. The most common traps: Defender for Identity = on-prem AD threats (not cloud); Defender for Cloud Apps = shadow IT/SaaS visibility (not endpoint protection).</div>
@@ -347,7 +350,7 @@ h1 em{font-style:normal;color:var(--c)}
         </div>
         <div class="concept-body">
           <p class="concept-desc">Microsoft Purview is the umbrella brand for Microsoft's information protection and compliance tools. It helps organizations protect sensitive data, manage risk, and meet regulatory requirements.</p>
-          <table class="compare-table">
+          <div class="table-wrap"><table class="compare-table">
             <thead><tr><th>Purview Feature</th><th>What It Does</th></tr></thead>
             <tbody>
               <tr><td><strong>Sensitivity Labels</strong></td><td>Classify and protect documents/emails (e.g. "Confidential" label enforces encryption automatically)</td></tr>
@@ -358,7 +361,7 @@ h1 em{font-style:normal;color:var(--c)}
               <tr><td><strong>Data Residency</strong></td><td>Ensures customer data is stored in specific geographic regions for regulatory compliance</td></tr>
               <tr><td><strong>Compliance Manager</strong></td><td>Dashboard that scores your compliance posture against regulations (GDPR, ISO 27001, NIST) and provides improvement actions</td></tr>
             </tbody>
-          </table>
+          </table></div>
           <div class="callout" style="margin-top:10px">
             <span class="callout-icon">📌</span>
             <div class="callout-text"><strong>Compliance Manager vs Secure Score</strong>These are two separate scores — easy to confuse. <strong>Secure Score</strong> (in the Defender Portal) measures your <em>security</em> posture. <strong>Compliance Manager</strong> (in the Purview portal) measures your <em>regulatory compliance</em> posture against specific frameworks like GDPR or ISO 27001. Both give you a score and a list of improvement actions, but they answer different questions.</div>

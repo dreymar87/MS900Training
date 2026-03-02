@@ -53,6 +53,9 @@ h1 em{font-style:normal;color:var(--c)}
 .compare-table td{padding:9px 14px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top;line-height:1.5}
 .compare-table tr:last-child td{border-bottom:none}
 .compare-table tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:12px}
+.table-wrap .compare-table{margin-top:0;min-width:480px}
+@media(max-width:600px){.compare-table th{padding:7px 10px;font-size:10px}.compare-table td{padding:7px 10px;font-size:12px}}
 .callout{border-radius:10px;padding:12px 16px;font-size:13px;line-height:1.6;margin-top:10px;display:flex;gap:10px;align-items:flex-start;background:rgba(251,146,60,.07);border:1px solid rgba(251,146,60,.2)}
 .callout-icon{font-size:15px;flex-shrink:0;margin-top:1px}
 .callout-text{color:var(--text)}
@@ -150,14 +153,14 @@ h1 em{font-style:normal;color:var(--c)}
         </div>
         <div class="concept-body">
           <p class="concept-desc">Organizations can buy Microsoft 365 licenses through three routes. The exam tests your ability to match the right model to an org's size and needs.</p>
-          <table class="compare-table">
+          <div class="table-wrap"><table class="compare-table">
             <thead><tr><th>Channel</th><th>Best For</th><th>Key Traits</th></tr></thead>
             <tbody>
               <tr><td><strong>Enterprise Agreement (EA)</strong></td><td>500+ users / large orgs</td><td>3-year commitment; volume discounts; annual upfront payment; predictable costs</td></tr>
               <tr><td><strong>Cloud Solution Provider (CSP)</strong></td><td>SMBs (any size, min 1 user)</td><td>Monthly billing through a Microsoft partner; flexible; partner provides support</td></tr>
               <tr><td><strong>Direct / Microsoft.com</strong></td><td>Small orgs / individuals</td><td>Buy directly; credit card; monthly or annual; self-support via documentation</td></tr>
             </tbody>
-          </table>
+          </table></div>
           <div class="callout">
             <span class="callout-icon">📌</span>
             <div class="callout-text"><strong>Key CSP distinction</strong>When buying through a CSP partner, the partner handles billing AND first-level support — not Microsoft directly. The CSP escalates to Microsoft only if they can't resolve the issue.</div>
@@ -172,7 +175,7 @@ h1 em{font-style:normal;color:var(--c)}
         </div>
         <div class="concept-body">
           <p class="concept-desc">Microsoft 365 comes in plan families. The most important distinction is <strong>Business</strong> (≤300 users) vs. <strong>Enterprise</strong> (unlimited users).</p>
-          <table class="compare-table">
+          <div class="table-wrap"><table class="compare-table">
             <thead><tr><th>Plan</th><th>User Limit</th><th>Key Inclusions</th></tr></thead>
             <tbody>
               <tr><td><strong>M365 Business Basic</strong></td><td>≤300</td><td>Web/mobile Office apps, Teams, Exchange, SharePoint, OneDrive</td></tr>
@@ -181,7 +184,7 @@ h1 em{font-style:normal;color:var(--c)}
               <tr><td><strong>M365 E3</strong></td><td>Unlimited</td><td>Desktop apps + advanced compliance + Intune + Entra ID P1</td></tr>
               <tr><td><strong>M365 E5</strong></td><td>Unlimited</td><td>E3 + advanced security (Defender P2, Purview) + Power BI Pro + Teams Phone</td></tr>
             </tbody>
-          </table>
+          </table></div>
           <div class="callout">
             <span class="callout-icon">💡</span>
             <div class="callout-text"><strong>Exam scenario pattern</strong>"An org has 400 users and needs advanced threat protection" → Must be Enterprise (E3 or E5) because Business plans cap at 300.</div>
@@ -200,7 +203,7 @@ h1 em{font-style:normal;color:var(--c)}
             <div class="term"><span class="term-key">Base License</span><span class="term-val">Core M365 plan (e.g. M365 E3 — the foundation)</span></div>
             <div class="term"><span class="term-key">Add-On License</span><span class="term-val">Extra features bolted on top (per user)</span></div>
           </div>
-          <table class="compare-table" style="margin-top:12px">
+          <div class="table-wrap"><div class="table-wrap"><table class="compare-table">
             <thead><tr><th>Common Add-Ons</th><th>What It Adds</th></tr></thead>
             <tbody>
               <tr><td><strong>Microsoft 365 Copilot</strong></td><td>AI assistant in all M365 apps (requires E3/E5 base)</td></tr>
@@ -208,7 +211,7 @@ h1 em{font-style:normal;color:var(--c)}
               <tr><td><strong>Microsoft Defender P2</strong></td><td>Advanced identity protection (if not already in plan)</td></tr>
               <tr><td><strong>Power BI Pro</strong></td><td>Full Power BI sharing and collaboration</td></tr>
             </tbody>
-          </table>
+          </table></div>
         </div>
       </div>
 
@@ -269,7 +272,7 @@ h1 em{font-style:normal;color:var(--c)}
           </div>
 
           <p class="concept-desc" style="margin-top:14px;margin-bottom:8px"><strong>How to file a support request</strong> — step by step:</p>
-          <table class="compare-table">
+          <div class="table-wrap"><table class="compare-table">
             <thead><tr><th>Step</th><th>Action</th></tr></thead>
             <tbody>
               <tr><td><strong>1. Open Admin Center</strong></td><td>Go to <strong>admin.microsoft.com</strong> → Sign in as admin</td></tr>
@@ -278,10 +281,10 @@ h1 em{font-style:normal;color:var(--c)}
               <tr><td><strong>4. Escalate to agent</strong></td><td>Select <strong>"Contact support"</strong> for phone or email with a Microsoft engineer</td></tr>
               <tr><td><strong>5. Assign severity</strong></td><td>Sev A (critical, service down) · Sev B (impaired) · Sev C (general question)</td></tr>
             </tbody>
-          </table>
+          </table></div>
 
           <p class="concept-desc" style="margin-top:14px;margin-bottom:8px"><strong>Microsoft support plan tiers</strong> — what's included at each level:</p>
-          <table class="compare-table">
+          <div class="table-wrap"><table class="compare-table">
             <thead><tr><th>Plan</th><th>Who It's For</th><th>Key Features</th></tr></thead>
             <tbody>
               <tr><td><strong>Basic / Subscription</strong></td><td>Included with all M365 plans</td><td>Self-help resources, community forums, billing support, submit tickets for break-fix issues</td></tr>
@@ -290,7 +293,7 @@ h1 em{font-style:normal;color:var(--c)}
               <tr><td><strong>Professional Direct</strong></td><td>Business-critical workloads</td><td>Proactive guidance, advisory services, faster response times, dedicated account team</td></tr>
               <tr><td><strong>Unified (Premier)</strong></td><td>Enterprise</td><td>Deepest integration, designated Technical Account Manager (TAM), on-site support available</td></tr>
             </tbody>
-          </table>
+          </table></div>
 
           <div class="callout">
             <span class="callout-icon">📌</span>
@@ -309,13 +312,13 @@ h1 em{font-style:normal;color:var(--c)}
         </div>
         <div class="concept-body">
           <p class="concept-desc">Microsoft publishes <strong>SLAs</strong> that guarantee uptime for each M365 service. If Microsoft fails to meet the SLA, organizations can claim <strong>service credits</strong> as compensation — applied to future billing.</p>
-          <table class="compare-table">
+          <div class="table-wrap"><table class="compare-table">
             <thead><tr><th>Uptime Guaranteed</th><th>Meaning</th><th>Max Downtime / Month</th></tr></thead>
             <tbody>
               <tr><td><strong>99.9%</strong></td><td>Standard SLA for most M365 services</td><td>~43.8 minutes/month</td></tr>
               <tr><td><strong>&lt;99.9%</strong></td><td>SLA breach → eligible for service credits</td><td>Service credit % scales with outage severity</td></tr>
             </tbody>
-          </table>
+          </table></div>
           <div class="key-terms" style="margin-top:12px">
             <div class="term"><span class="term-key">Service Credit</span><span class="term-val">Billing credit issued when SLA is breached — NOT a cash refund</span></div>
             <div class="term"><span class="term-key">Financially-backed SLA</span><span class="term-val">Microsoft's formal contractual uptime commitment</span></div>
@@ -330,13 +333,13 @@ h1 em{font-style:normal;color:var(--c)}
         </div>
         <div class="concept-body">
           <p class="concept-desc">Admins can check the real-time health of all M365 services through two portals. This lets you quickly determine if an issue is on Microsoft's side or within your tenant.</p>
-          <table class="compare-table">
+          <div class="table-wrap"><table class="compare-table">
             <thead><tr><th>Portal</th><th>Path to Service Health</th><th>What You See</th></tr></thead>
             <tbody>
               <tr><td><strong>M365 Admin Center</strong></td><td>admin.microsoft.com → Health → Service health</td><td>Current incidents, advisories, affected services, resolution timeline</td></tr>
               <tr><td><strong>Entra Admin Center</strong></td><td>entra.microsoft.com → Service health</td><td>Identity-specific health (Entra ID authentication issues)</td></tr>
             </tbody>
-          </table>
+          </table></div>
           <div class="callout">
             <span class="callout-icon">💡</span>
             <div class="callout-text"><strong>Message Center</strong>Also in the Admin Center, the Message Center shows planned changes, new features, and maintenance notifications — separate from incident-based service health alerts.</div>
