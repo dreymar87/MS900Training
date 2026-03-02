@@ -63,6 +63,11 @@ h1 em{font-style:normal;color:var(--amber)}
 .alpha-all-btn:hover{background:var(--surface2);color:#fff}
 .alpha-all-btn.active{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.3)}
 .filter-status{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-left:8px;white-space:nowrap}
+/* STAR FILTER */
+.star-filter-bar{display:flex;align-items:center;margin-bottom:16px}
+.star-filter-btn{font-family:'DM Mono',monospace;font-size:11px;font-weight:700;padding:0 14px;height:30px;display:flex;align-items:center;gap:5px;border-radius:7px;border:1px solid var(--border2);background:var(--surface);color:var(--muted2);cursor:pointer;transition:all .18s;white-space:nowrap}
+.star-filter-btn:hover{background:var(--surface2);color:#fff}
+.star-filter-btn.active{background:rgba(251,191,36,.15);color:#fbbf24;border-color:rgba(251,191,36,.45)}
 
 /* LETTER SECTION */
 .letter-section{margin-bottom:4px}
@@ -131,6 +136,11 @@ h1 em{font-style:normal;color:var(--amber)}
   </div>
 
   <div class="alpha-bar" id="alpha-bar"></div>
+
+  <div class="star-filter-bar">
+    <button class="star-filter-btn" id="btn-star" onclick="toggleStarFilter()">⭐ Starred</button>
+  </div>
+
   <div id="no-results" class="no-results">No terms match your search.</div>
 
   <!-- ═══════════════════ A ═══════════════════ -->
@@ -1055,6 +1065,7 @@ const POPULATED = ['A','B','C','D','E','F','G','H','I','L','M','O','P','R','S','
 const ALL_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
 let activeLetter = null; // null = show all
+let starFilterActive = false;
 
 // ── BUILD ALPHA BAR ──────────────────────────────────────────────
 const bar = document.getElementById('alpha-bar');
@@ -1111,6 +1122,13 @@ function onSearchInput() {
   applyFilters();
 }
 
+// ── STAR FILTER ──────────────────────────────────────────────────
+function toggleStarFilter() {
+  starFilterActive = !starFilterActive;
+  document.getElementById('btn-star').classList.toggle('active', starFilterActive);
+  applyFilters();
+}
+
 // ── CORE FILTER ──────────────────────────────────────────────────
 function applyFilters() {
   const q = document.getElementById('search').value.toLowerCase().trim();
@@ -1130,7 +1148,8 @@ function applyFilters() {
     const dataTerms = (card.dataset.term || '').toLowerCase();
     const searchMatch = !q || termName.includes(q) || termDef.includes(q) || dataTerms.includes(q);
 
-    const show = letterMatch && searchMatch;
+    const starMatch = !starFilterActive || termName.includes('⭐');
+    const show = letterMatch && searchMatch && starMatch;
     card.classList.toggle('hidden', !show);
     if (show) visible++;
   });
@@ -1143,12 +1162,16 @@ function applyFilters() {
 
   // Update count label
   const countEl = document.getElementById('search-count');
-  if (activeLetter && !q) {
-    countEl.textContent = visible + ' term' + (visible !== 1 ? 's' : '') + ' · ' + activeLetter;
+  if (!activeLetter && !q && !starFilterActive) {
+    countEl.textContent = '100 terms';
   } else if (q) {
     countEl.textContent = visible + ' match' + (visible !== 1 ? 'es' : '');
+  } else if (starFilterActive && activeLetter) {
+    countEl.textContent = visible + ' starred · ' + activeLetter;
+  } else if (starFilterActive) {
+    countEl.textContent = visible + ' starred';
   } else {
-    countEl.textContent = '100 terms';
+    countEl.textContent = visible + ' term' + (visible !== 1 ? 's' : '') + ' · ' + activeLetter;
   }
 
   document.getElementById('no-results').style.display = visible === 0 ? 'block' : 'none';
