@@ -53,6 +53,9 @@ h1 em{font-style:normal;color:var(--c)}
 .compare-table td{padding:9px 14px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top;line-height:1.5}
 .compare-table tr:last-child td{border-bottom:none}
 .compare-table tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:12px}
+.table-wrap .compare-table{margin-top:0;min-width:480px}
+@media(max-width:600px){.compare-table th{padding:7px 10px;font-size:10px}.compare-table td{padding:7px 10px;font-size:12px}}
 .callout{border-radius:10px;padding:12px 16px;font-size:13px;line-height:1.6;margin-top:10px;display:flex;gap:10px;align-items:flex-start;background:rgba(167,139,250,.07);border:1px solid rgba(167,139,250,.2)}
 .callout-icon{font-size:15px;flex-shrink:0;margin-top:1px}
 .callout-text{color:var(--text)}
@@ -151,7 +154,7 @@ h1 em{font-style:normal;color:var(--c)}
         </div>
         <div class="concept-body">
           <p class="concept-desc">The foundation of M365 productivity. These are fully cloud-connected, always up-to-date SaaS applications — no manual patching.</p>
-          <table class="compare-table">
+          <div class="table-wrap"><table class="compare-table">
             <thead><tr><th>App</th><th>Primary Purpose</th><th>Key Capability</th></tr></thead>
             <tbody>
               <tr><td><strong>Word</strong></td><td>Document creation &amp; editing</td><td>Real-time co-authoring, track changes</td></tr>
@@ -159,7 +162,7 @@ h1 em{font-style:normal;color:var(--c)}
               <tr><td><strong>PowerPoint</strong></td><td>Presentations</td><td>Designer AI, slide templates, live presentations</td></tr>
               <tr><td><strong>OneNote</strong></td><td>Note-taking &amp; collaboration</td><td>Shared notebooks, ink-to-text, multimedia notes</td></tr>
             </tbody>
-          </table>
+          </table></div>
         </div>
       </div>
 
@@ -191,7 +194,7 @@ h1 em{font-style:normal;color:var(--c)}
         </div>
         <div class="concept-body">
           <p class="concept-desc">M365 includes a full suite of task &amp; project management tools at different complexity levels. Know which tool fits which scenario.</p>
-          <table class="compare-table">
+          <div class="table-wrap"><table class="compare-table">
             <thead><tr><th>Tool</th><th>Best For</th><th>Complexity</th></tr></thead>
             <tbody>
               <tr><td><strong>To Do</strong></td><td>Personal task lists</td><td>Individual</td></tr>
@@ -202,7 +205,7 @@ h1 em{font-style:normal;color:var(--c)}
               <tr><td><strong>Bookings</strong></td><td>External appointment scheduling</td><td>Business</td></tr>
               <tr><td><strong>Project</strong></td><td>Complex project management, Gantt charts</td><td>Enterprise (add-on)</td></tr>
             </tbody>
-          </table>
+          </table></div>
           <div class="callout" style="background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.25)">
             <span class="callout-icon">⚠️</span>
             <div class="callout-text"><strong style="color:#fbbf24">Don't confuse these</strong>
@@ -254,14 +257,14 @@ h1 em{font-style:normal;color:var(--c)}
         </div>
         <div class="concept-body">
           <p class="concept-desc">These three services handle content storage and sharing at different scopes.</p>
-          <table class="compare-table">
+          <div class="table-wrap"><table class="compare-table">
             <thead><tr><th>Service</th><th>Scope</th><th>Primary Use</th></tr></thead>
             <tbody>
               <tr><td><strong>SharePoint</strong></td><td>Organizational</td><td>Intranet sites, document libraries, team collaboration, workflows</td></tr>
               <tr><td><strong>OneDrive</strong></td><td>Personal</td><td>Individual cloud file storage; sync to desktop; share with others</td></tr>
               <tr><td><strong>Stream</strong></td><td>Organizational</td><td>Video hosting, recording storage (Teams recordings go here)</td></tr>
             </tbody>
-          </table>
+          </table></div>
           <div class="callout" style="background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.25)">
             <span class="callout-icon">⚠️</span>
             <div class="callout-text"><strong style="color:#fbbf24">Don't confuse these</strong><strong>SharePoint</strong> = team/org files (shared). <strong>OneDrive</strong> = MY files (personal, but shareable). Every Teams channel stores its files in a SharePoint library — OneDrive is not used for Teams files. <strong>Stream</strong> is video-only — Teams meeting recordings automatically go to Stream.</div>
@@ -292,7 +295,7 @@ h1 em{font-style:normal;color:var(--c)}
         </div>
         <div class="concept-body">
           <p class="concept-desc">Teams is an extensible platform — organisations add purpose-built apps directly into Teams channels, meetings, and chats. The exam tests your ability to identify what each extension does.</p>
-          <table class="compare-table">
+          <div class="table-wrap"><table class="compare-table">
             <thead><tr><th>App</th><th>What It Adds to Teams</th><th>Primary Use</th></tr></thead>
             <tbody>
               <tr><td><strong>Whiteboard</strong></td><td>Infinite digital canvas in meetings</td><td>Real-time visual brainstorming and ideation during calls</td></tr>
@@ -300,7 +303,7 @@ h1 em{font-style:normal;color:var(--c)}
               <tr><td><strong>Power Apps</strong></td><td>Custom no-code/low-code business apps embedded in Teams tabs</td><td>Build tailored tools (e.g. leave requests, inventory forms) without dev resources</td></tr>
               <tr><td><strong>Power Automate</strong></td><td>Automated workflows triggered by Teams events</td><td>Automate repetitive tasks (e.g. post to channel when a form is submitted, approval flows)</td></tr>
             </tbody>
-          </table>
+          </table></div>
           <div class="callout">
             <span class="callout-icon">💡</span>
             <div class="callout-text"><strong>Copilot in collaboration</strong>Microsoft 365 Copilot also extends Teams specifically for collaboration — it summarises missed meetings, generates recap notes with action items, and can answer questions about channel content. This is the collaboration-specific Copilot capability (distinct from its productivity role in Word/Excel).</div>
@@ -347,7 +350,7 @@ h1 em{font-style:normal;color:var(--c)}
         </div>
         <div class="concept-body">
           <p class="concept-desc">Intune is the cloud-based <strong>Mobile Device Management (MDM)</strong> and <strong>Mobile Application Management (MAM)</strong> solution in M365. It lets IT enforce policies on devices (Windows, iOS, Android, macOS) and manage which apps can access company data — even on personal (BYOD) devices.</p>
-          <table class="compare-table">
+          <div class="table-wrap"><table class="compare-table">
             <thead><tr><th>Capability</th><th>What It Does</th></tr></thead>
             <tbody>
               <tr><td><strong>MDM</strong> (Device enrollment)</td><td>Full device management — enforce encryption, compliance policies, remote wipe</td></tr>
@@ -356,7 +359,7 @@ h1 em{font-style:normal;color:var(--c)}
               <tr><td><strong>Endpoint Analytics</strong></td><td>Reports on device health, startup performance, app reliability</td></tr>
               <tr><td><strong>Windows Autopatch</strong></td><td>Automates Windows and Office update management across device fleets</td></tr>
             </tbody>
-          </table>
+          </table></div>
         </div>
       </div>
 
@@ -381,7 +384,7 @@ h1 em{font-style:normal;color:var(--c)}
         </div>
         <div class="concept-body">
           <p class="concept-desc">Both deliver cloud-based Windows desktops, but with different models. This is a common comparison question on the exam.</p>
-          <table class="compare-table">
+          <div class="table-wrap"><table class="compare-table">
             <thead><tr><th></th><th>Windows 365</th><th>Azure Virtual Desktop (AVD)</th></tr></thead>
             <tbody>
               <tr><td><strong>Model</strong></td><td>Fixed per-user Cloud PC (SaaS-like)</td><td>Flexible multi-session virtualization (IaaS-like)</td></tr>
@@ -390,7 +393,7 @@ h1 em{font-style:normal;color:var(--c)}
               <tr><td><strong>Best for</strong></td><td>SMBs, predictable workloads</td><td>Enterprises needing cost optimization at scale</td></tr>
               <tr><td><strong>Multi-session</strong></td><td>No (dedicated per user)</td><td>Yes (multiple users per VM)</td></tr>
             </tbody>
-          </table>
+          </table></div>
           <div class="callout" style="background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.25)">
             <span class="callout-icon">⚠️</span>
             <div class="callout-text"><strong style="color:#fbbf24">The exam trap</strong>Both give you a cloud Windows desktop — the difference is <em>who manages the infrastructure</em>. <strong>Windows 365</strong> = Microsoft manages everything, fixed price per user, simple. <strong>AVD</strong> = IT manages the Azure infrastructure, pay-as-you-go, complex but cheaper at scale. Scenario tip: "small org, easy setup" → Windows 365. "large enterprise, cost optimisation, multi-session" → AVD.</div>
@@ -405,14 +408,14 @@ h1 em{font-style:normal;color:var(--c)}
         </div>
         <div class="concept-body">
           <p class="concept-desc"><strong>WaaS</strong> is Microsoft's continuous delivery model for Windows — no more big version upgrades every few years. Feature updates are delivered regularly, and organizations control rollout using <strong>deployment rings</strong>.</p>
-          <table class="compare-table">
+          <div class="table-wrap"><table class="compare-table">
             <thead><tr><th>Ring</th><th>Target Audience</th><th>Update Timing</th></tr></thead>
             <tbody>
               <tr><td><strong>Insider / Preview</strong></td><td>IT volunteers, early adopters</td><td>Earliest — pre-release builds</td></tr>
               <tr><td><strong>Pilot</strong></td><td>Representative sample of production users</td><td>After Insider validation — limited production rollout</td></tr>
               <tr><td><strong>Broad</strong></td><td>All remaining devices / general workforce</td><td>Last — fully validated, org-wide deployment</td></tr>
             </tbody>
-          </table>
+          </table></div>
           <div class="callout">
             <span class="callout-icon">📌</span>
             <div class="callout-text"><strong>Exam tip — rings vs channels</strong>Deployment <strong>rings</strong> (Insider → Pilot → Broad) control <em>when</em> Windows updates reach devices. Update <strong>channels</strong> (Current, Monthly Enterprise, Semi-Annual) control <em>how often</em> Microsoft 365 Apps receive feature updates. These are two different mechanisms — don't mix them up.</div>
@@ -458,7 +461,7 @@ h1 em{font-style:normal;color:var(--c)}
         </div>
         <div class="concept-body">
           <p class="concept-desc">Each major M365 workload has its own admin center with deeper controls and reports.</p>
-          <table class="compare-table">
+          <div class="table-wrap"><table class="compare-table">
             <thead><tr><th>Admin Center</th><th>Key Reports / Controls</th></tr></thead>
             <tbody>
               <tr><td><strong>Teams Admin Center</strong></td><td>Meeting policies, call routing, Teams usage analytics, app permissions</td></tr>
@@ -466,7 +469,7 @@ h1 em{font-style:normal;color:var(--c)}
               <tr><td><strong>Exchange Admin Center</strong></td><td>Mail flow rules, mailbox policies, anti-spam, message trace</td></tr>
               <tr><td><strong>Copilot Dashboard</strong></td><td>AI usage insights — how Copilot is being used across the org, adoption metrics</td></tr>
             </tbody>
-          </table>
+          </table></div>
           <div class="callout">
             <span class="callout-icon">📌</span>
             <div class="callout-text"><strong>Exam tip</strong>The Copilot Dashboard is accessed from the M365 Admin Center and helps admins monitor AI adoption — this is a newer exam addition, don't overlook it.</div>
@@ -481,14 +484,14 @@ h1 em{font-style:normal;color:var(--c)}
         </div>
         <div class="concept-body">
           <p class="concept-desc">Distinct from the Admin Center (which is admin-only), the <strong>M365 user portal</strong> is the self-service experience for end users. Accessible at <strong>office.com</strong> or <strong>myapps.microsoft.com</strong>, it lets any licensed user manage their own account and access their apps — no admin rights required.</p>
-          <table class="compare-table">
+          <div class="table-wrap"><table class="compare-table">
             <thead><tr><th>Portal</th><th>Who Uses It</th><th>What They Can Do</th></tr></thead>
             <tbody>
               <tr><td><strong>office.com</strong></td><td>All licensed users</td><td>Launch all M365 apps (Teams, Outlook, Word, SharePoint...), access OneDrive files, install Office desktop apps</td></tr>
               <tr><td><strong>myaccount.microsoft.com</strong></td><td>All licensed users</td><td>Manage security info, update MFA methods, view/manage devices, download Office, check assigned licenses</td></tr>
               <tr><td><strong>myapps.microsoft.com</strong></td><td>All licensed users</td><td>Single sign-on dashboard — see and launch all apps the user has been granted access to</td></tr>
             </tbody>
-          </table>
+          </table></div>
           <div class="callout">
             <span class="callout-icon">📌</span>
             <div class="callout-text"><strong>Exam tip — Admin Center vs User Portal</strong>Admin Center (admin.microsoft.com) = IT admins only; manage the whole tenant. User portal (office.com / myapps) = individual employees; manage their own experience. The exam will test this distinction in scenario questions.</div>
