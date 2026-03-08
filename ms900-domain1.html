@@ -123,6 +123,8 @@ h1 em{font-style:normal;color:var(--c)}
   <span class="sep">·</span>
   <a href="ms900-practice.html">⚡ Practice Quiz</a>
   <span class="sep">·</span>
+  <a href="ms900-practice2.html">⚡ Practice 2</a>
+  <span class="sep">·</span>
   <a href="ms900-glossary.html">📖 Glossary</a>
 </nav>
 
@@ -148,6 +150,7 @@ h1 em{font-style:normal;color:var(--c)}
       <li><strong>Public cloud</strong> = shared infra (Azure); <strong>Private</strong> = dedicated to one org; <strong>Hybrid</strong> = both connected</li>
       <li>Office 365 = productivity apps only. Microsoft 365 = Office 365 + device management + security</li>
       <li>Cloud benefits: OpEx vs CapEx, scalability, high availability, no hardware to manage</li>
+      <li><strong>Lift and shift</strong> (rehost to IaaS) = move on-prem workloads to cloud VMs with no code changes; <strong>Repurchase</strong> = replace on-prem software with SaaS like M365</li>
     </ul>
   </div>
 
@@ -303,6 +306,36 @@ h1 em{font-style:normal;color:var(--c)}
             <div class="term"><span class="term-key">CapEx → OpEx</span><span class="term-val">Trade big upfront spend for monthly billing</span></div>
           </div>
           <p class="concept-desc" style="margin-top:12px"><strong>Hybrid work</strong> refers to the model where employees split time between office and remote. Cloud-based M365 makes this seamless — apps, files, meetings, and devices are all managed centrally and accessible from anywhere.</p>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="7">
+          <div class="concept-title">Cloud Migration Strategies &amp; Lift and Shift</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">When an organisation moves workloads from an on-premises datacenter to the cloud, they choose a migration strategy based on how much they want (or are able) to change their existing applications. The five common strategies are often called the <strong>"5 Rs"</strong>.</p>
+          <div class="table-wrap"><table class="compare-table">
+            <thead><tr><th>Strategy</th><th>Also Called</th><th>Service Model</th><th>When to Use</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Rehost</strong></td><td>Lift and Shift</td><td><span class="badge badge-blue">IaaS</span></td><td>App can't be modified; fastest migration</td><td>Move on-prem file server to an Azure VM</td></tr>
+              <tr><td><strong>Refactor</strong></td><td>Replatform</td><td><span class="badge badge-purple">PaaS</span></td><td>Minor code changes acceptable for cloud benefits</td><td>Move web app to Azure App Service</td></tr>
+              <tr><td><strong>Repurchase</strong></td><td>Replace with SaaS</td><td><span class="badge badge-green">SaaS</span></td><td>Swap legacy on-prem software for a cloud subscription</td><td>Replace on-prem Exchange Server with Exchange Online / M365</td></tr>
+              <tr><td><strong>Retire</strong></td><td>Decommission</td><td>N/A</td><td>App no longer needed</td><td>Remove legacy intranet before M365 launch</td></tr>
+              <tr><td><strong>Retain</strong></td><td>Keep on-prem</td><td>On-prem</td><td>App must stay on-premises (compliance, latency)</td><td>Compliance-bound legacy system not yet ready to move</td></tr>
+            </tbody>
+          </table></div>
+          <div class="callout">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Exam tip</strong>Two patterns dominate exam questions: <strong>Lift and shift → IaaS</strong> (move with zero code changes — apps land on Azure VMs). <strong>Repurchase → SaaS</strong> (replace on-prem software with M365 subscription). Whenever a scenario says "minimal changes" or "no re-architecture" → IaaS rehost. Whenever it says "replace on-prem email/collaboration" → Repurchase (SaaS).</div>
+          </div>
+          <div class="key-terms">
+            <div class="term"><span class="term-key">Lift and Shift</span><span class="term-val">Move to cloud with no changes (IaaS rehost)</span></div>
+            <div class="term"><span class="term-key">Rehost</span><span class="term-val">Another name for lift and shift</span></div>
+            <div class="term"><span class="term-key">Repurchase</span><span class="term-val">Replace on-prem with SaaS (e.g. M365)</span></div>
+            <div class="term"><span class="term-key">Refactor</span><span class="term-val">Minor changes to use PaaS features</span></div>
+          </div>
         </div>
       </div>
 

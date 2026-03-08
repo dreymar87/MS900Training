@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MS-900 | Practice Quiz 2</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1117;--surface:#181c27;--surface2:#1e2333;--surface3:#242840;
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.12);
+  --text:#e2e8f0;--muted:#64748b;--muted2:#8899aa;
+  --d1:#4f8ef7;--d1s:rgba(79,142,247,.12);
+  --d2:#a78bfa;--d2s:rgba(167,139,250,.12);
+  --d3:#34d399;--d3s:rgba(52,211,153,.12);
+  --d4:#fb923c;--d4s:rgba(251,146,60,.12);
+  --correct:#34d399;--correct-s:rgba(52,211,153,.1);--correct-b:rgba(52,211,153,.25);
+  --wrong:#f87171;--wrong-s:rgba(248,113,113,.1);--wrong-b:rgba(248,113,113,.25);
+  --amber:#fbbf24;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;min-height:100vh;line-height:1.6}
+.topnav{position:sticky;top:0;z-index:100;background:rgba(15,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;gap:4px;height:52px;overflow-x:auto}
+.topnav a{text-decoration:none;white-space:nowrap;font-size:12px;font-weight:600;padding:5px 11px;border-radius:8px;transition:all .2s;color:var(--muted)}
+.topnav a:hover{background:var(--surface2);color:var(--text)}
+.topnav a.active{background:rgba(251,191,36,.12);color:var(--amber)}
+.topnav .brand{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2);margin-right:8px;flex-shrink:0}
+.topnav .sep{color:var(--border2);margin:0 2px}
+.nav-done{color:#34d399;font-size:10px;font-weight:700}
+.nav-started{color:#fbbf24;font-size:10px}
+.page{max-width:820px;margin:0 auto;padding:48px 24px 96px}
+.quiz-pill{display:inline-flex;align-items:center;gap:6px;padding:4px 14px;border-radius:999px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;background:rgba(251,191,36,.12);color:var(--amber);margin-bottom:18px}
+h1{font-family:'Fraunces',serif;font-size:clamp(26px,5vw,42px);font-weight:900;line-height:1.1;letter-spacing:-.02em;color:#fff;margin-bottom:12px}
+h1 em{font-style:normal;color:var(--amber)}
+.hero-sub{color:var(--muted2);font-size:14px;max-width:580px;line-height:1.7;margin-bottom:24px}
+.score-bar{background:var(--surface);border:1px solid var(--border2);border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:16px;margin-bottom:40px;flex-wrap:wrap}
+.score-display{font-family:'Fraunces',serif;font-size:32px;font-weight:900;color:var(--amber);line-height:1}
+.score-label{font-size:12px;color:var(--muted);margin-top:2px}
+.score-track{flex:1;min-width:120px;height:8px;background:var(--surface3);border-radius:999px;overflow:hidden}
+.score-fill{height:100%;border-radius:999px;background:var(--amber);transition:width .5s ease;width:0%}
+.score-meta{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-left:auto}
+.btn-reset{font-family:'DM Mono',monospace;font-size:11px;padding:6px 14px;border-radius:8px;border:1px solid var(--border2);background:transparent;color:var(--muted2);cursor:pointer;transition:all .2s}
+.btn-reset:hover{background:var(--surface2);color:#fff}
+.domain-section{margin-bottom:48px}
+.domain-heading{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border2)}
+.d-chip{padding:4px 12px;border-radius:999px;font-family:'DM Mono',monospace;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em}
+.d1-chip{background:var(--d1s);color:var(--d1)}
+.d2-chip{background:var(--d2s);color:var(--d2)}
+.d3-chip{background:var(--d3s);color:var(--d3)}
+.d4-chip{background:var(--d4s);color:var(--d4)}
+.domain-heading h2{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:#fff}
+.domain-score{margin-left:auto;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)}
+.q-card{background:var(--surface);border:1px solid var(--border2);border-radius:14px;margin-bottom:14px;overflow:hidden;transition:border-color .2s}
+.q-card.answered-correct{border-color:var(--correct-b)}
+.q-card.answered-wrong{border-color:var(--wrong-b)}
+.q-header{padding:16px 20px;display:flex;align-items:flex-start;gap:12px}
+.q-num{font-family:'DM Mono',monospace;font-size:10px;font-weight:600;color:var(--muted);flex-shrink:0;padding-top:3px;min-width:28px}
+.q-text{font-size:14px;font-weight:600;color:#fff;line-height:1.5;flex:1}
+.q-domain-tag{font-family:'DM Mono',monospace;font-size:9px;padding:2px 7px;border-radius:5px;flex-shrink:0;align-self:flex-start;margin-top:3px}
+.q-options{padding:0 20px 16px 20px;display:flex;flex-direction:column;gap:7px}
+.q-option{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:10px;border:1px solid var(--border2);background:var(--surface2);cursor:pointer;transition:all .2s;text-align:left;width:100%;font-family:'Plus Jakarta Sans',sans-serif}
+.q-option:hover:not(:disabled){border-color:var(--border);background:var(--surface3);color:#fff}
+.q-option:disabled{cursor:default}
+.opt-letter{font-family:'DM Mono',monospace;font-size:11px;font-weight:600;color:var(--muted2);flex-shrink:0;width:16px;padding-top:1px}
+.opt-text{font-size:13px;color:var(--muted2);line-height:1.5;flex:1}
+.q-option.correct{background:var(--correct-s);border-color:var(--correct-b)}
+.q-option.correct .opt-letter,.q-option.correct .opt-text{color:var(--correct)}
+.q-option.wrong{background:var(--wrong-s);border-color:var(--wrong-b)}
+.q-option.wrong .opt-letter,.q-option.wrong .opt-text{color:var(--wrong)}
+.q-option.reveal-correct{background:var(--correct-s);border-color:var(--correct-b);opacity:.7}
+.q-option.reveal-correct .opt-letter,.q-option.reveal-correct .opt-text{color:var(--correct)}
+.q-explanation{display:none;margin:0 20px 16px;padding:12px 15px;border-radius:10px;font-size:13px;line-height:1.6;border:1px solid}
+.q-explanation.show{display:block}
+.q-explanation.exp-correct{background:var(--correct-s);border-color:var(--correct-b);color:var(--correct)}
+.q-explanation.exp-wrong{background:var(--wrong-s);border-color:var(--wrong-b);color:var(--wrong)}
+.exp-label{font-family:'DM Mono',monospace;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
+.exp-body{color:var(--text);font-size:13px;line-height:1.6}
+.q-status{width:20px;height:20px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;margin-top:2px}
+.status-correct{background:var(--correct-b);color:var(--correct)}
+.status-wrong{background:var(--wrong-b);color:var(--wrong)}
+.complete-banner{background:linear-gradient(135deg,rgba(251,191,36,.1),rgba(251,146,60,.1));border:1px solid rgba(251,191,36,.3);border-radius:16px;padding:28px 24px;text-align:center;margin-top:48px}
+.complete-banner h3{font-family:'Fraunces',serif;font-size:24px;font-weight:900;color:#fff;margin-bottom:8px}
+.complete-banner p{color:var(--muted2);font-size:14px;margin-bottom:16px}
+.complete-banner a{display:inline-block;padding:10px 22px;border-radius:10px;background:var(--amber);color:#000;font-weight:700;font-size:13px;text-decoration:none;transition:opacity .2s}
+.complete-banner a:hover{opacity:.85}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <span class="brand">MS-900</span>
+  <span class="sep">·</span>
+  <a href="index.html">🏠 Hub</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain1.html" id="nav-d1">01 Cloud Concepts</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain2.html" id="nav-d2">02 M365 Apps &amp; Services</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain3.html" id="nav-d3">03 Security &amp; Compliance</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain4.html" id="nav-d4">04 Pricing &amp; Licensing</a>
+  <span class="sep">·</span>
+  <a href="ms900-practice.html">⚡ Practice Quiz</a>
+  <span class="sep">·</span>
+  <a href="ms900-practice2.html" class="active">⚡ Practice 2</a>
+  <span class="sep">·</span>
+  <a href="ms900-glossary.html">📖 Glossary</a>
+</nav>
+
+<main class="page">
+
+  <div class="quiz-pill">⚡ Active Recall Quiz</div>
+  <h1>MS-900 <em>Practice Quiz 2</em></h1>
+  <p class="hero-sub">50 brand-new scenario-style questions covering all 4 exam domains. All fresh scenarios — no repeats from Quiz 1. Click an answer to reveal the explanation.</p>
+
+  <div class="score-bar">
+    <div>
+      <div class="score-display" id="score-display">0 / 50</div>
+      <div class="score-label">Questions correct</div>
+    </div>
+    <div class="score-track">
+      <div class="score-fill" id="score-fill"></div>
+    </div>
+    <div class="score-meta" id="score-pct">0%</div>
+    <button class="btn-reset" onclick="resetAll()">↺ Reset</button>
+  </div>
+
+  <!-- DOMAIN 1: Cloud Concepts (8 questions) -->
+  <div class="domain-section" id="section-d1">
+    <div class="domain-heading">
+      <div class="d-chip d1-chip">Domain 1</div>
+      <h2>Cloud Concepts</h2>
+      <div class="domain-score" id="dscore-1">0 / 8</div>
+    </div>
+
+    <!-- P2-Q1 -->
+    <div class="q-card" id="p2q1">
+      <div class="q-header">
+        <div class="q-num">Q1</div>
+        <div class="q-text">A hospital IT team wants to move their legacy patient records application to the cloud but cannot modify any application code due to regulatory constraints. The application must run exactly as it does today. Which migration strategy should they use?</div>
+        <div class="q-domain-tag d1-chip">D1</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q1','A','B')"><span class="opt-letter">A</span><span class="opt-text">Refactor — rewrite the app to use Azure PaaS managed services</span></button>
+        <button class="q-option" onclick="answer(this,'p2q1','B','B')"><span class="opt-letter">B</span><span class="opt-text">Rehost (lift and shift) — move the app to Azure VMs with no code changes</span></button>
+        <button class="q-option" onclick="answer(this,'p2q1','C','B')"><span class="opt-letter">C</span><span class="opt-text">Repurchase — replace the app with a SaaS equivalent</span></button>
+        <button class="q-option" onclick="answer(this,'p2q1','D','B')"><span class="opt-letter">D</span><span class="opt-text">Retire — decommission the app since it cannot be modified</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q1">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Rehost (lift and shift)</strong> moves an application to cloud VMs (IaaS) with zero code changes — exactly what is needed when modification is not possible. Refactor requires code changes. Repurchase replaces the app with SaaS (e.g. M365). Retire means shutting the app down. When the exam says "no code changes" → always think IaaS rehost.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q2 -->
+    <div class="q-card" id="p2q2">
+      <div class="q-header">
+        <div class="q-num">Q2</div>
+        <div class="q-text">Contoso Ltd currently budgets $500,000 per year for new server hardware. After migrating to Microsoft Azure, they will pay only for the computing resources they actually consume each month. Which cloud financial concept does this transition represent?</div>
+        <div class="q-domain-tag d1-chip">D1</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q2','A','B')"><span class="opt-letter">A</span><span class="opt-text">Capital expenditure (CapEx) — paying upfront for infrastructure</span></button>
+        <button class="q-option" onclick="answer(this,'p2q2','B','B')"><span class="opt-letter">B</span><span class="opt-text">Operational expenditure (OpEx) — paying for services as consumed</span></button>
+        <button class="q-option" onclick="answer(this,'p2q2','C','B')"><span class="opt-letter">C</span><span class="opt-text">Depreciation — spreading hardware costs over its useful life</span></button>
+        <button class="q-option" onclick="answer(this,'p2q2','D','B')"><span class="opt-letter">D</span><span class="opt-text">Economies of scale — Microsoft lowering costs through bulk purchasing</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q2">
+        <div class="exp-label"></div>
+        <div class="exp-body">Cloud shifts spending from <strong>CapEx</strong> (large upfront hardware investment) to <strong>OpEx</strong> (pay-as-you-go monthly consumption). CapEx = buy servers. OpEx = rent compute. Economies of scale is a real cloud benefit (Microsoft passes savings to customers) but describes the mechanism behind lower costs, not the spending model shift itself.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q3 -->
+    <div class="q-card" id="p2q3">
+      <div class="q-header">
+        <div class="q-num">Q3</div>
+        <div class="q-text">A start-up deploys a web application on Azure App Service. They write and deploy their code, but Microsoft manages the underlying OS, runtime patching, and server hardware. Which cloud service model is this?</div>
+        <div class="q-domain-tag d1-chip">D1</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q3','A','B')"><span class="opt-letter">A</span><span class="opt-text">IaaS — the customer manages OS and middleware</span></button>
+        <button class="q-option" onclick="answer(this,'p2q3','B','B')"><span class="opt-letter">B</span><span class="opt-text">PaaS — the customer manages only their application and data</span></button>
+        <button class="q-option" onclick="answer(this,'p2q3','C','B')"><span class="opt-letter">C</span><span class="opt-text">SaaS — the provider manages everything including the application</span></button>
+        <button class="q-option" onclick="answer(this,'p2q3','D','B')"><span class="opt-letter">D</span><span class="opt-text">Hybrid — a combination of on-premises and cloud</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q3">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>PaaS (Platform as a Service)</strong> — customers bring their own application code; the provider (Microsoft) handles OS, runtime, patching, and hardware. Azure App Service, Azure SQL Database, and Azure Functions are all PaaS examples. IaaS gives OS access to the customer. SaaS means the provider manages the entire application (e.g., Teams, Outlook.com).</div>
+      </div>
+    </div>
+
+    <!-- P2-Q4 -->
+    <div class="q-card" id="p2q4">
+      <div class="q-header">
+        <div class="q-num">Q4</div>
+        <div class="q-text">An organisation runs critical workloads on Azure but must keep a subset of sensitive data on their own on-premises servers due to regulatory requirements. Some applications connect to both environments. Which cloud deployment model describes this?</div>
+        <div class="q-domain-tag d1-chip">D1</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q4','A','C')"><span class="opt-letter">A</span><span class="opt-text">Public cloud — all infrastructure is managed by Microsoft</span></button>
+        <button class="q-option" onclick="answer(this,'p2q4','B','C')"><span class="opt-letter">B</span><span class="opt-text">Private cloud — all infrastructure is owned by the organisation</span></button>
+        <button class="q-option" onclick="answer(this,'p2q4','C','C')"><span class="opt-letter">C</span><span class="opt-text">Hybrid cloud — on-premises and public cloud used together</span></button>
+        <button class="q-option" onclick="answer(this,'p2q4','D','C')"><span class="opt-letter">D</span><span class="opt-text">Multi-cloud — multiple public cloud providers used simultaneously</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q4">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Hybrid cloud</strong> combines an organisation's on-premises (private) infrastructure with a public cloud (Azure), with connectivity between them. This is common for data residency or compliance requirements. Multi-cloud uses multiple public providers (Azure + AWS) but doesn't involve on-premises servers. This distinction is frequently tested — "some on-prem, some cloud" = hybrid.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q5 -->
+    <div class="q-card" id="p2q5">
+      <div class="q-header">
+        <div class="q-num">Q5</div>
+        <div class="q-text">Contoso's e-commerce website experiences a traffic spike every Black Friday that is 10× normal load. They want to automatically add servers during the spike and remove them afterward, paying only for what they use. Which cloud benefit does this describe?</div>
+        <div class="q-domain-tag d1-chip">D1</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q5','A','B')"><span class="opt-letter">A</span><span class="opt-text">High availability — ensuring the site never goes down</span></button>
+        <button class="q-option" onclick="answer(this,'p2q5','B','B')"><span class="opt-letter">B</span><span class="opt-text">Elasticity — automatically scaling resources up and down with demand</span></button>
+        <button class="q-option" onclick="answer(this,'p2q5','C','B')"><span class="opt-letter">C</span><span class="opt-text">Geo-redundancy — replicating data across multiple regions</span></button>
+        <button class="q-option" onclick="answer(this,'p2q5','D','B')"><span class="opt-letter">D</span><span class="opt-text">Disaster recovery — restoring service after a major failure</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q5">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Elasticity</strong> is the ability to automatically scale compute resources up or down in response to demand — and pay only for what you use. High availability focuses on uptime/redundancy (keeping the site running), not scaling. Geo-redundancy is about data replication across regions. Disaster recovery is about recovering from failures. Spike + auto-scale + pay-as-you-go = elasticity.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q6 -->
+    <div class="q-card" id="p2q6">
+      <div class="q-header">
+        <div class="q-num">Q6</div>
+        <div class="q-text">A company's on-premises CRM software is approaching end-of-life. Instead of upgrading the on-premises version, they decide to switch to Microsoft Dynamics 365 (a cloud-based CRM). Which migration strategy does this represent?</div>
+        <div class="q-domain-tag d1-chip">D1</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q6','A','C')"><span class="opt-letter">A</span><span class="opt-text">Rehost — move the existing CRM to a cloud VM</span></button>
+        <button class="q-option" onclick="answer(this,'p2q6','B','C')"><span class="opt-letter">B</span><span class="opt-text">Refactor — rewrite the CRM code to run on Azure PaaS</span></button>
+        <button class="q-option" onclick="answer(this,'p2q6','C','C')"><span class="opt-letter">C</span><span class="opt-text">Repurchase — replace the on-prem software with a SaaS solution</span></button>
+        <button class="q-option" onclick="answer(this,'p2q6','D','C')"><span class="opt-letter">D</span><span class="opt-text">Retain — keep the CRM on-premises for the foreseeable future</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q6">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Repurchase</strong> (also called "drop and shop") means replacing an existing on-premises application with a SaaS equivalent. Switching from an on-prem CRM to Dynamics 365 (or from on-prem Exchange to Exchange Online / Microsoft 365) is the classic repurchase example. The exam tests this frequently — "replace with SaaS" = repurchase. Rehost = same app, cloud VM. Refactor = same app, rewritten for cloud.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q7 -->
+    <div class="q-card" id="p2q7">
+      <div class="q-header">
+        <div class="q-num">Q7</div>
+        <div class="q-text">Which of the following is a key advantage that Microsoft can offer cloud customers due to economies of scale?</div>
+        <div class="q-domain-tag d1-chip">D1</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q7','A','A')"><span class="opt-letter">A</span><span class="opt-text">Lower per-unit costs because Microsoft purchases hardware in massive quantities</span></button>
+        <button class="q-option" onclick="answer(this,'p2q7','B','A')"><span class="opt-letter">B</span><span class="opt-text">Customers keep full ownership of the physical hardware</span></button>
+        <button class="q-option" onclick="answer(this,'p2q7','C','A')"><span class="opt-letter">C</span><span class="opt-text">Guaranteed 100% uptime SLA for all services</span></button>
+        <button class="q-option" onclick="answer(this,'p2q7','D','A')"><span class="opt-letter">D</span><span class="opt-text">Unlimited storage with no additional cost</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q7">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Economies of scale</strong> means that because Microsoft operates datacenters at massive global scale, they can purchase hardware, electricity, and networking at far lower per-unit costs than any individual organisation — and pass those savings on to customers as lower pricing. No cloud provider offers 100% uptime (SLAs are typically 99.9%+). Customers don't own physical hardware. Storage is priced by consumption.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q8 -->
+    <div class="q-card" id="p2q8">
+      <div class="q-header">
+        <div class="q-num">Q8</div>
+        <div class="q-text">Under the shared responsibility model for Microsoft 365 (SaaS), which of the following is ALWAYS the customer's responsibility regardless of service model?</div>
+        <div class="q-domain-tag d1-chip">D1</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q8','A','D')"><span class="opt-letter">A</span><span class="opt-text">Patching the operating system on Microsoft's servers</span></button>
+        <button class="q-option" onclick="answer(this,'p2q8','B','D')"><span class="opt-letter">B</span><span class="opt-text">Managing the physical datacenter and network hardware</span></button>
+        <button class="q-option" onclick="answer(this,'p2q8','C','D')"><span class="opt-letter">C</span><span class="opt-text">Configuring the application's middleware and runtime</span></button>
+        <button class="q-option" onclick="answer(this,'p2q8','D','D')"><span class="opt-letter">D</span><span class="opt-text">Managing user accounts, identities, and access permissions</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q8">
+        <div class="exp-label"></div>
+        <div class="exp-body">In the shared responsibility model, <strong>user identities and access management are always the customer's responsibility</strong> — regardless of whether the model is IaaS, PaaS, or SaaS. Microsoft manages OS patching and physical hardware for SaaS (M365). Middleware is managed by Microsoft in SaaS and PaaS. But the customer always controls who has accounts and what permissions they hold — this cannot be outsourced to Microsoft.</div>
+      </div>
+    </div>
+
+  </div><!-- end domain 1 -->
+  <!-- DOMAIN 2: M365 Apps & Services (18 questions) -->
+  <div class="domain-section" id="section-d2">
+    <div class="domain-heading">
+      <div class="d-chip d2-chip">Domain 2</div>
+      <h2>Microsoft 365 Apps &amp; Services</h2>
+      <div class="domain-score" id="dscore-2">0 / 18</div>
+    </div>
+
+    <!-- P2-Q9 -->
+    <div class="q-card" id="p2q9">
+      <div class="q-header">
+        <div class="q-num">Q9</div>
+        <div class="q-text">A project manager needs to create an interactive, fluid workspace where team members can co-author documents, embed data from Loop components, and see live updates reflected across Teams, Outlook, and the Loop app simultaneously. Which Microsoft 365 product enables this?</div>
+        <div class="q-domain-tag d2-chip">D2</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q9','A','C')"><span class="opt-letter">A</span><span class="opt-text">Microsoft Whiteboard — for visual brainstorming and freehand drawing</span></button>
+        <button class="q-option" onclick="answer(this,'p2q9','B','C')"><span class="opt-letter">B</span><span class="opt-text">Microsoft Planner — for task management and kanban boards</span></button>
+        <button class="q-option" onclick="answer(this,'p2q9','C','C')"><span class="opt-letter">C</span><span class="opt-text">Microsoft Loop — for collaborative workspaces with portable components</span></button>
+        <button class="q-option" onclick="answer(this,'p2q9','D','C')"><span class="opt-letter">D</span><span class="opt-text">Microsoft Forms — for creating surveys and quizzes</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q9">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Microsoft Loop</strong> introduces portable "Loop components" — live, co-editable blocks (tables, task lists, paragraphs) that stay in sync across Teams chats, Outlook emails, and the Loop app. Whiteboard is for visual brainstorming. Planner is for task/project tracking. Forms creates surveys. The key Loop distinguisher is that a single component updates everywhere it's embedded.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q10 -->
+    <div class="q-card" id="p2q10">
+      <div class="q-header">
+        <div class="q-num">Q10</div>
+        <div class="q-text">A business analyst wants to connect to data in SharePoint lists, Excel files, and Azure SQL, then create interactive reports and dashboards that executives can view in a browser without needing Excel. Which Microsoft 365 / Microsoft service should they use?</div>
+        <div class="q-domain-tag d2-chip">D2</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q10','A','B')"><span class="opt-letter">A</span><span class="opt-text">Microsoft Excel — for spreadsheet-based data analysis</span></button>
+        <button class="q-option" onclick="answer(this,'p2q10','B','B')"><span class="opt-letter">B</span><span class="opt-text">Microsoft Power BI — for self-service business intelligence and dashboards</span></button>
+        <button class="q-option" onclick="answer(this,'p2q10','C','B')"><span class="opt-letter">C</span><span class="opt-text">Microsoft Visio — for process diagrams and flowcharts</span></button>
+        <button class="q-option" onclick="answer(this,'p2q10','D','B')"><span class="opt-letter">D</span><span class="opt-text">Microsoft Project — for project scheduling and Gantt charts</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q10">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Power BI</strong> is Microsoft's self-service business intelligence platform. It connects to hundreds of data sources, transforms data, and publishes interactive visual reports and dashboards accessible via browser or mobile app — no Excel or local software required for viewers. Excel is for spreadsheet analysis. Visio is for diagrams. Project is for scheduling. Power BI is the answer whenever the scenario involves "dashboard," "BI," or "data visualisation."</div>
+      </div>
+    </div>
+
+    <!-- P2-Q11 -->
+    <div class="q-card" id="p2q11">
+      <div class="q-header">
+        <div class="q-num">Q11</div>
+        <div class="q-text">Fabrikam wants to allow external vendors to submit invoices through a branded web form without needing a Microsoft 365 account. Responses should automatically flow into a SharePoint list. Which Microsoft 365 feature best supports this?</div>
+        <div class="q-domain-tag d2-chip">D2</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q11','A','A')"><span class="opt-letter">A</span><span class="opt-text">Microsoft Forms — shareable web forms accessible without a Microsoft account</span></button>
+        <button class="q-option" onclick="answer(this,'p2q11','B','A')"><span class="opt-letter">B</span><span class="opt-text">Microsoft Lists — for internal list management within the organisation</span></button>
+        <button class="q-option" onclick="answer(this,'p2q11','C','A')"><span class="opt-letter">C</span><span class="opt-text">Microsoft Planner — for task assignment and tracking</span></button>
+        <button class="q-option" onclick="answer(this,'p2q11','D','A')"><span class="opt-letter">D</span><span class="opt-text">Microsoft Bookings — for scheduling appointments with external parties</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q11">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Microsoft Forms</strong> allows creation of surveys and forms that can be shared publicly (no Microsoft account required). Responses are collected in real time and can sync to Excel or SharePoint. Forms integrates with Power Automate for workflow automation. Lists is an internal structured-data tool. Planner is for tasks. Bookings is for appointment scheduling — not arbitrary data collection from vendors.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q12 -->
+    <div class="q-card" id="p2q12">
+      <div class="q-header">
+        <div class="q-num">Q12</div>
+        <div class="q-text">Northwind Traders' HR team wants to let employees book 30-minute onboarding slots with HR staff, showing real availability based on the HR staff's Outlook calendar. Which Microsoft 365 app is purpose-built for this?</div>
+        <div class="q-domain-tag d2-chip">D2</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q12','A','B')"><span class="opt-letter">A</span><span class="opt-text">Microsoft Forms — to collect employee preferences via survey</span></button>
+        <button class="q-option" onclick="answer(this,'p2q12','B','B')"><span class="opt-letter">B</span><span class="opt-text">Microsoft Bookings — for self-service appointment scheduling</span></button>
+        <button class="q-option" onclick="answer(this,'p2q12','C','B')"><span class="opt-letter">C</span><span class="opt-text">Microsoft Planner — to assign onboarding tasks to HR staff</span></button>
+        <button class="q-option" onclick="answer(this,'p2q12','D','B')"><span class="opt-letter">D</span><span class="opt-text">Microsoft To Do — to create personal task lists for HR staff</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q12">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Microsoft Bookings</strong> is a scheduling app that publishes a booking page showing real staff availability (synced with Outlook calendars) and lets customers/employees self-book appointments. It sends automatic reminders and can integrate with Teams for virtual meetings. Forms collects data but doesn't manage calendar availability. Planner is for tasks. To Do is a personal task manager.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q13 -->
+    <div class="q-card" id="p2q13">
+      <div class="q-header">
+        <div class="q-num">Q13</div>
+        <div class="q-text">A manufacturing company's production floor workers use shared tablets and do not have individual email addresses or desktop PCs. They need access to Teams for shift scheduling and safety checklists. Which Microsoft 365 offering is designed specifically for this worker type?</div>
+        <div class="q-domain-tag d2-chip">D2</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q13','A','C')"><span class="opt-letter">A</span><span class="opt-text">Microsoft 365 E3 — the standard enterprise plan for knowledge workers</span></button>
+        <button class="q-option" onclick="answer(this,'p2q13','B','C')"><span class="opt-letter">B</span><span class="opt-text">Microsoft 365 Business Premium — for small and medium businesses</span></button>
+        <button class="q-option" onclick="answer(this,'p2q13','C','C')"><span class="opt-letter">C</span><span class="opt-text">Microsoft 365 Frontline Worker (F1/F3) — designed for deskless workers</span></button>
+        <button class="q-option" onclick="answer(this,'p2q13','D','C')"><span class="opt-letter">D</span><span class="opt-text">Microsoft 365 Apps for Business — for Office apps without Teams</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q13">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Microsoft 365 Frontline Worker</strong> plans (F1 and F3) are specifically designed for deskless/shift workers who don't have dedicated PCs. F1 is web-and-mobile only (no desktop Office apps); F3 adds desktop apps and more. They include Teams Shifts for scheduling, Walkie Talkie, and task management at a significantly lower per-user price. E3 and Business Premium target knowledge workers with full desktop access.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q14 -->
+    <div class="q-card" id="p2q14">
+      <div class="q-header">
+        <div class="q-num">Q14</div>
+        <div class="q-text">An organisation wants to use Microsoft Copilot to draft emails in Outlook, summarise Teams meetings, and generate first drafts in Word — all powered by their own Microsoft 365 data with enterprise privacy protections. What is required in addition to their existing Microsoft 365 E3 licences?</div>
+        <div class="q-domain-tag d2-chip">D2</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q14','A','B')"><span class="opt-letter">A</span><span class="opt-text">Upgrade to Microsoft 365 E5 — E5 includes Copilot at no extra charge</span></button>
+        <button class="q-option" onclick="answer(this,'p2q14','B','B')"><span class="opt-letter">B</span><span class="opt-text">Microsoft 365 Copilot add-on licence — required for each user needing Copilot</span></button>
+        <button class="q-option" onclick="answer(this,'p2q14','C','B')"><span class="opt-letter">C</span><span class="opt-text">Azure OpenAI Service subscription — Copilot requires a separate Azure account</span></button>
+        <button class="q-option" onclick="answer(this,'p2q14','D','B')"><span class="opt-letter">D</span><span class="opt-text">No additional licence — Copilot is included in all Microsoft 365 plans</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q14">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Microsoft 365 Copilot</strong> is an add-on licence that must be purchased per user on top of a qualifying Microsoft 365 base plan (E3, E5, Business Premium, etc.). It is not included in any base plan — not even E5. It requires eligible base licensing (M365 E3/E5 or similar). No separate Azure subscription is needed; the Copilot service is fully integrated into Microsoft 365's infrastructure.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q15 -->
+    <div class="q-card" id="p2q15">
+      <div class="q-header">
+        <div class="q-num">Q15</div>
+        <div class="q-text">A company uses Microsoft Teams for all internal communication. They want to give each major department a persistent, structured space where members can access shared files, a wiki, a planner board, and ongoing channel conversations — all in one place. Which Teams feature should they use?</div>
+        <div class="q-domain-tag d2-chip">D2</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q15','A','B')"><span class="opt-letter">A</span><span class="opt-text">Teams Chat — for direct messaging and group conversations</span></button>
+        <button class="q-option" onclick="answer(this,'p2q15','B','B')"><span class="opt-letter">B</span><span class="opt-text">Teams Teams &amp; Channels — for persistent workspaces with tabs and files</span></button>
+        <button class="q-option" onclick="answer(this,'p2q15','C','B')"><span class="opt-letter">C</span><span class="opt-text">Teams Calls — for PSTN phone calls and voicemail</span></button>
+        <button class="q-option" onclick="answer(this,'p2q15','D','B')"><span class="opt-letter">D</span><span class="opt-text">Teams Live Events — for broadcasting to large audiences</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q15">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Teams (teams and channels)</strong> provide persistent workspaces where department members see ongoing channel conversations, shared files (backed by SharePoint), a OneNote wiki, Planner tabs, and other integrated apps — all in one structure. Chat is ad-hoc messaging without the persistent team structure. Calls handles telephony. Live Events is for one-to-many broadcasts. For structured departmental workspaces → Teams &amp; Channels.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q16 -->
+    <div class="q-card" id="p2q16">
+      <div class="q-header">
+        <div class="q-num">Q16</div>
+        <div class="q-text">Woodgrove Bank needs to automate a multi-step approval process: when a sales rep submits an expense report in SharePoint, it should notify their manager in Teams, wait for approval, and if approved, update a record in their CRM — all without writing custom code. Which Microsoft 365 component enables this?</div>
+        <div class="q-domain-tag d2-chip">D2</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q16','A','B')"><span class="opt-letter">A</span><span class="opt-text">Power Apps — for building custom mobile and web applications</span></button>
+        <button class="q-option" onclick="answer(this,'p2q16','B','B')"><span class="opt-letter">B</span><span class="opt-text">Power Automate — for building no-code automated workflows</span></button>
+        <button class="q-option" onclick="answer(this,'p2q16','C','B')"><span class="opt-letter">C</span><span class="opt-text">Power BI — for creating data dashboards and reports</span></button>
+        <button class="q-option" onclick="answer(this,'p2q16','D','B')"><span class="opt-letter">D</span><span class="opt-text">Power Virtual Agents — for building chatbots</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q16">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Power Automate</strong> (formerly Flow) is the no-code/low-code workflow automation tool in the Power Platform. It connects triggers (SharePoint form submitted) to actions (send Teams notification, wait for approval, update CRM) using hundreds of pre-built connectors. Power Apps builds UIs. Power BI builds dashboards. Power Virtual Agents builds chatbots. Multi-step automated workflow without code = Power Automate.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q17 -->
+    <div class="q-card" id="p2q17">
+      <div class="q-header">
+        <div class="q-num">Q17</div>
+        <div class="q-text">An organisation's IT department wants to deploy Windows 11 updates to pilot users first, then to a broader group two weeks later, and finally to all remaining users — ensuring issues are caught before organisation-wide rollout. Which Windows as a Service concept describes this staged approach?</div>
+        <div class="q-domain-tag d2-chip">D2</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q17','A','C')"><span class="opt-letter">A</span><span class="opt-text">Windows Insider Program — for testing pre-release Windows builds</span></button>
+        <button class="q-option" onclick="answer(this,'p2q17','B','C')"><span class="opt-letter">B</span><span class="opt-text">Quality Updates — monthly security patches pushed to all devices simultaneously</span></button>
+        <button class="q-option" onclick="answer(this,'p2q17','C','C')"><span class="opt-letter">C</span><span class="opt-text">Deployment Rings — staged rollout groups (pilot → broad → general)</span></button>
+        <button class="q-option" onclick="answer(this,'p2q17','D','C')"><span class="opt-letter">D</span><span class="opt-text">Feature Updates — annual OS feature upgrades deployed all at once</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q17">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Deployment Rings</strong> are a Windows as a Service (WaaS) strategy that stages update rollouts across groups: a small pilot ring first, then a broader early adopter ring, then the full organisation. This lets IT catch compatibility issues before they affect everyone. Windows Insider is Microsoft's pre-release preview program. Quality Updates are monthly security patches. Feature Updates are major Windows feature releases — deployment rings control the timing of all of these.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q18 -->
+    <div class="q-card" id="p2q18">
+      <div class="q-header">
+        <div class="q-num">Q18</div>
+        <div class="q-text">A non-profit organisation wants to give volunteers access to OneDrive, SharePoint, and Teams but does not need full desktop Office applications. Which Microsoft 365 plan provides core collaboration tools at the lowest cost?</div>
+        <div class="q-domain-tag d2-chip">D2</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q18','A','A')"><span class="opt-letter">A</span><span class="opt-text">Microsoft 365 Business Basic — web and mobile apps, Teams, SharePoint, OneDrive</span></button>
+        <button class="q-option" onclick="answer(this,'p2q18','B','A')"><span class="opt-letter">B</span><span class="opt-text">Microsoft 365 Business Standard — includes desktop Office apps</span></button>
+        <button class="q-option" onclick="answer(this,'p2q18','C','A')"><span class="opt-letter">C</span><span class="opt-text">Microsoft 365 E3 — enterprise plan with advanced compliance features</span></button>
+        <button class="q-option" onclick="answer(this,'p2q18','D','A')"><span class="opt-letter">D</span><span class="opt-text">Microsoft 365 Apps for Business — desktop Office apps only, no Teams</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q18">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Microsoft 365 Business Basic</strong> is the entry-level plan providing Teams, SharePoint, OneDrive, Exchange (email), and web/mobile versions of Office apps — but no desktop Office installs. It's the most cost-effective option when desktop Office is not required. Business Standard adds desktop Office. E3 adds advanced enterprise security and compliance. Apps for Business provides desktop Office but no Teams or Exchange. "Web + Teams + OneDrive, lowest cost" = Business Basic.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q19 -->
+    <div class="q-card" id="p2q19">
+      <div class="q-header">
+        <div class="q-num">Q19</div>
+        <div class="q-text">Contoso wants to align all teams around measurable company objectives. They want employees to log their individual key results and see how their work connects to company-wide goals — using a Microsoft Viva module. Which module is designed for this OKR (Objectives and Key Results) use case?</div>
+        <div class="q-domain-tag d2-chip">D2</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q19','A','C')"><span class="opt-letter">A</span><span class="opt-text">Viva Insights — for personal and team productivity analytics</span></button>
+        <button class="q-option" onclick="answer(this,'p2q19','B','C')"><span class="opt-letter">B</span><span class="opt-text">Viva Engage — for company-wide social networking (Yammer integration)</span></button>
+        <button class="q-option" onclick="answer(this,'p2q19','C','C')"><span class="opt-letter">C</span><span class="opt-text">Viva Goals — for OKR tracking and alignment</span></button>
+        <button class="q-option" onclick="answer(this,'p2q19','D','C')"><span class="opt-letter">D</span><span class="opt-text">Viva Learning — for surfacing training content within Teams</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q19">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Viva Goals</strong> is the OKR (Objectives and Key Results) module in Microsoft Viva. It lets organisations define company objectives, cascade them to teams and individuals, and track progress — all integrated into Teams. Viva Insights surfaces wellbeing and productivity data. Viva Engage is the social networking layer (built on Yammer). Viva Learning surfaces training courses. OKR / goal alignment = Viva Goals.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q20 -->
+    <div class="q-card" id="p2q20">
+      <div class="q-header">
+        <div class="q-num">Q20</div>
+        <div class="q-text">An organisation's intranet team wants to create a company news hub where executives can post announcements, departments can share resources, and employees can find HR policies — all without custom development. Which Microsoft 365 platform is best suited for building this intranet?</div>
+        <div class="q-domain-tag d2-chip">D2</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q20','A','B')"><span class="opt-letter">A</span><span class="opt-text">Microsoft Teams — for persistent channel-based collaboration</span></button>
+        <button class="q-option" onclick="answer(this,'p2q20','B','B')"><span class="opt-letter">B</span><span class="opt-text">SharePoint — for intranet sites, document management, and content publishing</span></button>
+        <button class="q-option" onclick="answer(this,'p2q20','C','B')"><span class="opt-letter">C</span><span class="opt-text">Microsoft Stream — for video hosting and broadcasting</span></button>
+        <button class="q-option" onclick="answer(this,'p2q20','D','B')"><span class="opt-letter">D</span><span class="opt-text">Microsoft Yammer / Viva Engage — for enterprise social networking</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q20">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>SharePoint</strong> is Microsoft's platform for building intranets, publishing content, and managing documents. Modern SharePoint Communication Sites provide a polished intranet experience with news posts, page sections, document libraries, and search — all without coding. Teams is for real-time collaboration. Stream is for video. Yammer/Viva Engage is for social discussion. Intranet + news hub + document library = SharePoint.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q21 -->
+    <div class="q-card" id="p2q21">
+      <div class="q-header">
+        <div class="q-num">Q21</div>
+        <div class="q-text">An HR manager wants to take handwritten interview notes from a Teams meeting recording and have them automatically transcribed, summarised, and drafted into a candidate feedback document. Which Microsoft 365 Copilot capability in which app would best automate this?</div>
+        <div class="q-domain-tag d2-chip">D2</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q21','A','B')"><span class="opt-letter">A</span><span class="opt-text">Copilot in Excel — to analyse the candidate's data in a spreadsheet</span></button>
+        <button class="q-option" onclick="answer(this,'p2q21','B','B')"><span class="opt-letter">B</span><span class="opt-text">Copilot in Teams — to summarise the meeting recording and generate action items</span></button>
+        <button class="q-option" onclick="answer(this,'p2q21','C','B')"><span class="opt-letter">C</span><span class="opt-text">Copilot in PowerPoint — to create a presentation from the meeting notes</span></button>
+        <button class="q-option" onclick="answer(this,'p2q21','D','B')"><span class="opt-letter">D</span><span class="opt-text">Copilot in Forms — to build a survey from the meeting transcript</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q21">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Copilot in Teams</strong> can access meeting transcripts and recordings to produce summaries, identify key points, highlight decisions, and generate action items directly in the chat — without the user manually reviewing the full recording. Copilot in Word would help draft documents, but the transcription and meeting summary step happens in Teams. For meeting intelligence and follow-up automation → Copilot in Teams.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q22 -->
+    <div class="q-card" id="p2q22">
+      <div class="q-header">
+        <div class="q-num">Q22</div>
+        <div class="q-text">A company uses Microsoft Endpoint Manager (Intune) to manage all their corporate devices. They need to ensure that all Windows laptops have a specific security baseline applied before users can access company data. Which Intune capability handles this?</div>
+        <div class="q-domain-tag d2-chip">D2</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q22','A','B')"><span class="opt-letter">A</span><span class="opt-text">Windows Autopilot — for zero-touch device deployment and provisioning</span></button>
+        <button class="q-option" onclick="answer(this,'p2q22','B','B')"><span class="opt-letter">B</span><span class="opt-text">Device Compliance Policies — define required security settings; non-compliant devices are blocked</span></button>
+        <button class="q-option" onclick="answer(this,'p2q22','C','B')"><span class="opt-letter">C</span><span class="opt-text">Microsoft Defender for Endpoint — for threat detection and response</span></button>
+        <button class="q-option" onclick="answer(this,'p2q22','D','B')"><span class="opt-letter">D</span><span class="opt-text">Azure Virtual Desktop — for delivering virtual desktops to remote users</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q22">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Device Compliance Policies</strong> in Microsoft Intune define the minimum security requirements a device must meet (OS version, encryption enabled, PIN set, etc.). Devices that don't meet requirements are marked non-compliant and can be blocked from accessing corporate data (via Conditional Access). Autopilot handles device setup/provisioning. Defender for Endpoint is for threat protection. Azure Virtual Desktop delivers virtual machines to users.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q23 -->
+    <div class="q-card" id="p2q23">
+      <div class="q-header">
+        <div class="q-num">Q23</div>
+        <div class="q-text">An organisation wants to display company news, personalised learning suggestions, and employee wellbeing check-ins directly within Teams as a single employee experience platform. Which Microsoft product family consolidates these employee experience modules?</div>
+        <div class="q-domain-tag d2-chip">D2</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q23','A','B')"><span class="opt-letter">A</span><span class="opt-text">Microsoft Power Platform — Power Apps, Power Automate, Power BI, Power Virtual Agents</span></button>
+        <button class="q-option" onclick="answer(this,'p2q23','B','B')"><span class="opt-letter">B</span><span class="opt-text">Microsoft Viva — the employee experience platform integrated with Teams</span></button>
+        <button class="q-option" onclick="answer(this,'p2q23','C','B')"><span class="opt-letter">C</span><span class="opt-text">Microsoft Dynamics 365 — for CRM and ERP business applications</span></button>
+        <button class="q-option" onclick="answer(this,'p2q23','D','B')"><span class="opt-letter">D</span><span class="opt-text">Microsoft Syntex — for AI-powered content management and classification</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q23">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Microsoft Viva</strong> is the employee experience platform built on Microsoft 365 and Teams. Its modules include: Viva Connections (company news/intranet in Teams), Viva Learning (training), Viva Insights (wellbeing analytics), Viva Goals (OKRs), and Viva Engage (social). Power Platform is for low-code automation and app building. Dynamics 365 is for business applications (CRM/ERP). Syntex is for AI document processing.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q24 -->
+    <div class="q-card" id="p2q24">
+      <div class="q-header">
+        <div class="q-num">Q24</div>
+        <div class="q-text">Microsoft 365 E5 includes all the capabilities in E3 plus several advanced add-ons. Which of the following is a capability available in E5 but NOT in E3?</div>
+        <div class="q-domain-tag d2-chip">D2</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q24','A','C')"><span class="opt-letter">A</span><span class="opt-text">Microsoft Teams for chat, meetings, and calling</span></button>
+        <button class="q-option" onclick="answer(this,'p2q24','B','C')"><span class="opt-letter">B</span><span class="opt-text">Exchange Online mailbox with 100 GB storage</span></button>
+        <button class="q-option" onclick="answer(this,'p2q24','C','C')"><span class="opt-letter">C</span><span class="opt-text">Microsoft Defender for Office 365 Plan 2 and Microsoft Purview advanced compliance</span></button>
+        <button class="q-option" onclick="answer(this,'p2q24','D','C')"><span class="opt-letter">D</span><span class="opt-text">Desktop Office apps (Word, Excel, PowerPoint)</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q24">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Microsoft 365 E5</strong> adds advanced security and compliance on top of E3: Microsoft Defender for Office 365 Plan 2 (advanced threat protection), Microsoft Defender for Identity, Purview eDiscovery Premium, Insider Risk Management, Communication Compliance, and Power BI Pro. Teams, Exchange, and desktop Office apps are included in both E3 and E5. The E3→E5 jump is about <em>security depth and compliance intelligence</em>.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q25 -->
+    <div class="q-card" id="p2q25">
+      <div class="q-header">
+        <div class="q-num">Q25</div>
+        <div class="q-text">A retail company with 500 employees wants to use Microsoft 365. Their workforce is split: 200 office workers who need desktop Office apps and advanced features, and 300 store associates who only need Teams on their phones for shift management. What is the most cost-effective licensing approach?</div>
+        <div class="q-domain-tag d2-chip">D2</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q25','A','C')"><span class="opt-letter">A</span><span class="opt-text">Microsoft 365 E3 for all 500 employees</span></button>
+        <button class="q-option" onclick="answer(this,'p2q25','B','C')"><span class="opt-letter">B</span><span class="opt-text">Microsoft 365 Business Standard for all 500 employees</span></button>
+        <button class="q-option" onclick="answer(this,'p2q25','C','C')"><span class="opt-letter">C</span><span class="opt-text">Microsoft 365 Business Standard for office workers + Microsoft 365 F1/F3 for store associates</span></button>
+        <button class="q-option" onclick="answer(this,'p2q25','D','C')"><span class="opt-letter">D</span><span class="opt-text">Microsoft 365 Apps for Business for all 500 employees</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q25">
+        <div class="exp-label"></div>
+        <div class="exp-body">The cost-effective approach is to <strong>mix plans by user type</strong>: Business Standard (or E3) for office workers who need desktop apps and full features, and <strong>Microsoft 365 F1 or F3 (Frontline Worker)</strong> for store associates who only need mobile Teams. F1/F3 is significantly cheaper per user than Standard/E3. Licensing all 500 at the higher tier wastes budget. The MS-900 exam expects you to know that frontline/deskless workers have dedicated lower-cost SKUs.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q26 -->
+    <div class="q-card" id="p2q26">
+      <div class="q-header">
+        <div class="q-num">Q26</div>
+        <div class="q-text">Which Microsoft 365 service provides a cloud-based phone system that allows users to make and receive PSTN (public telephone network) calls directly from Teams, replacing a traditional on-premises PBX?</div>
+        <div class="q-domain-tag d2-chip">D2</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q26','A','B')"><span class="opt-letter">A</span><span class="opt-text">Teams Live Events — for broadcasting meetings to large audiences</span></button>
+        <button class="q-option" onclick="answer(this,'p2q26','B','B')"><span class="opt-letter">B</span><span class="opt-text">Microsoft Teams Phone (formerly Phone System) — cloud PBX with PSTN calling</span></button>
+        <button class="q-option" onclick="answer(this,'p2q26','C','B')"><span class="opt-letter">C</span><span class="opt-text">Microsoft Teams Rooms — for conference room hardware and meeting experiences</span></button>
+        <button class="q-option" onclick="answer(this,'p2q26','D','B')"><span class="opt-letter">D</span><span class="opt-text">Microsoft Stream — for video recording and sharing</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q26">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Microsoft Teams Phone</strong> (formerly called Phone System) is the cloud PBX capability in Microsoft 365 that enables PSTN calling directly from Teams — replacing traditional on-premises PBX systems. Users can make/receive regular phone calls, use voicemail, and transfer calls all within Teams. Teams Rooms is hardware for meeting rooms. Live Events is for webinars/broadcasts. Stream is for video. "Replace on-prem PBX with Teams" = Teams Phone.</div>
+      </div>
+    </div>
+
+  </div><!-- end domain 2 -->
+  <!-- DOMAIN 3: Security & Compliance (15 questions) -->
+  <div class="domain-section" id="section-d3">
+    <div class="domain-heading">
+      <div class="d-chip d3-chip">Domain 3</div>
+      <h2>Security, Compliance, Privacy &amp; Trust</h2>
+      <div class="domain-score" id="dscore-3">0 / 15</div>
+    </div>
+
+    <!-- P2-Q27 -->
+    <div class="q-card" id="p2q27">
+      <div class="q-header">
+        <div class="q-num">Q27</div>
+        <div class="q-text">Contoso's security team wants to prevent a user from logging into Microsoft 365 from an unknown country unless they complete multi-factor authentication. Which Microsoft Entra ID feature should they configure?</div>
+        <div class="q-domain-tag d3-chip">D3</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q27','A','C')"><span class="opt-letter">A</span><span class="opt-text">Azure AD B2C — for consumer identity management</span></button>
+        <button class="q-option" onclick="answer(this,'p2q27','B','C')"><span class="opt-letter">B</span><span class="opt-text">Privileged Identity Management — for time-limited admin role activation</span></button>
+        <button class="q-option" onclick="answer(this,'p2q27','C','C')"><span class="opt-letter">C</span><span class="opt-text">Conditional Access — policies that enforce MFA or block access based on conditions</span></button>
+        <button class="q-option" onclick="answer(this,'p2q27','D','C')"><span class="opt-letter">D</span><span class="opt-text">Self-service password reset — allowing users to reset their own passwords</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q27">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Conditional Access</strong> in Microsoft Entra ID (formerly Azure AD) evaluates signals (user, location, device, app, risk level) and enforces access controls — such as requiring MFA when signing in from an unfamiliar location or blocking access from certain countries entirely. PIM manages time-limited privileged roles. B2C is for consumer/external identity. SSPR lets users reset passwords. Location-based MFA enforcement = Conditional Access.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q28 -->
+    <div class="q-card" id="p2q28">
+      <div class="q-header">
+        <div class="q-num">Q28</div>
+        <div class="q-text">Fabrikam needs to allow their business partners at AdventureWorks (who use their own Azure AD tenant) to access a shared SharePoint site and Teams channel without creating guest accounts managed by Fabrikam. Which Microsoft Entra ID capability enables this cross-tenant collaboration?</div>
+        <div class="q-domain-tag d3-chip">D3</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q28','A','B')"><span class="opt-letter">A</span><span class="opt-text">Azure AD B2C — for managing customer/consumer identity at scale</span></button>
+        <button class="q-option" onclick="answer(this,'p2q28','B','B')"><span class="opt-letter">B</span><span class="opt-text">Azure AD B2B (Entra External ID) — for partner/business guest collaboration</span></button>
+        <button class="q-option" onclick="answer(this,'p2q28','C','B')"><span class="opt-letter">C</span><span class="opt-text">Entra ID Governance — for access reviews and lifecycle management</span></button>
+        <button class="q-option" onclick="answer(this,'p2q28','D','B')"><span class="opt-letter">D</span><span class="opt-text">Privileged Identity Management — for just-in-time privileged access</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q28">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Azure AD B2B (Entra External ID for business partners)</strong> allows external users in another organisation's Azure AD tenant to access your resources using their own credentials — no need to manage separate guest passwords. The partner signs in with their own identity; Fabrikam grants them access. B2C is for consumer-facing apps (millions of anonymous customers). PIM is for admin role elevation. B2B = business-to-business partner collaboration across tenants.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q29 -->
+    <div class="q-card" id="p2q29">
+      <div class="q-header">
+        <div class="q-num">Q29</div>
+        <div class="q-text">A data protection officer needs to find all emails containing credit card numbers sent externally in the past 90 days, place a legal hold on them, and export them for a regulatory audit — without disturbing the users' normal mailbox access. Which Microsoft Purview feature handles this?</div>
+        <div class="q-domain-tag d3-chip">D3</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q29','A','C')"><span class="opt-letter">A</span><span class="opt-text">Sensitivity Labels — for classifying and protecting documents and emails</span></button>
+        <button class="q-option" onclick="answer(this,'p2q29','B','C')"><span class="opt-letter">B</span><span class="opt-text">Data Loss Prevention (DLP) — for preventing sensitive data from being shared externally</span></button>
+        <button class="q-option" onclick="answer(this,'p2q29','C','C')"><span class="opt-letter">C</span><span class="opt-text">eDiscovery (Content Search / eDiscovery cases) — for legal search, hold, and export</span></button>
+        <button class="q-option" onclick="answer(this,'p2q29','D','C')"><span class="opt-letter">D</span><span class="opt-text">Insider Risk Management — for detecting risky user behaviour</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q29">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>eDiscovery</strong> (in Microsoft Purview) enables legal and compliance teams to search across Exchange, SharePoint, Teams, and OneDrive for specific content, place a legal hold (preserving content without alerting users), review it, and export it for legal proceedings or regulatory audits. DLP prevents data from being sent. Sensitivity labels classify/protect content. Insider Risk Management monitors for risky behaviour patterns. Search + hold + export for legal = eDiscovery.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q30 -->
+    <div class="q-card" id="p2q30">
+      <div class="q-header">
+        <div class="q-num">Q30</div>
+        <div class="q-text">A company's CISO wants to automatically detect when an employee downloads thousands of files to a USB drive in the week before their resignation, and trigger an alert for HR and legal review. Which Microsoft Purview capability is designed for this scenario?</div>
+        <div class="q-domain-tag d3-chip">D3</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q30','A','C')"><span class="opt-letter">A</span><span class="opt-text">eDiscovery — for searching and exporting content for legal cases</span></button>
+        <button class="q-option" onclick="answer(this,'p2q30','B','C')"><span class="opt-letter">B</span><span class="opt-text">Communication Compliance — for monitoring policy violations in emails and Teams messages</span></button>
+        <button class="q-option" onclick="answer(this,'p2q30','C','C')"><span class="opt-letter">C</span><span class="opt-text">Insider Risk Management — for detecting and acting on risky user behaviours</span></button>
+        <button class="q-option" onclick="answer(this,'p2q30','D','C')"><span class="opt-letter">D</span><span class="opt-text">Data Loss Prevention — for preventing sensitive data from leaving the organisation</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q30">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Insider Risk Management</strong> (Microsoft Purview) uses machine learning to detect patterns indicative of insider threats — such as bulk file downloads, unusual access to sensitive data, and activity spikes correlated with HR triggers like resignation notices. It generates alerts that can trigger investigation workflows. DLP blocks external sharing but doesn't detect behavioural patterns. Communication Compliance monitors message content. eDiscovery is for legal search. Behaviour + resignation trigger + alerting = Insider Risk Management.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q31 -->
+    <div class="q-card" id="p2q31">
+      <div class="q-header">
+        <div class="q-num">Q31</div>
+        <div class="q-text">An organisation labels a Word document as "Confidential — Internal Only" using a Microsoft Purview sensitivity label. What can the label automatically apply to the document to enforce protection?</div>
+        <div class="q-domain-tag d3-chip">D3</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q31','A','B')"><span class="opt-letter">A</span><span class="opt-text">Automatically delete the document after 30 days</span></button>
+        <button class="q-option" onclick="answer(this,'p2q31','B','B')"><span class="opt-letter">B</span><span class="opt-text">Encrypt the document and restrict who can open, edit, or forward it</span></button>
+        <button class="q-option" onclick="answer(this,'p2q31','C','B')"><span class="opt-letter">C</span><span class="opt-text">Move the document to a compliance archive automatically</span></button>
+        <button class="q-option" onclick="answer(this,'p2q31','D','B')"><span class="opt-letter">D</span><span class="opt-text">Notify the user's manager via email whenever the document is opened</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q31">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Sensitivity labels</strong> can automatically apply <strong>encryption</strong> (via Microsoft Purview Information Protection / Azure Rights Management) and access restrictions — limiting who can open, copy, print, forward, or edit the document, even if it's shared externally or emailed. Labels can also apply visual markings (watermarks, headers/footers) and control sharing settings. They do not auto-delete documents (that's retention labels) or send manager notifications. Encryption + access control = sensitivity label.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q32 -->
+    <div class="q-card" id="p2q32">
+      <div class="q-header">
+        <div class="q-num">Q32</div>
+        <div class="q-text">Which Microsoft tool gives a privacy team a centralised place to manage subject access requests, run privacy impact assessments, and automate data discovery workflows — specifically focused on privacy operations?</div>
+        <div class="q-domain-tag d3-chip">D3</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q32','A','C')"><span class="opt-letter">A</span><span class="opt-text">Microsoft Purview Compliance Manager — for assessing and managing regulatory compliance posture</span></button>
+        <button class="q-option" onclick="answer(this,'p2q32','B','C')"><span class="opt-letter">B</span><span class="opt-text">Microsoft Defender for Cloud — for multi-cloud security posture management</span></button>
+        <button class="q-option" onclick="answer(this,'p2q32','C','C')"><span class="opt-letter">C</span><span class="opt-text">Microsoft Priva — for privacy management and subject rights request automation</span></button>
+        <button class="q-option" onclick="answer(this,'p2q32','D','C')"><span class="opt-letter">D</span><span class="opt-text">Microsoft Secure Score — for tracking security improvement recommendations</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q32">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Microsoft Priva</strong> is purpose-built for privacy operations: it automates Subject Rights Requests (SRRs / data subject access requests under GDPR/CCPA), helps teams assess privacy risks, monitors for personal data oversharing, and manages privacy impact assessments. Compliance Manager tracks regulatory compliance posture across frameworks. Secure Score measures security improvement. Defender for Cloud is security posture for Azure workloads. Privacy workflows + SRRs = Priva.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q33 -->
+    <div class="q-card" id="p2q33">
+      <div class="q-header">
+        <div class="q-num">Q33</div>
+        <div class="q-text">A compliance officer is reviewing the organisation's posture against GDPR, HIPAA, and ISO 27001. They want a single dashboard that shows which controls are implemented, calculates a compliance score, and recommends improvement actions. Which Microsoft Purview tool provides this?</div>
+        <div class="q-domain-tag d3-chip">D3</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q33','A','B')"><span class="opt-letter">A</span><span class="opt-text">Microsoft Secure Score — a security improvement score for Microsoft 365 and Azure</span></button>
+        <button class="q-option" onclick="answer(this,'p2q33','B','B')"><span class="opt-letter">B</span><span class="opt-text">Microsoft Purview Compliance Manager — for regulatory compliance assessment and improvement actions</span></button>
+        <button class="q-option" onclick="answer(this,'p2q33','C','B')"><span class="opt-letter">C</span><span class="opt-text">Microsoft Defender for Cloud Apps — for cloud app discovery and governance</span></button>
+        <button class="q-option" onclick="answer(this,'p2q33','D','B')"><span class="opt-letter">D</span><span class="opt-text">Microsoft Priva — for privacy subject rights requests and data discovery</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q33">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Microsoft Purview Compliance Manager</strong> provides a compliance score across regulatory frameworks (GDPR, HIPAA, ISO 27001, NIST, etc.), maps Microsoft-managed controls and customer-managed controls, and gives prioritised improvement actions. <em>Don't confuse it with Secure Score</em> — Secure Score is about <em>security</em> settings (MFA enabled, legacy auth blocked, etc.), while Compliance Manager is about <em>regulatory compliance</em> frameworks. GDPR + HIPAA + ISO dashboard = Compliance Manager.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q34 -->
+    <div class="q-card" id="p2q34">
+      <div class="q-header">
+        <div class="q-num">Q34</div>
+        <div class="q-text">A company creates a DLP policy in Microsoft Purview that detects when a user tries to email more than 5 credit card numbers to an external recipient, and automatically blocks the email with a policy tip shown to the sender. Which is the PRIMARY purpose of DLP in this scenario?</div>
+        <div class="q-domain-tag d3-chip">D3</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q34','A','B')"><span class="opt-letter">A</span><span class="opt-text">Classify the email for long-term retention in the compliance archive</span></button>
+        <button class="q-option" onclick="answer(this,'p2q34','B','B')"><span class="opt-letter">B</span><span class="opt-text">Prevent accidental or malicious exfiltration of sensitive data</span></button>
+        <button class="q-option" onclick="answer(this,'p2q34','C','B')"><span class="opt-letter">C</span><span class="opt-text">Detect insider risk behaviour and flag it for HR review</span></button>
+        <button class="q-option" onclick="answer(this,'p2q34','D','B')"><span class="opt-letter">D</span><span class="opt-text">Encrypt the email so only the recipient can open it</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q34">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Data Loss Prevention (DLP)</strong> policies detect sensitive information (credit card numbers, Social Security numbers, health records) in emails, Teams messages, and SharePoint files, then take protective actions — block, warn, or encrypt. The PRIMARY purpose is preventing sensitive data from leaving the organisation or being shared inappropriately. Retention labels handle archiving. Insider Risk Management handles behavioural patterns. Sensitivity labels handle encryption/access. DLP = stop data from leaking.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q35 -->
+    <div class="q-card" id="p2q35">
+      <div class="q-header">
+        <div class="q-num">Q35</div>
+        <div class="q-text">An IT admin needs to grant a junior helpdesk technician the ability to reset user passwords and manage licences, but NOT the ability to create or delete user accounts. Which identity management principle should guide this assignment?</div>
+        <div class="q-domain-tag d3-chip">D3</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q35','A','B')"><span class="opt-letter">A</span><span class="opt-text">Global Administrator — assign full admin rights for simplicity</span></button>
+        <button class="q-option" onclick="answer(this,'p2q35','B','B')"><span class="opt-letter">B</span><span class="opt-text">Least privilege principle — assign the most limited role that covers the required tasks</span></button>
+        <button class="q-option" onclick="answer(this,'p2q35','C','B')"><span class="opt-letter">C</span><span class="opt-text">Defence in depth — apply multiple overlapping security layers</span></button>
+        <button class="q-option" onclick="answer(this,'p2q35','D','B')"><span class="opt-letter">D</span><span class="opt-text">Zero trust network — verify every request at the network perimeter</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q35">
+        <div class="exp-label"></div>
+        <div class="exp-body">The <strong>principle of least privilege</strong> means giving users only the minimum permissions needed to do their job — no more. In this case, the helpdesk technician should get the "Helpdesk Administrator" or "Password Administrator" role (password resets + licence management) rather than Global Admin (which would allow account deletion). Global Admin is the most powerful role and should be reserved for very few users. Least privilege = minimum necessary access.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q36 -->
+    <div class="q-card" id="p2q36">
+      <div class="q-header">
+        <div class="q-num">Q36</div>
+        <div class="q-text">A Global Administrator at Woodgrove Bank needs to approve a time-limited elevation of an employee to the "Exchange Administrator" role for a 2-hour maintenance window, after which the role is automatically removed. Which Entra ID feature provides this capability?</div>
+        <div class="q-domain-tag d3-chip">D3</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q36','A','C')"><span class="opt-letter">A</span><span class="opt-text">Conditional Access — for location and device-based access policies</span></button>
+        <button class="q-option" onclick="answer(this,'p2q36','B','C')"><span class="opt-letter">B</span><span class="opt-text">Azure AD B2B — for external partner access to resources</span></button>
+        <button class="q-option" onclick="answer(this,'p2q36','C','C')"><span class="opt-letter">C</span><span class="opt-text">Privileged Identity Management (PIM) — for just-in-time, time-limited role elevation</span></button>
+        <button class="q-option" onclick="answer(this,'p2q36','D','C')"><span class="opt-letter">D</span><span class="opt-text">Multi-Factor Authentication — for verifying user identity at sign-in</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q36">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Privileged Identity Management (PIM)</strong> in Entra ID provides just-in-time (JIT) privileged access — users request elevation to a high-privilege role for a defined time window (e.g. 2 hours), requires approval and MFA, and automatically removes the role when the time expires. This reduces the "standing privilege" attack surface. PIM requires Entra ID P2 licensing. Conditional Access controls sign-in conditions. MFA verifies identity. B2B is for external partners. JIT time-limited role = PIM.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q37 -->
+    <div class="q-card" id="p2q37">
+      <div class="q-header">
+        <div class="q-num">Q37</div>
+        <div class="q-text">Microsoft's security model assumes that no user, device, or network should be inherently trusted — even those inside the corporate perimeter. Every access request must be verified explicitly. What is the name of this security model?</div>
+        <div class="q-domain-tag d3-chip">D3</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q37','A','B')"><span class="opt-letter">A</span><span class="opt-text">Defence in depth — multiple overlapping security layers</span></button>
+        <button class="q-option" onclick="answer(this,'p2q37','B','B')"><span class="opt-letter">B</span><span class="opt-text">Zero Trust — verify explicitly, use least privilege, assume breach</span></button>
+        <button class="q-option" onclick="answer(this,'p2q37','C','B')"><span class="opt-letter">C</span><span class="opt-text">Perimeter security — trust everything inside the firewall</span></button>
+        <button class="q-option" onclick="answer(this,'p2q37','D','B')"><span class="opt-letter">D</span><span class="opt-text">Shared responsibility — split security duties between Microsoft and the customer</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q37">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Zero Trust</strong> is built on three principles: (1) <em>Verify explicitly</em> — always authenticate and authorise based on all available signals; (2) <em>Use least privilege access</em> — limit user rights with just-in-time access; (3) <em>Assume breach</em> — design as if attackers are already inside. Traditional perimeter security assumed that anything inside the firewall was safe. Zero Trust removes that assumption. Microsoft 365 and Azure are designed with Zero Trust principles.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q38 -->
+    <div class="q-card" id="p2q38">
+      <div class="q-header">
+        <div class="q-num">Q38</div>
+        <div class="q-text">A compliance team discovers that employees are routinely emailing confidential strategy documents to their personal Gmail accounts. They want a policy that warns the user and blocks the send when a document labelled "Confidential" is detected going to a non-corporate email. Which technology combination achieves this?</div>
+        <div class="q-domain-tag d3-chip">D3</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q38','A','C')"><span class="opt-letter">A</span><span class="opt-text">eDiscovery + Retention Labels — search for content and preserve it</span></button>
+        <button class="q-option" onclick="answer(this,'p2q38','B','C')"><span class="opt-letter">B</span><span class="opt-text">Insider Risk Management + PIM — monitor behaviour and limit admin roles</span></button>
+        <button class="q-option" onclick="answer(this,'p2q38','C','C')"><span class="opt-letter">C</span><span class="opt-text">Sensitivity Labels + DLP — label identifies the content; DLP policy blocks external sending</span></button>
+        <button class="q-option" onclick="answer(this,'p2q38','D','C')"><span class="opt-letter">D</span><span class="opt-text">Conditional Access + MFA — require additional authentication for external sends</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q38">
+        <div class="exp-label"></div>
+        <div class="exp-body">The correct combination is <strong>Sensitivity Labels + DLP</strong>: the label classifies the document as "Confidential" and DLP policies can be configured to detect that label and block or warn when the email is addressed to an external (non-corporate) recipient. Sensitivity labels provide the classification signal; DLP provides the enforcement action. This is the standard Microsoft Purview approach to preventing labelled content from leaving the organisation.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q39 -->
+    <div class="q-card" id="p2q39">
+      <div class="q-header">
+        <div class="q-num">Q39</div>
+        <div class="q-text">Microsoft publishes detailed information about its data processing practices, certifications (ISO 27001, SOC 2), GDPR commitments, and audit reports so that customers can verify Microsoft's compliance posture. Where can customers find this information?</div>
+        <div class="q-domain-tag d3-chip">D3</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q39','A','B')"><span class="opt-letter">A</span><span class="opt-text">Microsoft Secure Score — for the customer's own security improvement recommendations</span></button>
+        <button class="q-option" onclick="answer(this,'p2q39','B','B')"><span class="opt-letter">B</span><span class="opt-text">Microsoft Service Trust Portal — for Microsoft's compliance certifications and audit reports</span></button>
+        <button class="q-option" onclick="answer(this,'p2q39','C','B')"><span class="opt-letter">C</span><span class="opt-text">Microsoft 365 Admin Center — for tenant management and user administration</span></button>
+        <button class="q-option" onclick="answer(this,'p2q39','D','B')"><span class="opt-letter">D</span><span class="opt-text">Microsoft Compliance Manager — for the customer's own compliance assessment</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q39">
+        <div class="exp-label"></div>
+        <div class="exp-body">The <strong>Microsoft Service Trust Portal (STP)</strong> at servicetrust.microsoft.com is where Microsoft publishes its third-party audit reports, certifications (ISO 27001, SOC 1/2, PCI DSS, FedRAMP), GDPR documentation, data protection impact assessments, and regional compliance resources. This is how customers verify <em>Microsoft's</em> compliance posture. Compliance Manager is for managing <em>your organisation's</em> compliance posture. Secure Score is for your security configuration.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q40 -->
+    <div class="q-card" id="p2q40">
+      <div class="q-header">
+        <div class="q-num">Q40</div>
+        <div class="q-text">A financial services company needs to monitor all Teams messages and email communications for potential violations of financial regulations (e.g., market manipulation language or offensive content). Flagged messages should be reviewed by a compliance officer before any action is taken. Which Microsoft Purview feature enables this?</div>
+        <div class="q-domain-tag d3-chip">D3</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q40','A','C')"><span class="opt-letter">A</span><span class="opt-text">Insider Risk Management — for detecting risky file download and access behaviour</span></button>
+        <button class="q-option" onclick="answer(this,'p2q40','B','C')"><span class="opt-letter">B</span><span class="opt-text">Data Loss Prevention — for blocking sensitive data from being shared externally</span></button>
+        <button class="q-option" onclick="answer(this,'p2q40','C','C')"><span class="opt-letter">C</span><span class="opt-text">Communication Compliance — for monitoring messages for policy violations with human review</span></button>
+        <button class="q-option" onclick="answer(this,'p2q40','D','C')"><span class="opt-letter">D</span><span class="opt-text">eDiscovery — for legal search and hold of content</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q40">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Communication Compliance</strong> (Microsoft Purview) monitors Teams, Exchange, and Yammer communications using trainable classifiers and keyword policies to detect regulatory violations, offensive language, or policy breaches — then routes flagged messages to designated reviewers. DLP blocks data sharing but doesn't monitor language/tone. Insider Risk Management detects file-based risky behaviour. eDiscovery is for legal search. Communication monitoring + human review = Communication Compliance.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q41 -->
+    <div class="q-card" id="p2q41">
+      <div class="q-header">
+        <div class="q-num">Q41</div>
+        <div class="q-text">Which Microsoft Entra ID feature allows an organisation to perform regular, automated reviews to verify that users still need access to specific applications or group memberships — and automatically remove access if reviewers don't respond or if the user no longer needs it?</div>
+        <div class="q-domain-tag d3-chip">D3</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q41','A','B')"><span class="opt-letter">A</span><span class="opt-text">Conditional Access — for enforcing access conditions at sign-in</span></button>
+        <button class="q-option" onclick="answer(this,'p2q41','B','B')"><span class="opt-letter">B</span><span class="opt-text">Access Reviews (Entra ID Governance) — for periodic access certification and cleanup</span></button>
+        <button class="q-option" onclick="answer(this,'p2q41','C','B')"><span class="opt-letter">C</span><span class="opt-text">Privileged Identity Management — for just-in-time admin role elevation</span></button>
+        <button class="q-option" onclick="answer(this,'p2q41','D','B')"><span class="opt-letter">D</span><span class="opt-text">Self-service group management — for users to join groups without IT approval</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q41">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Access Reviews</strong> (part of Microsoft Entra ID Governance) allow organisations to schedule periodic reviews where managers or resource owners certify whether users still need access to apps, groups, or roles. If a reviewer doesn't respond or denies access, the access is automatically removed. This prevents "access creep" — accumulation of permissions over time. Requires Entra ID P2. PIM handles privileged role JIT. Conditional Access is for sign-in conditions. Access Reviews = ongoing access certification.</div>
+      </div>
+    </div>
+
+  </div><!-- end domain 3 -->
+  <!-- DOMAIN 4: Pricing, Licensing & Support (9 questions) -->
+  <div class="domain-section" id="section-d4">
+    <div class="domain-heading">
+      <div class="d-chip d4-chip">Domain 4</div>
+      <h2>Pricing, Licensing &amp; Support</h2>
+      <div class="domain-score" id="dscore-4">0 / 9</div>
+    </div>
+
+    <!-- P2-Q42 -->
+    <div class="q-card" id="p2q42">
+      <div class="q-header">
+        <div class="q-num">Q42</div>
+        <div class="q-text">A nonprofit organisation with 500 staff wants to adopt Microsoft 365. They have heard Microsoft offers discounted and free plans for eligible nonprofits. Where would they go to apply for Microsoft nonprofit pricing and verify eligibility?</div>
+        <div class="q-domain-tag d4-chip">D4</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q42','A','B')"><span class="opt-letter">A</span><span class="opt-text">Contact a Microsoft Account Manager directly via the main Microsoft website</span></button>
+        <button class="q-option" onclick="answer(this,'p2q42','B','B')"><span class="opt-letter">B</span><span class="opt-text">Microsoft for Nonprofits (nonprofit.microsoft.com) — for eligibility verification and grants</span></button>
+        <button class="q-option" onclick="answer(this,'p2q42','C','B')"><span class="opt-letter">C</span><span class="opt-text">Microsoft FastTrack — for deployment assistance with qualifying subscriptions</span></button>
+        <button class="q-option" onclick="answer(this,'p2q42','D','B')"><span class="opt-letter">D</span><span class="opt-text">Microsoft Partner Network — for Microsoft certified resellers and partners</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q42">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Microsoft for Nonprofits</strong> is the dedicated program where eligible nonprofit organisations apply for discounted or donated Microsoft 365 plans. Eligible nonprofits (501(c)(3) equivalent) can receive Microsoft 365 Business Basic for free for up to 10 users, with significant discounts on other plans. FastTrack is a free deployment service for qualifying subscriptions (not specifically a nonprofit discount program). The Partner Network is for Microsoft resellers and partners, not end-customer nonprofits.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q43 -->
+    <div class="q-card" id="p2q43">
+      <div class="q-header">
+        <div class="q-num">Q43</div>
+        <div class="q-text">A large enterprise with 2,000 Microsoft 365 E3 users wants help planning and executing their deployment of Teams Phone across the organisation. They have heard Microsoft offers free migration assistance for qualifying subscriptions. Which Microsoft program provides this at no additional charge?</div>
+        <div class="q-domain-tag d4-chip">D4</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q43','A','C')"><span class="opt-letter">A</span><span class="opt-text">Microsoft Premier Support — paid enterprise-level technical support</span></button>
+        <button class="q-option" onclick="answer(this,'p2q43','B','C')"><span class="opt-letter">B</span><span class="opt-text">Microsoft Consulting Services — paid professional services engagements</span></button>
+        <button class="q-option" onclick="answer(this,'p2q43','C','C')"><span class="opt-letter">C</span><span class="opt-text">Microsoft FastTrack — free onboarding and migration assistance for eligible subscriptions</span></button>
+        <button class="q-option" onclick="answer(this,'p2q43','D','C')"><span class="opt-letter">D</span><span class="opt-text">Microsoft Learn — free online training and certification preparation</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q43">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Microsoft FastTrack</strong> is a free benefit for customers with 150+ qualifying Microsoft 365 licences. FastTrack specialists help with deployment planning, onboarding, migration (email, files, Teams), and adoption — at no additional cost. Premier Support is a paid enterprise support tier. Microsoft Consulting Services is paid. Microsoft Learn is free self-paced training, not hands-on deployment assistance. "Free deployment help from Microsoft for large subscriptions" = FastTrack.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q44 -->
+    <div class="q-card" id="p2q44">
+      <div class="q-header">
+        <div class="q-num">Q44</div>
+        <div class="q-text">Contoso signs a 3-year Microsoft 365 E3 agreement with annual billing. Six months into the agreement, they need to add 50 new employees. What billing model applies to the additional seats added mid-agreement?</div>
+        <div class="q-domain-tag d4-chip">D4</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q44','A','B')"><span class="opt-letter">A</span><span class="opt-text">The new seats are free until the next annual renewal date</span></button>
+        <button class="q-option" onclick="answer(this,'p2q44','B','B')"><span class="opt-letter">B</span><span class="opt-text">The new seats are billed from the date they are added, pro-rated to the next billing period</span></button>
+        <button class="q-option" onclick="answer(this,'p2q44','C','B')"><span class="opt-letter">C</span><span class="opt-text">The entire agreement must be renegotiated to add seats</span></button>
+        <button class="q-option" onclick="answer(this,'p2q44','D','B')"><span class="opt-letter">D</span><span class="opt-text">New seats cannot be added until the annual renewal date</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q44">
+        <div class="exp-label"></div>
+        <div class="exp-body">Microsoft 365 commercial agreements allow organisations to <strong>add seats at any time</strong> mid-agreement. The additional licences are billed from the date they are added, pro-rated to align with the next billing cycle or annual term. Existing seat pricing is preserved under the current agreement. This flexibility means organisations don't need to wait for renewal to grow — a key selling point vs. traditional on-premises software purchasing.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q45 -->
+    <div class="q-card" id="p2q45">
+      <div class="q-header">
+        <div class="q-num">Q45</div>
+        <div class="q-text">A Microsoft 365 production service is completely down and the outage is affecting all users in the organisation. No workaround exists. According to Microsoft's support severity classifications, what severity level should this be opened as?</div>
+        <div class="q-domain-tag d4-chip">D4</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q45','A','A')"><span class="opt-letter">A</span><span class="opt-text">Severity A (Critical) — complete loss of service with no workaround</span></button>
+        <button class="q-option" onclick="answer(this,'p2q45','B','A')"><span class="opt-letter">B</span><span class="opt-text">Severity B (High) — significant impact but a workaround is available</span></button>
+        <button class="q-option" onclick="answer(this,'p2q45','C','A')"><span class="opt-letter">C</span><span class="opt-text">Severity C (Medium) — limited impact on a non-critical service</span></button>
+        <button class="q-option" onclick="answer(this,'p2q45','D','A')"><span class="opt-letter">D</span><span class="opt-text">Severity D (Low) — general questions or feature requests</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q45">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Severity A (Critical)</strong> is for complete production outages with no workaround — all users affected, critical business processes stopped. Microsoft commits to an initial response within 1 hour for Severity A. Severity B is for significant impact with a workaround available. Severity C is for limited impact (small subset of users, or non-critical function). Severity D is for questions, general guidance, or enhancement requests. Complete outage + no workaround = Severity A.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q46 -->
+    <div class="q-card" id="p2q46">
+      <div class="q-header">
+        <div class="q-num">Q46</div>
+        <div class="q-text">Which Microsoft support plan is included at no additional cost with all Microsoft 365 commercial subscriptions and provides access to the Microsoft 365 Admin Center support portal for submitting tickets?</div>
+        <div class="q-domain-tag d4-chip">D4</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q46','A','A')"><span class="opt-letter">A</span><span class="opt-text">Microsoft Subscription Support (included) — self-service tools and ability to raise support requests</span></button>
+        <button class="q-option" onclick="answer(this,'p2q46','B','A')"><span class="opt-letter">B</span><span class="opt-text">Microsoft Developer Support — for development and testing scenarios only</span></button>
+        <button class="q-option" onclick="answer(this,'p2q46','C','A')"><span class="opt-letter">C</span><span class="opt-text">Microsoft Unified Support — comprehensive paid enterprise support</span></button>
+        <button class="q-option" onclick="answer(this,'p2q46','D','A')"><span class="opt-letter">D</span><span class="opt-text">Microsoft Premier Support — the highest tier of paid proactive support</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q46">
+        <div class="exp-label"></div>
+        <div class="exp-body">All Microsoft 365 commercial subscriptions include <strong>Microsoft Subscription Support</strong> (also called "included support") at no extra cost — this gives access to self-service admin tools, the Microsoft 365 admin center support portal, and the ability to raise technical support requests. Microsoft Unified Support (formerly Premier) is a paid tier providing faster SLAs, dedicated technical account managers, and proactive services. Developer Support is for dev/test environments only. The baseline included support covers standard billing and technical issues.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q47 -->
+    <div class="q-card" id="p2q47">
+      <div class="q-header">
+        <div class="q-num">Q47</div>
+        <div class="q-text">Fabrikam's IT director wants to understand the financial difference between paying month-to-month versus committing to an annual Microsoft 365 subscription. Which statement accurately describes the pricing difference?</div>
+        <div class="q-domain-tag d4-chip">D4</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q47','A','B')"><span class="opt-letter">A</span><span class="opt-text">Month-to-month is cheaper because no long-term commitment is required</span></button>
+        <button class="q-option" onclick="answer(this,'p2q47','B','B')"><span class="opt-letter">B</span><span class="opt-text">Annual commitment is cheaper per user per month than month-to-month, in exchange for a 12-month commitment</span></button>
+        <button class="q-option" onclick="answer(this,'p2q47','C','B')"><span class="opt-letter">C</span><span class="opt-text">Pricing is identical regardless of commitment period</span></button>
+        <button class="q-option" onclick="answer(this,'p2q47','D','B')"><span class="opt-letter">D</span><span class="opt-text">Month-to-month billing is not available for Microsoft 365 Business plans</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q47">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Annual commitment plans are cheaper per user per month</strong> than month-to-month subscriptions. Microsoft rewards the commitment with a lower rate. Month-to-month offers flexibility (cancel any time) at a higher per-user monthly price. Both billing options are available for Microsoft 365 Business and Enterprise plans. Organisations that are confident in their user count typically choose annual commitments to reduce costs; those uncertain about growth may choose monthly for flexibility.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q48 -->
+    <div class="q-card" id="p2q48">
+      <div class="q-header">
+        <div class="q-num">Q48</div>
+        <div class="q-text">If Microsoft fails to meet the published uptime guarantee in a Microsoft 365 service-level agreement (SLA) during a given month, what remedy is the customer entitled to?</div>
+        <div class="q-domain-tag d4-chip">D4</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q48','A','C')"><span class="opt-letter">A</span><span class="opt-text">A full refund of the entire monthly subscription fee</span></button>
+        <button class="q-option" onclick="answer(this,'p2q48','B','C')"><span class="opt-letter">B</span><span class="opt-text">Immediate termination of the contract with no penalty</span></button>
+        <button class="q-option" onclick="answer(this,'p2q48','C','C')"><span class="opt-letter">C</span><span class="opt-text">A service credit applied to the customer's account, scaled to the length of the outage</span></button>
+        <button class="q-option" onclick="answer(this,'p2q48','D','C')"><span class="opt-letter">D</span><span class="opt-text">Free upgrade to the next Microsoft 365 plan tier</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q48">
+        <div class="exp-label"></div>
+        <div class="exp-body">When Microsoft fails to meet an SLA commitment, customers are entitled to <strong>service credits</strong> — a percentage of the monthly fee credited to the account, scaled to the severity and duration of the outage. For example, if uptime falls below 99.9% the customer may receive a 25% credit; below 99% may result in a 50% credit. Customers do not receive a full refund or a free plan upgrade. Credits must be claimed by submitting a request through the admin center.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q49 -->
+    <div class="q-card" id="p2q49">
+      <div class="q-header">
+        <div class="q-num">Q49</div>
+        <div class="q-text">An IT administrator wants to monitor the current health of Microsoft 365 services, see whether Exchange Online or SharePoint Online are experiencing issues, and check any planned maintenance windows — without contacting Microsoft support. Where should they look?</div>
+        <div class="q-domain-tag d4-chip">D4</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q49','A','B')"><span class="opt-letter">A</span><span class="opt-text">Microsoft Service Trust Portal — for compliance certifications and audit reports</span></button>
+        <button class="q-option" onclick="answer(this,'p2q49','B','B')"><span class="opt-letter">B</span><span class="opt-text">Microsoft 365 Admin Center → Service Health — for real-time service status and maintenance</span></button>
+        <button class="q-option" onclick="answer(this,'p2q49','C','B')"><span class="opt-letter">C</span><span class="opt-text">Microsoft Secure Score — for security improvement recommendations</span></button>
+        <button class="q-option" onclick="answer(this,'p2q49','D','B')"><span class="opt-letter">D</span><span class="opt-text">Microsoft FastTrack Portal — for deployment assistance and onboarding</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q49">
+        <div class="exp-label"></div>
+        <div class="exp-body">The <strong>Microsoft 365 Admin Center → Service Health</strong> dashboard shows the real-time status of all Microsoft 365 services (Exchange Online, SharePoint, Teams, etc.), lists active incidents and advisories with impact descriptions and resolution timelines, and shows upcoming planned maintenance. Admins can also subscribe to email alerts for specific services. The Service Trust Portal is for compliance documentation. Secure Score is for security posture. FastTrack is for deployment help.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q50 -->
+    <div class="q-card" id="p2q50">
+      <div class="q-header">
+        <div class="q-num">Q50</div>
+        <div class="q-text">A large enterprise wants a Microsoft support plan that provides a designated Customer Success Account Manager (CSAM), proactive services, on-site support visits, and a guaranteed initial response time of 15 minutes for critical incidents. Which Microsoft support offering matches these requirements?</div>
+        <div class="q-domain-tag d4-chip">D4</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q50','A','C')"><span class="opt-letter">A</span><span class="opt-text">Included Subscription Support — the baseline support available with all subscriptions</span></button>
+        <button class="q-option" onclick="answer(this,'p2q50','B','C')"><span class="opt-letter">B</span><span class="opt-text">Microsoft Developer Support — for development and test environments</span></button>
+        <button class="q-option" onclick="answer(this,'p2q50','C','C')"><span class="opt-letter">C</span><span class="opt-text">Microsoft Unified Support — the premium enterprise support plan with CSAM and fast SLAs</span></button>
+        <button class="q-option" onclick="answer(this,'p2q50','D','C')"><span class="opt-letter">D</span><span class="opt-text">Microsoft FastTrack — for free onboarding assistance with qualifying subscriptions</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q50">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Microsoft Unified Support</strong> (which replaced Premier Support) is the comprehensive paid enterprise support plan that provides: a designated Customer Success Account Manager (CSAM), proactive health assessments, on-site support, faster response SLAs (15-minute initial response for critical/Severity A issues), and access to engineering escalations. Included support is the baseline (no CSAM, standard SLAs). Developer Support covers dev/test. FastTrack is free deployment assistance, not ongoing support. CSAM + 15 min response = Unified Support.</div>
+      </div>
+    </div>
+
+  </div><!-- end domain 4 -->
+
+  <!-- COMPLETION BANNER -->
+  <div class="complete-banner" id="complete-banner" style="display:none">
+    <h3 id="complete-title">Quiz 2 Complete!</h3>
+    <p id="complete-msg">Review any questions you got wrong, then try Microsoft's official practice assessment.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:4px">
+      <button onclick="toggleWrongOnly()" id="review-btn" style="background:rgba(251,191,36,.15);color:#fbbf24;border:1px solid rgba(251,191,36,.35);padding:8px 18px;border-radius:9px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s">📋 Show wrong answers only</button>
+      <a href="https://learn.microsoft.com/en-us/credentials/certifications/exams/ms-900/practice/assessment?assessment-type=practice&assessmentId=50" target="_blank">Take Microsoft's Official Practice Assessment →</a>
+    </div>
+  </div>
+
+</main>
+
+<script>
+const STORAGE_KEY = 'ms900_practice2';
+const domainQIds = {
+  1: ['p2q1','p2q2','p2q3','p2q4','p2q5','p2q6','p2q7','p2q8'],
+  2: ['p2q9','p2q10','p2q11','p2q12','p2q13','p2q14','p2q15','p2q16','p2q17','p2q18','p2q19','p2q20','p2q21','p2q22','p2q23','p2q24','p2q25','p2q26'],
+  3: ['p2q27','p2q28','p2q29','p2q30','p2q31','p2q32','p2q33','p2q34','p2q35','p2q36','p2q37','p2q38','p2q39','p2q40','p2q41'],
+  4: ['p2q42','p2q43','p2q44','p2q45','p2q46','p2q47','p2q48','p2q49','p2q50']
+};
+const domainTotals = {1:8, 2:18, 3:15, 4:9};
+const TOTAL = 50;
+let state = {};
+
+function loadState() {
+  try { state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch(e) { state = {}; }
+  Object.keys(state).forEach(qId => {
+    const {chosen, correct} = state[qId];
+    restoreQuestion(qId, chosen, correct);
+  });
+  updateScores();
+}
+
+function answer(btn, qId, chosen, correctAnswer) {
+  if(state[qId]) return;
+  const card = document.getElementById(qId);
+  const options = card.querySelectorAll('.q-option');
+  const isCorrect = chosen === correctAnswer;
+  options.forEach(opt => { opt.disabled = true; });
+  btn.classList.add(isCorrect ? 'correct' : 'wrong');
+  if(!isCorrect) {
+    options.forEach(opt => {
+      const optLetter = opt.querySelector('.opt-letter').textContent;
+      if(optLetter === correctAnswer) opt.classList.add('reveal-correct');
+    });
+  }
+  const exp = document.getElementById('exp-' + qId);
+  exp.classList.add('show', isCorrect ? 'exp-correct' : 'exp-wrong');
+  exp.querySelector('.exp-label').textContent = isCorrect ? '✓ Correct' : '✗ Incorrect';
+
+  const domainLinks = {
+    'd1-chip': {label:'Domain 1 — Cloud Concepts', url:'ms900-domain1.html'},
+    'd2-chip': {label:'Domain 2 — M365 Apps & Services', url:'ms900-domain2.html'},
+    'd3-chip': {label:'Domain 3 — Security & Compliance', url:'ms900-domain3.html'},
+    'd4-chip': {label:'Domain 4 — Pricing & Licensing', url:'ms900-domain4.html'},
+  };
+  const chipEl = card.querySelector('.q-domain-tag');
+  if (chipEl && !exp.querySelector('.exp-domain-link')) {
+    const chipClass = Array.from(chipEl.classList).find(c => c.endsWith('-chip'));
+    if (chipClass && domainLinks[chipClass]) {
+      const {label, url} = domainLinks[chipClass];
+      const linkDiv = document.createElement('div');
+      linkDiv.className = 'exp-domain-link';
+      linkDiv.style.cssText = 'margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08);font-size:12px;color:#64748b';
+      linkDiv.innerHTML = '📖 Review: <a href="' + url + '" style="color:#a78bfa;font-weight:600;text-decoration:none">' + label + ' →</a>';
+      exp.appendChild(linkDiv);
+    }
+  }
+
+  card.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
+  const qHeader = card.querySelector('.q-header');
+  const statusEl = document.createElement('div');
+  statusEl.className = 'q-status ' + (isCorrect ? 'status-correct' : 'status-wrong');
+  statusEl.textContent = isCorrect ? '✓' : '✗';
+  qHeader.appendChild(statusEl);
+  state[qId] = {chosen, correct: isCorrect};
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  updateScores();
+  checkCompletion();
+}
+
+function restoreQuestion(qId, chosen, isCorrect) {
+  const card = document.getElementById(qId);
+  if(!card) return;
+  const options = card.querySelectorAll('.q-option');
+  options.forEach(opt => {
+    opt.disabled = true;
+    const letter = opt.querySelector('.opt-letter').textContent;
+    const onclickStr = opt.getAttribute('onclick') || '';
+    const match = onclickStr.match(/'([A-D])'\)$/);
+    const correctAns = match ? match[1] : '';
+    if(letter === chosen && isCorrect) opt.classList.add('correct');
+    if(letter === chosen && !isCorrect) opt.classList.add('wrong');
+    if(!isCorrect && letter === correctAns) opt.classList.add('reveal-correct');
+  });
+  const exp = document.getElementById('exp-' + qId);
+  if(exp) {
+    exp.classList.add('show', isCorrect ? 'exp-correct' : 'exp-wrong');
+    exp.querySelector('.exp-label').textContent = isCorrect ? '✓ Correct' : '✗ Incorrect';
+  }
+  card.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
+  const qHeader = card.querySelector('.q-header');
+  if(!qHeader.querySelector('.q-status')) {
+    const statusEl = document.createElement('div');
+    statusEl.className = 'q-status ' + (isCorrect ? 'status-correct' : 'status-wrong');
+    statusEl.textContent = isCorrect ? '✓' : '✗';
+    qHeader.appendChild(statusEl);
+  }
+}
+
+function updateScores() {
+  const totalCorrect = Object.values(state).filter(s => s.correct).length;
+  const totalAnswered = Object.keys(state).length;
+  const pct = totalAnswered > 0 ? Math.round((totalCorrect / TOTAL) * 100) : 0;
+  document.getElementById('score-display').textContent = totalCorrect + ' / ' + TOTAL;
+  document.getElementById('score-pct').textContent = pct + '%';
+  document.getElementById('score-fill').style.width = pct + '%';
+  [1,2,3,4].forEach(d => {
+    let correct = 0;
+    domainQIds[d].forEach(id => {
+      if(state[id] && state[id].correct) correct++;
+    });
+    document.getElementById('dscore-'+d).textContent = correct + ' / ' + domainTotals[d];
+  });
+}
+
+function checkCompletion() {
+  if(Object.keys(state).length === TOTAL) {
+    const banner = document.getElementById('complete-banner');
+    banner.style.display = 'block';
+    const correct = Object.values(state).filter(s => s.correct).length;
+    const pct = Math.round((correct/TOTAL)*100);
+    document.getElementById('complete-title').textContent =
+      pct >= 80 ? '🎉 ' + pct + '% — You\'re ready to book!' :
+      pct >= 60 ? '📚 ' + pct + '% — Nearly there, review weak areas' :
+      '⚠️ ' + pct + '% — More study needed before booking';
+    document.getElementById('complete-msg').textContent =
+      pct >= 80
+        ? 'Great score! Run through Microsoft\'s official assessment to confirm, then book your exam.'
+        : 'Review the red questions and re-read the relevant domain pages. Focus on the ⚠️ Don\'t Confuse callouts.';
+    banner.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+}
+
+function resetAll() {
+  if(!confirm('Reset all answers? This cannot be undone.')) return;
+  state = {};
+  localStorage.removeItem(STORAGE_KEY);
+  location.reload();
+}
+
+let wrongOnlyMode = false;
+function toggleWrongOnly() {
+  wrongOnlyMode = !wrongOnlyMode;
+  const btn = document.getElementById('review-btn');
+  const cards = document.querySelectorAll('.q-card');
+  if (wrongOnlyMode) {
+    btn.textContent = '📋 Show all questions';
+    btn.style.background = 'rgba(52,211,153,.15)';
+    btn.style.color = '#34d399';
+    btn.style.borderColor = 'rgba(52,211,153,.35)';
+    cards.forEach(card => {
+      const qId = card.id;
+      const isWrong = state[qId] && !state[qId].correct;
+      const isUnanswered = !state[qId];
+      card.style.display = (isWrong || isUnanswered) ? '' : 'none';
+    });
+  } else {
+    btn.textContent = '📋 Show wrong answers only';
+    btn.style.background = 'rgba(251,191,36,.15)';
+    btn.style.color = '#fbbf24';
+    btn.style.borderColor = 'rgba(251,191,36,.35)';
+    cards.forEach(card => { card.style.display = ''; });
+  }
+}
+
+(function(){
+  const keys = ['ms900_d1','ms900_d2','ms900_d3','ms900_d4'];
+  const links = document.querySelectorAll('.topnav a:not(.active)');
+  links.forEach((link, i) => {
+    if(i >= keys.length) return;
+    try {
+      const s = JSON.parse(localStorage.getItem(keys[i]) || '{}');
+      const total = Object.keys(s).length;
+      const done = Object.values(s).filter(Boolean).length;
+      if(done > 0) {
+        const badge = document.createElement('span');
+        badge.className = (done >= total && total > 0) ? 'nav-done' : 'nav-started';
+        badge.textContent = (done >= total && total > 0) ? ' ✓' : ' •';
+        link.appendChild(badge);
+      }
+    } catch(e){}
+  });
+})();
+
+loadState();
+</script>
+</body>
+</html>
