@@ -187,6 +187,60 @@ h1 em{font-style:normal;color:var(--c)}
 
       <div class="concept">
         <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="9">
+          <div class="concept-title">Microsoft Entra ID Identity Types — Users, Devices, External &amp; Workload</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">Entra ID manages four categories of identities. The exam tests your ability to pick the right identity type for a given scenario — especially around BYOD, B2B collaboration, and non-human service accounts.</p>
+
+          <p style="font-size:13px;font-weight:700;color:#fff;margin-top:14px;margin-bottom:8px">👤 User Identities</p>
+          <div class="key-terms" style="margin-top:0">
+            <div class="term"><span class="term-key">Member (Internal)</span><span class="term-val">Full-time employees and staff — internal Entra ID accounts</span></div>
+            <div class="term"><span class="term-key">Guest (External)</span><span class="term-val">B2B collaborators — bring their own credentials from another org or IdP</span></div>
+          </div>
+
+          <p style="font-size:13px;font-weight:700;color:#fff;margin-top:14px;margin-bottom:8px">💻 Device Identity Types</p>
+          <div class="table-wrap"><table class="compare-table">
+            <thead><tr><th>Device Type</th><th>Description</th><th>Use Case</th></tr></thead>
+            <tbody>
+              <tr><td><strong style="color:var(--c)">Microsoft Entra Registered ⭐</strong></td><td>Personal device registered with the organization. User signs in with their personal account. IT can apply basic policies (e.g., require PIN, block jailbroken devices) without full MDM enrollment.</td><td><strong>BYOD (Bring Your Own Device)</strong> — employees using personal phones or laptops to access work apps</td></tr>
+              <tr><td><strong>Microsoft Entra Joined</strong></td><td>Organization-owned device fully joined to Entra ID (cloud only, no on-prem AD). Managed by Intune. Best for cloud-first environments.</td><td>New corporate-issued Windows devices in cloud-only or hybrid organizations</td></tr>
+              <tr><td><strong>Hybrid Entra Joined</strong></td><td>Device is joined to both on-premises Active Directory AND Microsoft Entra ID simultaneously. Synced via Entra Connect/Cloud Sync.</td><td>Existing corporate devices in hybrid environments with on-prem AD infrastructure</td></tr>
+            </tbody>
+          </table></div>
+          <div class="callout">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Exam tip — device type scenarios</strong>
+            "Employee uses their personal laptop to access work apps (BYOD)" → <strong>Microsoft Entra Registered</strong><br>
+            "New org-owned device, cloud-only setup" → <strong>Microsoft Entra Joined</strong><br>
+            "Existing org devices with on-premises AD that also need cloud access" → <strong>Hybrid Entra Joined</strong></div>
+          </div>
+
+          <p style="font-size:13px;font-weight:700;color:#fff;margin-top:14px;margin-bottom:8px">🌐 External Identities (B2B)</p>
+          <p class="concept-desc" style="margin-bottom:8px">External identities allow partners, vendors, and consultants to access your organization's resources using their own credentials from their home organization or identity provider (Google, Microsoft, any SAML/OIDC provider). No need to create a new account — they authenticate with what they already have.</p>
+          <div class="callout">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Exam tip — external users &amp; B2B</strong>"Consultant needs temporary access to internal resources" → <strong>External guest identity</strong>. "Org wants secure access for external users without issuing new credentials" → <strong>Allow external users to authenticate with their own identity providers</strong> (External Identities / B2B). B2B collaboration = External Identities.</div>
+          </div>
+
+          <p style="font-size:13px;font-weight:700;color:#fff;margin-top:14px;margin-bottom:8px">⚙️ Workload Identities</p>
+          <p class="concept-desc" style="margin-bottom:8px">Non-human identities assigned to applications, services, scripts, and automated processes that need to authenticate and access resources. Examples: a web app that reads SharePoint data, a script that updates Azure resources, a CI/CD pipeline that deploys code.</p>
+          <div class="callout">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Exam tip — workload vs device identities</strong>"A printer in the office network needs an identity" → <strong>Device identity</strong>. "An app or service needs to authenticate to access M365 data" → <strong>Workload identity</strong>. Neither is a user identity.</div>
+          </div>
+
+          <p style="font-size:13px;font-weight:700;color:#fff;margin-top:14px;margin-bottom:8px">🔗 Microsoft Entra Cloud Sync</p>
+          <p class="concept-desc" style="margin-bottom:8px"><strong>Microsoft Entra Cloud Sync</strong> (previously Azure AD Connect) is the tool that synchronizes on-premises Active Directory identities to Microsoft Entra ID in the cloud. It enables hybrid identity — one set of user credentials works for both on-prem and cloud resources. Essential for organizations transitioning to the cloud while maintaining on-prem infrastructure.</p>
+          <div class="callout">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Exam tip — hybrid identity integration</strong>"Which component is essential for seamless integration between on-premises Active Directory and Microsoft Entra ID?" → <strong>Microsoft Entra Cloud Sync</strong>. Also: "Microsoft Entra ID acts as a single identity provider for both on-premises and cloud environments in a hybrid setup" — this is the correct description of its role in hybrid scenarios.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
           <input type="checkbox" class="skill-check" data-skill="3">
           <div class="concept-title">MFA, SSPR &amp; Conditional Access</div>
         </div>
@@ -241,9 +295,22 @@ h1 em{font-style:normal;color:var(--c)}
             <thead><tr><th>Defender Product</th><th>Protects</th><th>Key Capability</th></tr></thead>
             <tbody>
               <tr><td><strong>Defender for Endpoint</strong></td><td>Devices (Windows, macOS, Linux, mobile)</td><td>Threat detection, EDR, vulnerability management</td></tr>
-              <tr><td><strong>Defender for Office 365</strong></td><td>Email, Teams, SharePoint, OneDrive</td><td>Anti-phishing, safe links, safe attachments</td></tr>
-              <tr><td><strong>Defender for Identity</strong></td><td>On-premises AD identities</td><td>Detects lateral movement, compromised credentials</td></tr>
-              <tr><td><strong>Defender for Cloud Apps</strong></td><td>SaaS apps (Shadow IT)</td><td>Discovers unsanctioned apps, enforces policies</td></tr>
+              <tr><td><strong>Defender for Office 365</strong></td><td>Email, Teams, SharePoint, OneDrive — malicious links, attachments, and collaboration threats</td><td>Anti-phishing, Safe Links (scans URLs), Safe Attachments (sandboxes files before delivery)</td></tr>
+              <tr><td><strong>Defender for Identity</strong></td><td>On-premises Active Directory identities</td><td>Cloud-based solution that identifies, detects, and investigates <strong>advanced threats, compromised identities, and malicious insider actions</strong> directed at your organization via on-prem AD monitoring</td></tr>
+              <tr><td><strong>Defender for Cloud Apps</strong></td><td>SaaS applications and cloud services (including Shadow IT)</td><td>Cloud Access Security Broker (CASB) — discovers unsanctioned apps, enforces session controls, identifies sensitive data in cloud apps</td></tr>
+              <tr><td><strong>Defender Vulnerability Management</strong></td><td>Devices and software across the organization</td><td>Identifies and helps remediate <strong>critical vulnerabilities and misconfigurations</strong> — provides asset inventory, vulnerability assessment, and prioritized remediation guidance</td></tr>
+            </tbody>
+          </table></div>
+
+          <p style="font-size:13px;font-weight:700;color:#fff;margin-top:16px;margin-bottom:8px">Defender for Cloud Apps — CASB Framework &amp; 4 Pillars</p>
+          <p class="concept-desc" style="margin-bottom:10px">Defender for Cloud Apps is a <strong>Cloud Access Security Broker (CASB)</strong>. A CASB sits between cloud service users and cloud providers to enforce security policies. The Cloud App Security framework is built on four pillars:</p>
+          <div class="table-wrap"><table class="compare-table">
+            <thead><tr><th>Pillar</th><th>What It Does</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Visibility</strong></td><td>Detect all cloud services in use — including unauthorized Shadow IT apps that IT doesn't know about</td></tr>
+              <tr><td><strong style="color:var(--c)">Data Security ⭐</strong></td><td><strong>Identify and control sensitive information</strong> in cloud apps — prevent sensitive data from being shared or leaked through unsanctioned services</td></tr>
+              <tr><td><strong>Threat Protection</strong></td><td>Detect and remediate cyberthreats across cloud services — anomalous activity, compromised accounts, malicious insiders</td></tr>
+              <tr><td><strong>Compliance</strong></td><td>Assess the compliance posture of cloud services against regulations (GDPR, HIPAA, ISO 27001) and restrict non-compliant apps</td></tr>
             </tbody>
           </table></div>
           <div class="callout">
@@ -253,8 +320,17 @@ h1 em{font-style:normal;color:var(--c)}
           <div class="callout" style="background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.25);margin-top:8px">
             <span class="callout-icon">⚠️</span>
             <div class="callout-text"><strong style="color:#fbbf24">Don't confuse these Defender products</strong>
-            <strong>for Endpoint</strong> = Windows/Mac/Linux <em>devices</em>. <strong>for Office 365</strong> = <em>email &amp; collaboration</em> (phishing, malware in attachments). <strong>for Identity</strong> = <em>on-premises Active Directory</em> accounts (NOT cloud). <strong>for Cloud Apps</strong> = <em>SaaS apps</em> and shadow IT.
+            <strong>for Endpoint</strong> = Windows/Mac/Linux <em>devices</em>. <strong>for Office 365</strong> = <em>email &amp; collaboration</em> (phishing, malware in attachments). <strong>for Identity</strong> = <em>on-premises Active Directory</em> accounts (NOT cloud users). <strong>for Cloud Apps</strong> = <em>SaaS apps</em> and shadow IT (CASB). <strong>Vulnerability Management</strong> = finding and fixing <em>vulnerabilities and misconfigurations</em> on devices.
             Memory trick: the name tells you what it protects.</div>
+          </div>
+          <div class="callout" style="margin-top:8px">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Key exam answers to lock in</strong>
+            "Protect against malicious threats posed by email messages, links (URLs), and collaboration tools" → <strong>Microsoft Defender for Office 365</strong><br>
+            "Identifies, detects, and investigates advanced threats, compromised identities, and malicious insider actions" → <strong>Microsoft Defender for Identity</strong><br>
+            "CASB pillar that identifies and controls sensitive information" → <strong>Data Security</strong><br>
+            "Address critical vulnerabilities and misconfigurations across the organization" → <strong>Microsoft Defender Vulnerability Management</strong><br>
+            "Quickly understand the organization's current security posture in the Defender portal" → <strong>Secure Score</strong></div>
           </div>
           <div class="callout" style="margin-top:8px">
             <span class="callout-icon">🖥️</span>
@@ -367,6 +443,68 @@ h1 em{font-style:normal;color:var(--c)}
           <div class="callout" style="margin-top:10px">
             <span class="callout-icon">📌</span>
             <div class="callout-text"><strong>Compliance Manager vs Secure Score</strong>These are two separate scores — easy to confuse. <strong>Secure Score</strong> (in the Defender Portal) measures your <em>security</em> posture. <strong>Compliance Manager</strong> (in the Purview portal) measures your <em>regulatory compliance</em> posture against specific frameworks like GDPR or ISO 27001. Both give you a score and a list of improvement actions, but they answer different questions.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="10">
+          <div class="concept-title">Purview eDiscovery, Audit, &amp; Communication Compliance — Detailed</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">Three Purview capabilities that appear frequently in exam questions with specific feature-level details you need to know.</p>
+
+          <p style="font-size:13px;font-weight:700;color:#fff;margin-top:14px;margin-bottom:8px">🔍 eDiscovery — Workflow &amp; Key Feature</p>
+          <p class="concept-desc" style="margin-bottom:10px">eDiscovery allows organizations to search, preserve, and export electronically stored information (ESI) for legal cases or internal investigations. The typical workflow:</p>
+          <div class="table-wrap"><table class="compare-table">
+            <thead><tr><th>Step</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td><strong>1. Identify trigger event</strong></td><td>A legal case, regulatory inquiry, or internal investigation begins</td></tr>
+              <tr><td><strong>2. Create and manage case</strong></td><td>Set up the eDiscovery case in the Microsoft Purview portal to organize all related activities</td></tr>
+              <tr><td><strong>3. Search and evaluate results</strong></td><td>Run content searches across emails, Teams chats, SharePoint, OneDrive; refine queries</td></tr>
+              <tr><td><strong style="color:var(--c)">4. Create Holds ⭐</strong></td><td><strong>Preserve content relevant to the case to prevent deletion</strong> — a Hold places a lock on mailboxes or sites so content cannot be deleted or modified during the investigation</td></tr>
+              <tr><td><strong>5. Export search results</strong></td><td>Download collected evidence for legal review or submission</td></tr>
+            </tbody>
+          </table></div>
+          <div class="callout">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Exam tip — eDiscovery Holds</strong>"During an investigation, you need to preserve content relevant to an eDiscovery case to prevent deletion" → <strong>Create Holds</strong>. Also: "Can't access eDiscovery features in the Purview portal?" → <strong>Verify that appropriate permissions are assigned</strong> (eDiscovery Manager or eDiscovery Administrator role required).</div>
+          </div>
+
+          <p style="font-size:13px;font-weight:700;color:#fff;margin-top:16px;margin-bottom:8px">📋 Audit (Standard) vs Audit (Premium)</p>
+          <p class="concept-desc" style="margin-bottom:10px">Microsoft Purview Audit captures user and admin activity across M365 services. Two tiers with important differences:</p>
+          <div class="table-wrap"><table class="compare-table">
+            <thead><tr><th>Feature</th><th>Audit (Standard)</th><th>Audit (Premium)</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Log Retention</strong></td><td>90 days</td><td>Up to 1 year (and optionally 10 years with add-on)</td></tr>
+              <tr><td><strong>API Bandwidth</strong></td><td>Standard bandwidth</td><td><strong style="color:var(--c)">Enhanced (higher bandwidth) access to Office 365 Management Activity API ⭐</strong></td></tr>
+              <tr><td><strong>Intelligent Insights</strong></td><td>Not available</td><td><strong style="color:var(--c)">Intelligent insights on user mail item activities and searches ⭐</strong> — supports forensic investigations</td></tr>
+              <tr><td><strong>Access to audit events</strong></td><td>Standard set of events</td><td>Additional high-value events for deeper investigation</td></tr>
+            </tbody>
+          </table></div>
+          <div class="callout">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Exam tip — Audit Premium distinguishing features</strong>
+            "Higher bandwidth access to audit logs compared to Audit Standard" → <strong>Enhanced Office 365 Management Activity API bandwidth</strong> (Audit Premium)<br>
+            "Unique capability that supports forensic investigations" → <strong>Intelligent insights on user mail interactions and searches</strong> (Audit Premium)<br>
+            "Facilitate compliance investigations compared to Standard" → <strong>Intelligent insights into mail item activities and user searches</strong></div>
+          </div>
+
+          <p style="font-size:13px;font-weight:700;color:#fff;margin-top:16px;margin-bottom:8px">💬 Communication Compliance</p>
+          <p class="concept-desc" style="margin-bottom:10px">Communication Compliance in Microsoft Purview helps organizations detect, capture, and act on inappropriate messages across email, Microsoft Teams, and Yammer. It helps enforce corporate communication standards and regulatory requirements.</p>
+          <div class="key-terms" style="margin-top:0">
+            <div class="term"><span class="term-key">Predefined Policies</span><span class="term-val">Built-in templates (harassment, adult content, regulatory)</span></div>
+            <div class="term"><span class="term-key">Custom Policies</span><span class="term-val">Org-defined rules targeting specific keywords or topics</span></div>
+            <div class="term"><span class="term-key">Designated Reviewers</span><span class="term-val">Compliance team members who examine flagged messages and take action</span></div>
+            <div class="term"><span class="term-key">Corrective Actions</span><span class="term-val">Escalate, notify user, remediate, or escalate to HR/Legal</span></div>
+          </div>
+          <div class="callout" style="margin-top:10px">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Exam tip — Communication Compliance scenarios</strong>
+            "Messages reviewed and flagged for potential compliance violations related to harassment" → <strong>Communication Compliance with predefined and custom policies</strong><br>
+            "Detects inappropriate messages and allows designated reviewers to take corrective actions" → <strong>Communication Compliance</strong><br>
+            "Helps organizations adhere to corporate message standards" → <strong>Communication Compliance</strong> (it detects, humans review and act — it does NOT automatically resolve issues)</div>
           </div>
         </div>
       </div>

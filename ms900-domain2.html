@@ -319,13 +319,40 @@ h1 em{font-style:normal;color:var(--c)}
           <div class="concept-title">Microsoft Viva — Employee Experience</div>
         </div>
         <div class="concept-body">
-          <p class="concept-desc">Viva is Microsoft's employee experience platform, integrated into Teams. It addresses engagement, learning, wellbeing, and knowledge sharing.</p>
-          <div class="key-terms">
-            <div class="term"><span class="term-key">Viva Insights</span><span class="term-val">Personal &amp; org-level productivity analytics</span></div>
-            <div class="term"><span class="term-key">Viva Connections</span><span class="term-val">Company intranet &amp; comms hub in Teams</span></div>
-            <div class="term"><span class="term-key">Viva Learning</span><span class="term-val">Learning management integrated in Teams</span></div>
-            <div class="term"><span class="term-key">Viva Goals</span><span class="term-val">OKR tracking and goal alignment</span></div>
-            <div class="term"><span class="term-key">Viva Engage</span><span class="term-val">Social communities (formerly Yammer)</span></div>
+          <p class="concept-desc">Viva is Microsoft's employee experience platform, delivered inside Microsoft Teams. It covers four pillars: engagement, wellbeing, learning, and goal alignment — each as a separate module.</p>
+
+          <div style="display:flex;flex-direction:column;gap:14px;margin-top:12px">
+
+            <div style="background:var(--surface3);border:1px solid var(--border2);border-radius:10px;padding:14px">
+              <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:6px">🔍 Viva Insights</div>
+              <p class="concept-desc" style="margin-bottom:0">Analyzes calendar, email, and meeting patterns to surface personal productivity insights and organizational wellbeing analytics. Individuals see their own focus time, meeting load, and collaboration habits. Managers receive aggregated team wellbeing data to identify burnout risk and collaboration overload — but never individual employee data. Privacy is by design: all manager-level views are anonymized and de-identified. <strong>Exam angle:</strong> Viva Insights is a privacy-protected analytics tool, not a surveillance system. It improves productivity and wellbeing — not security or compliance.</p>
+            </div>
+
+            <div style="background:var(--surface3);border:1px solid var(--border2);border-radius:10px;padding:14px">
+              <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:6px">🏠 Viva Connections</div>
+              <p class="concept-desc" style="margin-bottom:0">A personalized employee intranet dashboard delivered inside Microsoft Teams. It surfaces company news, HR announcements, policies, leadership messages, and quick links — all in one Teams tab, eliminating the need for a separate intranet portal. Admins configure the experience using SharePoint; employees access it via a pinned Teams tab or the Teams mobile app. <strong>Exam angle:</strong> Viva Connections = the "front door" to the employee experience — company communications hub inside Teams. Think of it as SharePoint intranet embedded in Teams.</p>
+            </div>
+
+            <div style="background:var(--surface3);border:1px solid var(--border2);border-radius:10px;padding:14px">
+              <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:6px">📚 Viva Learning</div>
+              <p class="concept-desc" style="margin-bottom:0">Integrates learning content directly into Microsoft Teams so employees can discover, share, and complete training without leaving their daily workflow. It aggregates content from Microsoft Learn, LinkedIn Learning, third-party LMS platforms (like SAP SuccessFactors, Cornerstone), and custom organizational content. Managers can recommend or assign specific courses to team members, and completion is tracked centrally. <strong>Exam angle:</strong> Viva Learning = a learning aggregator inside Teams. It does not replace your LMS — it connects to it. The key phrase is "bring learning into the flow of work."</p>
+            </div>
+
+            <div style="background:var(--surface3);border:1px solid var(--border2);border-radius:10px;padding:14px">
+              <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:6px">🎯 Viva Goals</div>
+              <p class="concept-desc" style="margin-bottom:0">An OKR (Objectives and Key Results) management tool that helps organizations connect day-to-day work to strategic priorities. Teams define objectives, set measurable key results, and track progress in real time across individuals, teams, and the whole organization. Integrates with Microsoft Teams, Planner, Azure DevOps, Jira, and other tools to automatically pull in progress data. <strong>Exam angle:</strong> Viva Goals = OKR tracking and goal alignment. If a question asks about aligning individual work to company strategy or tracking key results — Viva Goals is the answer.</p>
+            </div>
+
+            <div style="background:var(--surface3);border:1px solid var(--border2);border-radius:10px;padding:14px">
+              <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:6px">💬 Viva Engage</div>
+              <p class="concept-desc" style="margin-bottom:0">The social communities and conversation platform for the whole organization, evolved from Yammer and now deeply integrated into Microsoft Teams. Supports organization-wide communities, interest groups, leadership AMAs (Ask Me Anything), story posts, and knowledge sharing across silos. Helps employees connect informally, build culture, and share expertise at scale — things that don't fit into a channel or meeting. <strong>Exam angle:</strong> Viva Engage = formerly Yammer. It is the social networking and communities layer of Viva. If the question describes organization-wide communities or informal communication — Viva Engage.</p>
+            </div>
+
+          </div>
+
+          <div class="callout" style="margin-top:12px">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Exam tip — pick the right Viva module</strong>Wellbeing/productivity analytics → <strong>Insights</strong>. Company intranet/news hub → <strong>Connections</strong>. Training and courses → <strong>Learning</strong>. OKRs and goal tracking → <strong>Goals</strong>. Social communities/culture → <strong>Engage</strong>.</div>
           </div>
         </div>
       </div>
@@ -389,7 +416,7 @@ h1 em{font-style:normal;color:var(--c)}
           <div class="table-wrap"><table class="compare-table">
             <thead><tr><th></th><th>Windows 365</th><th>Azure Virtual Desktop (AVD)</th></tr></thead>
             <tbody>
-              <tr><td><strong>Model</strong></td><td>Fixed per-user Cloud PC (SaaS-like)</td><td>Flexible multi-session virtualization (IaaS-like)</td></tr>
+              <tr><td><strong>Service Model</strong></td><td><strong>Desktop-as-a-Service (DaaS)</strong> — Microsoft hosts and manages all infrastructure; streams a full Windows desktop to any device</td><td>Virtual Desktop Infrastructure (VDI) in Azure — IT manages VM sizing, sessions, and networking</td></tr>
               <tr><td><strong>Complexity</strong></td><td>Simple — no infrastructure to manage</td><td>Complex — IT controls VM sizing, sessions, networking</td></tr>
               <tr><td><strong>Pricing</strong></td><td>Fixed monthly per-user license</td><td>Pay-as-you-go (compute &amp; storage)</td></tr>
               <tr><td><strong>Best for</strong></td><td>SMBs, predictable workloads</td><td>Enterprises needing cost optimization at scale</td></tr>
@@ -399,6 +426,10 @@ h1 em{font-style:normal;color:var(--c)}
           <div class="callout" style="background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.25)">
             <span class="callout-icon">⚠️</span>
             <div class="callout-text"><strong style="color:#fbbf24">The exam trap</strong>Both give you a cloud Windows desktop — the difference is <em>who manages the infrastructure</em>. <strong>Windows 365</strong> = Microsoft manages everything, fixed price per user, simple. <strong>AVD</strong> = IT manages the Azure infrastructure, pay-as-you-go, complex but cheaper at scale. Scenario tip: "small org, easy setup" → Windows 365. "large enterprise, cost optimisation, multi-session" → AVD.</div>
+          </div>
+          <div class="callout" style="margin-top:8px">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>What type of service is Windows 365?</strong>Windows 365 is <strong>Desktop-as-a-Service (DaaS)</strong> — a cloud delivery model where Microsoft hosts, patches, and streams a complete personalized Windows desktop to any device via a browser or the Windows 365 app. No physical machine required. This places Windows 365 alongside SaaS in simplicity, but the "product" delivered is a full Windows OS experience rather than a single application.</div>
           </div>
         </div>
       </div>
@@ -421,6 +452,28 @@ h1 em{font-style:normal;color:var(--c)}
           <div class="callout">
             <span class="callout-icon">📌</span>
             <div class="callout-text"><strong>Exam tip — rings vs channels</strong>Deployment <strong>rings</strong> (Insider → Pilot → Broad) control <em>when</em> Windows updates reach devices. Update <strong>channels</strong> (Current, Monthly Enterprise, Semi-Annual) control <em>how often</em> Microsoft 365 Apps receive feature updates. These are two different mechanisms — don't mix them up.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="15">
+          <div class="concept-title">Microsoft 365 Apps Update Channels</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">Update channels control how frequently <strong>Microsoft 365 Apps</strong> (Word, Excel, PowerPoint, etc.) receive new features. Organizations choose a channel based on how often they want updates and how much testing they can do before broad deployment.</p>
+          <div class="table-wrap"><table class="compare-table">
+            <thead><tr><th>Channel</th><th>Release Cadence</th><th>Best For</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Current Channel</strong></td><td>Monthly — latest features as soon as available</td><td>Users who want the newest features first; pilot/early adopters</td></tr>
+              <tr><td><strong style="color:var(--c)">Monthly Enterprise Channel ⭐</strong></td><td><strong>Monthly — on a predictable, tested schedule</strong></td><td><strong>Organizations that need frequent updates but want a stable, predictable release date</strong></td></tr>
+              <tr><td><strong>Semi-Annual Enterprise Channel</strong></td><td>Twice a year (January and July)</td><td>Enterprises that need maximum stability and extensive pre-deployment testing</td></tr>
+            </tbody>
+          </table></div>
+          <div class="callout">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Exam tip — the predictable schedule question</strong>If the question says your organization "requires frequent feature updates for Microsoft 365 Apps on a predictable release schedule" → the answer is <strong>Monthly Enterprise Channel</strong>. Current Channel = frequent but less predictable timing. Semi-Annual = very stable but only twice a year. Monthly Enterprise = the best of both: frequent <em>and</em> predictable.</div>
           </div>
         </div>
       </div>
@@ -458,6 +511,27 @@ h1 em{font-style:normal;color:var(--c)}
 
       <div class="concept">
         <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="16">
+          <div class="concept-title">Reports in the Microsoft 365 Admin Center — Usage &amp; Adoption Score</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">The M365 Admin Center provides built-in reports that help admins understand how the organization is using Microsoft 365 services. Two key report types to know for the exam:</p>
+          <div class="table-wrap"><table class="compare-table">
+            <thead><tr><th>Report</th><th>What It Shows</th><th>Where to Find It</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Usage Reports</strong></td><td>Service-level activity data: Teams messages sent, SharePoint storage consumed, email volume, OneDrive activity, active user counts per service</td><td>Admin Center → Reports → Usage</td></tr>
+              <tr><td><strong>Adoption Score</strong></td><td>Measures how effectively your organization uses Microsoft 365 features. Scored across <strong>People experiences</strong> (how employees collaborate and communicate) and <strong>Technology experiences</strong> (device health, network connectivity, endpoint performance). Provides actionable recommendations to improve adoption.</td><td>Admin Center → Reports → Adoption Score</td></tr>
+            </tbody>
+          </table></div>
+          <div class="callout">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Adoption Score ≠ Secure Score</strong><strong>Adoption Score</strong> (in the M365 Admin Center) = how well your org is <em>using</em> M365 productivity features. <strong>Secure Score</strong> (in the Defender Portal) = how strong your org's <em>security posture</em> is. Both give you a numeric score with improvement actions, but they measure completely different things.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
           <input type="checkbox" class="skill-check" data-skill="13">
           <div class="concept-title">Service-Specific Admin Centers &amp; Copilot Dashboard</div>
         </div>
@@ -470,11 +544,16 @@ h1 em{font-style:normal;color:var(--c)}
               <tr><td><strong>SharePoint Admin Center</strong></td><td>Site management, sharing settings, access controls, storage quotas</td></tr>
               <tr><td><strong>Exchange Admin Center</strong></td><td>Mail flow rules, mailbox policies, anti-spam, message trace</td></tr>
               <tr><td><strong>Copilot Dashboard</strong></td><td>AI usage insights — how Copilot is being used across the org, adoption metrics</td></tr>
+              <tr><td><strong>Microsoft 365 Defender</strong><br><span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)">security.microsoft.com</span></td><td>View security trends and track protection status of <strong>identities, data, devices, apps, and infrastructure</strong>. The unified XDR portal — incidents, threat hunting, Secure Score, and all Defender product consoles in one place</td></tr>
             </tbody>
           </table></div>
           <div class="callout">
             <span class="callout-icon">📌</span>
             <div class="callout-text"><strong>Exam tip</strong>The Copilot Dashboard is accessed from the M365 Admin Center and helps admins monitor AI adoption — this is a newer exam addition, don't overlook it.</div>
+          </div>
+          <div class="callout" style="margin-top:8px">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Which admin center shows security trends across identities, data, devices, apps, and infrastructure?</strong>The answer is the <strong>Microsoft 365 Defender portal</strong> (security.microsoft.com) — also called the Microsoft Defender portal or Microsoft Defender XDR portal. It is the unified security operations center for the entire M365 environment. Not the M365 Admin Center, not the Purview portal.</div>
           </div>
         </div>
       </div>
