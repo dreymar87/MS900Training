@@ -187,17 +187,17 @@ h1 em{font-style:normal;color:var(--amber)}
       <div class="op-domain">
         <div class="op-domain-label" style="color:var(--d2)">Domain 2</div>
         <div class="op-domain-bar"><div class="op-domain-fill" id="d2-fill" style="background:var(--d2)"></div></div>
-        <div class="op-domain-stat"><strong id="d2-stat">0/15</strong> skills</div>
+        <div class="op-domain-stat"><strong id="d2-stat">0/17</strong> skills</div>
       </div>
       <div class="op-domain">
         <div class="op-domain-label" style="color:var(--d3)">Domain 3</div>
         <div class="op-domain-bar"><div class="op-domain-fill" id="d3-fill" style="background:var(--d3)"></div></div>
-        <div class="op-domain-stat"><strong id="d3-stat">0/9</strong> skills</div>
+        <div class="op-domain-stat"><strong id="d3-stat">0/11</strong> skills</div>
       </div>
       <div class="op-domain">
         <div class="op-domain-label" style="color:var(--d4)">Domain 4</div>
         <div class="op-domain-bar"><div class="op-domain-fill" id="d4-fill" style="background:var(--d4)"></div></div>
-        <div class="op-domain-stat"><strong id="d4-stat">0/7</strong> skills</div>
+        <div class="op-domain-stat"><strong id="d4-stat">0/8</strong> skills</div>
       </div>
     </div>
   </div>
@@ -234,9 +234,9 @@ h1 em{font-style:normal;color:var(--amber)}
       </div>
       <div class="dc-body">
         <div class="dc-stats">
-          <div class="dc-stat"><strong>15</strong> skills</div>
-          <div class="dc-stat"><strong>9</strong> tables</div>
-          <div class="dc-stat"><strong>10</strong> callouts</div>
+          <div class="dc-stat"><strong>17</strong> skills</div>
+          <div class="dc-stat"><strong>11</strong> tables</div>
+          <div class="dc-stat"><strong>15</strong> callouts</div>
         </div>
         <div class="dc-progress-wrap">
           <div class="dc-track"><div class="dc-fill" id="d2c-fill" style="background:var(--d2)"></div></div>
@@ -254,9 +254,9 @@ h1 em{font-style:normal;color:var(--amber)}
       </div>
       <div class="dc-body">
         <div class="dc-stats">
-          <div class="dc-stat"><strong>9</strong> skills</div>
-          <div class="dc-stat"><strong>5</strong> tables</div>
-          <div class="dc-stat"><strong>11</strong> callouts</div>
+          <div class="dc-stat"><strong>11</strong> skills</div>
+          <div class="dc-stat"><strong>8</strong> tables</div>
+          <div class="dc-stat"><strong>18</strong> callouts</div>
         </div>
         <div class="dc-progress-wrap">
           <div class="dc-track"><div class="dc-fill" id="d3c-fill" style="background:var(--d3)"></div></div>
@@ -274,9 +274,9 @@ h1 em{font-style:normal;color:var(--amber)}
       </div>
       <div class="dc-body">
         <div class="dc-stats">
-          <div class="dc-stat"><strong>7</strong> skills</div>
-          <div class="dc-stat"><strong>7</strong> tables</div>
-          <div class="dc-stat"><strong>4</strong> callouts</div>
+          <div class="dc-stat"><strong>8</strong> skills</div>
+          <div class="dc-stat"><strong>8</strong> tables</div>
+          <div class="dc-stat"><strong>7</strong> callouts</div>
         </div>
         <div class="dc-progress-wrap">
           <div class="dc-track"><div class="dc-fill" id="d4c-fill" style="background:var(--d4)"></div></div>
@@ -392,13 +392,13 @@ setInterval(updateCountdown, 30000);
 // DOMAIN PROGRESS from localStorage
 const domainConfig = [
   { key:'ms900_d1', total:6,  fillId:'d1-fill', statId:'d1-stat', cardFillId:'d1c-fill', cardPctId:'d1c-pct', cardStatusId:'d1c-status' },
-  { key:'ms900_d2', total:15, fillId:'d2-fill', statId:'d2-stat', cardFillId:'d2c-fill', cardPctId:'d2c-pct', cardStatusId:'d2c-status' },
-  { key:'ms900_d3', total:9,  fillId:'d3-fill', statId:'d3-stat', cardFillId:'d3c-fill', cardPctId:'d3c-pct', cardStatusId:'d3c-status' },
-  { key:'ms900_d4', total:7,  fillId:'d4-fill', statId:'d4-stat', cardFillId:'d4c-fill', cardPctId:'d4c-pct', cardStatusId:'d4c-status' },
+  { key:'ms900_d2', total:17, fillId:'d2-fill', statId:'d2-stat', cardFillId:'d2c-fill', cardPctId:'d2c-pct', cardStatusId:'d2c-status' },
+  { key:'ms900_d3', total:11, fillId:'d3-fill', statId:'d3-stat', cardFillId:'d3c-fill', cardPctId:'d3c-pct', cardStatusId:'d3c-status' },
+  { key:'ms900_d4', total:8,  fillId:'d4-fill', statId:'d4-stat', cardFillId:'d4c-fill', cardPctId:'d4c-pct', cardStatusId:'d4c-status' },
 ];
 
 let totalDone = 0;
-const grandTotal = 37;
+const grandTotal = 42;
 
 domainConfig.forEach((d, i) => {
   let done = 0;
@@ -445,7 +445,7 @@ try {
 
 // NAV completion badges
 const keys = ['ms900_d1','ms900_d2','ms900_d3','ms900_d4'];
-const domainTotals = [6,15,9,7];
+const domainTotals = [6,17,11,8];
 ['nav-d1','nav-d2','nav-d3','nav-d4'].forEach((id, i) => {
   const link = document.getElementById(id);
   if (!link) return;
