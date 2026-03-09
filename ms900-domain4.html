@@ -156,16 +156,70 @@ h1 em{font-style:normal;color:var(--c)}
         <div class="concept-body">
           <p class="concept-desc">Organizations can buy Microsoft 365 licenses through three routes. The exam tests your ability to match the right model to an org's size and needs.</p>
           <div class="table-wrap"><table class="compare-table">
-            <thead><tr><th>Channel</th><th>Best For</th><th>Key Traits</th></tr></thead>
+            <thead><tr><th>Channel</th><th>Exam Name(s)</th><th>Best For</th><th>Key Traits</th></tr></thead>
             <tbody>
-              <tr><td><strong>Enterprise Agreement (EA)</strong></td><td>500+ users / large orgs</td><td>3-year commitment; volume discounts; annual upfront payment; predictable costs</td></tr>
-              <tr><td><strong>Cloud Solution Provider (CSP)</strong></td><td>SMBs (any size, min 1 user)</td><td>Monthly billing through a Microsoft partner; flexible; partner provides support</td></tr>
-              <tr><td><strong>Direct / Microsoft.com</strong></td><td>Small orgs / individuals</td><td>Buy directly; credit card; monthly or annual; self-support via documentation</td></tr>
+              <tr><td><strong>Enterprise Agreement (EA)</strong></td><td>Volume Licensing / EA</td><td>500+ users / large orgs</td><td>3-year commitment; volume discounts; annual upfront payment; predictable costs. EA sits under the <strong>Volume Licensing</strong> umbrella (along with Open programs).</td></tr>
+              <tr><td><strong>Cloud Solution Provider (CSP)</strong></td><td>CSP</td><td>SMBs (any size, min 1 user)</td><td>Monthly billing through a Microsoft partner; flexible; partner provides first-line support</td></tr>
+              <tr><td><strong>MOSP / Web Direct</strong></td><td>MOSP (Microsoft Online Subscription Program)</td><td>Small orgs / individuals</td><td>Buy directly at Microsoft.com with a credit card; monthly or annual commitment; self-support via documentation. Also called <em>Web Direct</em>.</td></tr>
             </tbody>
           </table></div>
           <div class="callout">
             <span class="callout-icon">📌</span>
-            <div class="callout-text"><strong>Key CSP distinction</strong>When buying through a CSP partner, the partner handles billing AND first-level support — not Microsoft directly. The CSP escalates to Microsoft only if they can't resolve the issue.</div>
+            <div class="callout-text"><strong>Key naming exam traps</strong>
+            The exam uses official program names — not casual names like "buy from Microsoft website."<br>
+            "Purchased via Microsoft.com with a credit card" → <strong>MOSP (Web Direct)</strong><br>
+            "Bought through a 3-year agreement with volume discounts" → <strong>Enterprise Agreement (EA) / Volume Licensing</strong><br>
+            "Billed monthly through a Microsoft partner who provides support" → <strong>CSP</strong><br>
+            <strong>Volume Licensing</strong> = umbrella term covering Enterprise Agreement (EA) and Open programs. EA is the most common Volume Licensing vehicle for large orgs.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="9">
+          <div class="concept-title">Software Assurance (SA)</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc"><strong>Software Assurance</strong> is a benefit available exclusively through <strong>Volume Licensing</strong> (EA and Open programs). It is not available via CSP or MOSP/Web Direct. SA grants customers the right to upgrade to the latest version of on-premises Microsoft software at no additional licence cost during the SA coverage period.</p>
+          <div class="key-terms">
+            <div class="term"><span class="term-key">What SA gives you</span><span class="term-val">Upgrade rights to the latest on-prem software version while SA is active (e.g. always run the latest Windows Server or Office)</span></div>
+            <div class="term"><span class="term-key">Available via</span><span class="term-val"><strong>Volume Licensing only</strong> — EA and Open programs. NOT available through CSP or MOSP/Web Direct</span></div>
+            <div class="term"><span class="term-key">Other SA benefits</span><span class="term-val">Home Use Program, e-Learning, 24×7 support, deployment planning services</span></div>
+          </div>
+          <div class="callout" style="margin-top:10px">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Exam tip — Software Assurance recognition</strong>
+            The exam phrase to recognise: <em>"licenses that allow them to run the latest version of on-premises software"</em> → <strong>Software Assurance</strong><br>
+            "Customer wants SA" → they must be purchasing through <strong>Volume Licensing (EA or Open)</strong> — CSP and MOSP do not offer SA.<br>
+            Memory rule: <strong>Software Assurance = Volume Licensing only.</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="10">
+          <div class="concept-title">USL Types — User Subscription Licenses</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">For organisations transitioning from on-premises software to the Microsoft cloud, Microsoft offers specialised <strong>User Subscription Licenses (USLs)</strong> that recognise existing investments. The exam tests your ability to identify the right USL type from a given customer scenario.</p>
+          <div class="table-wrap"><table class="compare-table">
+            <thead><tr><th>USL Type</th><th>Who It's For</th><th>Exam Clue Phrase</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Full USL</strong></td><td>Customers with no existing Microsoft licences — starting fresh</td><td>"first time," "no prior Microsoft products," "brand new to Microsoft"</td></tr>
+              <tr><td><strong>From SA USL</strong></td><td>Customers who already have active Software Assurance on on-prem licences and are moving to cloud</td><td>"SA customer," "run the latest version," "transitioning to cloud," "has Software Assurance"</td></tr>
+              <tr><td><strong>Step Up USL</strong></td><td>Existing M365 subscribers who want to move to a higher plan tier</td><td>"upgrade from E3 to E5," "move to a higher tier," "step up from Business to Enterprise"</td></tr>
+              <tr><td><strong>Add-On USL</strong></td><td>Existing M365 subscribers who want to add a specific capability without changing their base plan</td><td>"add Teams Phone to existing E3," "bolt on Copilot," "add capability to current plan"</td></tr>
+            </tbody>
+          </table></div>
+          <div class="callout" style="margin-top:10px">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>USL decision tree</strong>
+            1. Does the customer have <em>any</em> existing Microsoft licences? No → <strong>Full USL</strong>.<br>
+            2. Do they have active Software Assurance? Yes → <strong>From SA USL</strong>.<br>
+            3. Do they already have M365 and want a <em>higher tier</em>? → <strong>Step Up USL</strong>.<br>
+            4. Do they already have M365 and want to <em>add a specific feature</em>? → <strong>Add-On USL</strong>.</div>
           </div>
         </div>
       </div>
