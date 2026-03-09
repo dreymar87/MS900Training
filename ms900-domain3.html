@@ -217,10 +217,22 @@ h1 em{font-style:normal;color:var(--c)}
           </div>
 
           <p style="font-size:13px;font-weight:700;color:#fff;margin-top:14px;margin-bottom:8px">🌐 External Identities (B2B)</p>
-          <p class="concept-desc" style="margin-bottom:8px">External identities allow partners, vendors, and consultants to access your organization's resources using their own credentials from their home organization or identity provider (Google, Microsoft, any SAML/OIDC provider). No need to create a new account — they authenticate with what they already have.</p>
+          <p class="concept-desc" style="margin-bottom:8px">External identities allow partners, vendors, and consultants to access your organization's resources using their own credentials from their home organization or identity provider. No new account needs to be created — the guest authenticates with what they already have. This is called <strong>Entra B2B Collaboration</strong>.</p>
+          <div class="key-terms" style="margin-top:0;margin-bottom:10px">
+            <div class="term"><span class="term-key">Default IdPs (no config needed)</span><span class="term-val"><strong>Microsoft Entra ID</strong> (work/school accounts) + <strong>Microsoft account</strong> (personal Outlook, Hotmail, Xbox) — available out of the box</span></div>
+            <div class="term"><span class="term-key">Optional IdPs (require config)</span><span class="term-val">Google federation, Facebook federation, Email one-time passcode (OTP) — must be enabled by an admin</span></div>
+            <div class="term"><span class="term-key">Guest UPN format</span><span class="term-val">External users appear in your directory as <code>user_partner.com#EXT#@yourtenant.onmicrosoft.com</code> — the #EXT# marker identifies them as a guest</span></div>
+          </div>
+          <div class="callout" style="background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.25);margin-bottom:10px">
+            <span class="callout-icon">⚠️</span>
+            <div class="callout-text"><strong style="color:#fbbf24">Active Directory is NOT a cloud identity provider</strong>On-premises Active Directory (AD DS) is a legacy directory service that runs on-premises servers. It cannot be used directly as an identity provider for B2B collaboration with external cloud tenants. It must be synced to Microsoft Entra ID via Entra Connect first. If a question asks about cloud-based external sharing, AD alone is never the answer.</div>
+          </div>
           <div class="callout">
             <span class="callout-icon">📌</span>
-            <div class="callout-text"><strong>Exam tip — external users &amp; B2B</strong>"Consultant needs temporary access to internal resources" → <strong>External guest identity</strong>. "Org wants secure access for external users without issuing new credentials" → <strong>Allow external users to authenticate with their own identity providers</strong> (External Identities / B2B). B2B collaboration = External Identities.</div>
+            <div class="callout-text"><strong>B2B vs B2C — common confusion</strong>
+            <strong>B2B (Business-to-Business)</strong> = external <em>partners, vendors, and colleagues</em> accessing your tenant using their existing work or personal identity. They get a guest account in your directory.<br>
+            <strong>B2C (Business-to-Consumer)</strong> = customers and consumers signing in to your published apps using their own social or local accounts (Google, Facebook, email). This is a separate Azure AD B2C service.<br>
+            Exam rule: "partner accessing internal SharePoint" → B2B. "Customer logging into your app" → B2C.</div>
           </div>
 
           <p style="font-size:13px;font-weight:700;color:#fff;margin-top:14px;margin-bottom:8px">⚙️ Workload Identities</p>
@@ -294,7 +306,7 @@ h1 em{font-style:normal;color:var(--c)}
           <div class="table-wrap"><table class="compare-table">
             <thead><tr><th>Defender Product</th><th>Protects</th><th>Key Capability</th></tr></thead>
             <tbody>
-              <tr><td><strong>Defender for Endpoint</strong></td><td>Devices (Windows, macOS, Linux, mobile)</td><td>Threat detection, EDR, vulnerability management</td></tr>
+              <tr><td><strong>Defender for Endpoint</strong></td><td>Devices (Windows, macOS, Linux, mobile) — the first line of defence, where most attacks land</td><td><strong>EDR</strong> (Endpoint Detection &amp; Response), vulnerability management, <strong>AIR</strong> (Automated Investigation &amp; Remediation — auto-triages and remediates alerts), <strong>Network Protection</strong> (blocks malicious outbound connections at OS level), <strong>ASR</strong> (Attack Surface Reduction rules — blocks behaviours commonly used by malware)</td></tr>
               <tr><td><strong>Defender for Office 365</strong></td><td>Email, Teams, SharePoint, OneDrive — malicious links, attachments, and collaboration threats</td><td>Anti-phishing, Safe Links (scans URLs), Safe Attachments (sandboxes files before delivery)</td></tr>
               <tr><td><strong>Defender for Identity</strong></td><td>On-premises Active Directory identities</td><td>Cloud-based solution that identifies, detects, and investigates <strong>advanced threats, compromised identities, and malicious insider actions</strong> directed at your organization via on-prem AD monitoring</td></tr>
               <tr><td><strong>Defender for Cloud Apps</strong></td><td>SaaS applications and cloud services (including Shadow IT)</td><td>Cloud Access Security Broker (CASB) — discovers unsanctioned apps, enforces session controls, identifies sensitive data in cloud apps</td></tr>
@@ -418,6 +430,29 @@ h1 em{font-style:normal;color:var(--c)}
             <br><br>
             Memory hook: <strong>MFA = Verify. RBAC = Least Privilege. Defender = Assume Breach.</strong></div>
           </div>
+
+          <p style="font-size:13px;font-weight:700;color:#fff;margin-top:16px;margin-bottom:8px">🧱 The Six Attack Surface Domains (Pillars)</p>
+          <p class="concept-desc" style="margin-bottom:10px">Zero Trust organises every modern attack surface into six domains. The three principles above describe <em>how</em> to protect across all six. The exam tests matching a business concern or tool to the correct pillar.</p>
+          <div class="table-wrap"><table class="compare-table">
+            <thead><tr><th>Pillar</th><th>What It Covers</th><th>Key M365 Tools</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Identities</strong></td><td>Users, service accounts, and workload identities accessing resources</td><td>Entra ID, MFA, Conditional Access, PIM</td></tr>
+              <tr><td><strong>Endpoints</strong></td><td>Devices (PCs, mobiles, servers) that connect to corporate resources</td><td>Microsoft Intune, Defender for Endpoint, Autopilot</td></tr>
+              <tr><td><strong>Applications</strong></td><td>On-prem and cloud apps that users and services access</td><td>Defender for Cloud Apps (CASB), Conditional Access App Control</td></tr>
+              <tr><td><strong>Data</strong></td><td>Structured and unstructured data wherever it lives or travels</td><td>Microsoft Purview — Sensitivity Labels, DLP, Information Protection</td></tr>
+              <tr><td><strong>Infrastructure</strong></td><td>On-premises servers, cloud VMs, containers, and operational tech</td><td>Microsoft Defender for Cloud, Azure Policy</td></tr>
+              <tr><td><strong>Networks</strong></td><td>Network segments, traffic flows, and connections between resources</td><td>Network segmentation, encryption in transit, Defender for Endpoint Network Protection</td></tr>
+            </tbody>
+          </table></div>
+          <div class="callout" style="margin-top:10px">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Exam tip — pillar matching</strong>
+            "Protecting user accounts from being compromised" → <strong>Identities</strong><br>
+            "Preventing malware from landing on corporate laptops" → <strong>Endpoints</strong><br>
+            "Ensuring sensitive files are protected even if copied outside the org" → <strong>Data</strong><br>
+            "Controlling which cloud apps employees can access" → <strong>Applications</strong><br>
+            Memory rule: If the scenario mentions <em>users or accounts</em> → Identities. <em>Devices or laptops</em> → Endpoints. <em>Files or content</em> → Data.</div>
+          </div>
         </div>
       </div>
 
@@ -437,9 +472,18 @@ h1 em{font-style:normal;color:var(--c)}
               <tr><td><strong>eDiscovery</strong></td><td>Legal hold and search across emails, Teams chats, SharePoint for litigation or investigation</td></tr>
               <tr><td><strong>Auditing</strong></td><td>Unified audit log of user and admin activities across M365 services</td></tr>
               <tr><td><strong>Data Residency</strong></td><td>Ensures customer data is stored in specific geographic regions for regulatory compliance</td></tr>
+              <tr><td><strong>Retention Policies</strong></td><td>Define how long M365 content is kept or held before deletion. Apply across Exchange email, Teams chats, SharePoint, and OneDrive. Keep data for compliance; auto-delete when no longer needed.</td></tr>
+              <tr><td><strong>Records Management</strong></td><td>Advanced retention for regulatory or legal records. Records are immutable — they cannot be edited or deleted until the retention period expires. Used for high-value, regulated content that must be preserved exactly.</td></tr>
               <tr><td><strong>Compliance Manager</strong></td><td>Dashboard that scores your compliance posture against regulations (GDPR, ISO 27001, NIST) and provides improvement actions</td></tr>
             </tbody>
           </table></div>
+          <div class="callout" style="margin-top:10px;background:rgba(52,211,153,.07);border-color:rgba(52,211,153,.25)">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Retention Policies vs Records Management</strong>
+            <strong>Retention Policies</strong> = broad, automatic rules applied at scale — "keep all Exchange email for 7 years, then delete." Easy to set up, applies to all content in scope.<br>
+            <strong>Records Management</strong> = granular, immutable, for high-value regulatory content — content declared as a record cannot be modified or deleted while retained. Use for legal, financial, or regulatory obligations.<br>
+            Both live in the <strong>Microsoft Purview compliance portal</strong> (compliance.microsoft.com). The exam may describe a scenario and ask which applies — if content must be preserved unchanged and cannot be deleted = Records Management.</div>
+          </div>
           <div class="callout" style="margin-top:10px">
             <span class="callout-icon">📌</span>
             <div class="callout-text"><strong>Compliance Manager vs Secure Score</strong>These are two separate scores — easy to confuse. <strong>Secure Score</strong> (in the Defender Portal) measures your <em>security</em> posture. <strong>Compliance Manager</strong> (in the Purview portal) measures your <em>regulatory compliance</em> posture against specific frameworks like GDPR or ISO 27001. Both give you a score and a list of improvement actions, but they answer different questions.</div>
@@ -524,6 +568,37 @@ h1 em{font-style:normal;color:var(--c)}
           <div class="callout" style="background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.25)">
             <span class="callout-icon">⚠️</span>
             <div class="callout-text"><strong style="color:#fbbf24">Purview vs Priva — easy to mix up</strong><strong>Purview</strong> = protects <em>organizational</em> data (sensitivity labels, DLP, compliance, eDiscovery — think "protecting company secrets"). <strong>Priva</strong> = protects <em>individuals'</em> personal data (GDPR/CCPA rights requests, privacy risk — think "protecting people's private info"). Both live in the Purview portal, but they solve different problems.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="12">
+          <div class="concept-title">Admin Portal Quick Reference — URL Mapping</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">The MS-900 exam directly tests portal-to-purpose matching. Each M365 admin portal has a specific URL and a specific job. Know which portal you go to for each task.</p>
+          <div class="table-wrap"><table class="compare-table">
+            <thead><tr><th>Portal</th><th>URL</th><th>Purpose</th></tr></thead>
+            <tbody>
+              <tr><td><strong>M365 Admin Center</strong></td><td>admin.microsoft.com</td><td>Users, licenses, billing, service health, message center</td></tr>
+              <tr><td><strong>Purview compliance portal</strong></td><td>compliance.microsoft.com</td><td>DLP, sensitivity labels, retention policies, insider risk, eDiscovery</td></tr>
+              <tr><td><strong>Defender portal</strong></td><td>security.microsoft.com</td><td>Threat detection, incidents, Secure Score, threat hunting</td></tr>
+              <tr><td><strong>Entra admin center</strong></td><td>entra.microsoft.com</td><td>Identity, MFA, Conditional Access, B2B, PIM, app registrations</td></tr>
+              <tr><td><strong>Exchange admin center</strong></td><td>admin.exchange.microsoft.com</td><td>Email, mailboxes, mail flow rules, spam policies</td></tr>
+              <tr><td><strong>Teams admin center</strong></td><td>admin.teams.microsoft.com</td><td>Teams settings, meeting policies, Phone System, call quality</td></tr>
+              <tr><td><strong style="color:var(--c)">Service Trust Portal ⭐</strong></td><td>servicetrust.microsoft.com</td><td>Microsoft's own audit reports, compliance certifications, and privacy documentation (read-only — no admin actions)</td></tr>
+            </tbody>
+          </table></div>
+          <div class="callout" style="margin-top:10px">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Exam tip — portal matching traps</strong>
+            "Where do you go to create a DLP policy?" → <strong>compliance.microsoft.com</strong> (Purview portal)<br>
+            "Where do you view threat incidents?" → <strong>security.microsoft.com</strong> (Defender portal)<br>
+            "Where do you review Microsoft's own ISO 27001 audit reports?" → <strong>servicetrust.microsoft.com</strong> (Service Trust Portal — it contains Microsoft's documentation about their own compliance, not yours)<br>
+            "Where do you check if Exchange Online is having an outage?" → <strong>admin.microsoft.com</strong> → Service Health<br>
+            Key distinction: <strong>Compliance Manager</strong> (your org's compliance posture) is at compliance.microsoft.com. <strong>Service Trust Portal</strong> (Microsoft's own audit docs) is at servicetrust.microsoft.com. These two are commonly confused.</div>
           </div>
         </div>
       </div>

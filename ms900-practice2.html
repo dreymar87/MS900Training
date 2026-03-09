@@ -112,11 +112,11 @@ h1 em{font-style:normal;color:var(--amber)}
 
   <div class="quiz-pill">⚡ Active Recall Quiz</div>
   <h1>MS-900 <em>Practice Quiz 2</em></h1>
-  <p class="hero-sub">50 brand-new scenario-style questions covering all 4 exam domains. All fresh scenarios — no repeats from Quiz 1. Click an answer to reveal the explanation.</p>
+  <p class="hero-sub">61 scenario-style questions covering all 4 exam domains. All fresh scenarios — no repeats from Quiz 1. Click an answer to reveal the explanation.</p>
 
   <div class="score-bar">
     <div>
-      <div class="score-display" id="score-display">0 / 50</div>
+      <div class="score-display" id="score-display">0 / 61</div>
       <div class="score-label">Questions correct</div>
     </div>
     <div class="score-track">
@@ -643,7 +643,7 @@ h1 em{font-style:normal;color:var(--amber)}
     <div class="domain-heading">
       <div class="d-chip d3-chip">Domain 3</div>
       <h2>Security, Compliance, Privacy &amp; Trust</h2>
-      <div class="domain-score" id="dscore-3">0 / 15</div>
+      <div class="domain-score" id="dscore-3">0 / 21</div>
     </div>
 
     <!-- P2-Q27 -->
@@ -931,13 +931,127 @@ h1 em{font-style:normal;color:var(--amber)}
       </div>
     </div>
 
+    <!-- P2-Q51 -->
+    <div class="q-card" id="p2q51">
+      <div class="q-header">
+        <div class="q-num">Q51</div>
+        <div class="q-text">A company's security team is worried that employees' laptops could be used as entry points for attackers to reach internal servers. They want a Zero Trust control that specifically governs device trust and compliance before granting access to corporate resources. Which Zero Trust pillar does this concern map to?</div>
+        <div class="q-domain-tag d3-chip">D3</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q51','A','B')"><span class="opt-letter">A</span><span class="opt-text">Identities — protecting user accounts and credentials</span></button>
+        <button class="q-option" onclick="answer(this,'p2q51','B','B')"><span class="opt-letter">B</span><span class="opt-text">Endpoints — securing the devices that connect to corporate resources</span></button>
+        <button class="q-option" onclick="answer(this,'p2q51','C','B')"><span class="opt-letter">C</span><span class="opt-text">Networks — controlling traffic flow between resources</span></button>
+        <button class="q-option" onclick="answer(this,'p2q51','D','B')"><span class="opt-letter">D</span><span class="opt-text">Applications — managing which apps are sanctioned and monitored</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q51">
+        <div class="exp-label"></div>
+        <div class="exp-body">The concern is about <strong>employee laptops (devices)</strong> being exploited as entry points — this maps to the <strong>Endpoints</strong> pillar of Zero Trust. The Endpoints pillar covers all devices (PCs, mobiles, servers) that connect to corporate resources. Key M365 tools for this pillar: Microsoft Intune (device compliance), Defender for Endpoint (threat detection and AIR), and Windows Autopilot. Remember: if the scenario mentions <em>devices or machines</em> → Endpoints pillar.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q52 -->
+    <div class="q-card" id="p2q52">
+      <div class="q-header">
+        <div class="q-num">Q52</div>
+        <div class="q-text">Fabrikam's CISO is concerned about employees uploading sensitive financial documents to personal cloud storage services that IT cannot monitor. They want a Zero Trust control focused on protecting the actual content regardless of where it goes. Which Zero Trust pillar addresses this concern?</div>
+        <div class="q-domain-tag d3-chip">D3</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q52','A','C')"><span class="opt-letter">A</span><span class="opt-text">Identities — verifying who the user is before they upload</span></button>
+        <button class="q-option" onclick="answer(this,'p2q52','B','C')"><span class="opt-letter">B</span><span class="opt-text">Applications — blocking access to unsanctioned cloud storage apps</span></button>
+        <button class="q-option" onclick="answer(this,'p2q52','C','C')"><span class="opt-letter">C</span><span class="opt-text">Data — protecting the content itself wherever it travels</span></button>
+        <button class="q-option" onclick="answer(this,'p2q52','D','C')"><span class="opt-letter">D</span><span class="opt-text">Networks — filtering outbound traffic to prevent exfiltration</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q52">
+        <div class="exp-label"></div>
+        <div class="exp-body">The concern is about <strong>sensitive documents</strong> leaving the organisation — this maps to the <strong>Data</strong> pillar of Zero Trust. The Data pillar focuses on protecting the actual content (structured and unstructured data) wherever it lives or travels. Key M365 tools: Purview Sensitivity Labels (classify and protect the file itself with encryption), DLP (prevent sharing), and Information Protection. The key insight: if the file is encrypted with a Sensitivity Label, it remains protected even in personal cloud storage. "Protecting content wherever it goes" = Data pillar.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q53 -->
+    <div class="q-card" id="p2q53">
+      <div class="q-header">
+        <div class="q-num">Q53</div>
+        <div class="q-text">An organisation wants to implement Zero Trust. Their first priority is ensuring that every access request — regardless of where it originates — is authenticated using all available signals including device health, location, and sign-in risk before granting access. Which Zero Trust principle does this describe?</div>
+        <div class="q-domain-tag d3-chip">D3</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q53','A','A')"><span class="opt-letter">A</span><span class="opt-text">Verify Explicitly — authenticate using all available data points every time</span></button>
+        <button class="q-option" onclick="answer(this,'p2q53','B','A')"><span class="opt-letter">B</span><span class="opt-text">Least Privilege — grant only the minimum access needed for the task</span></button>
+        <button class="q-option" onclick="answer(this,'p2q53','C','A')"><span class="opt-letter">C</span><span class="opt-text">Assume Breach — segment access and monitor for compromise</span></button>
+        <button class="q-option" onclick="answer(this,'p2q53','D','A')"><span class="opt-letter">D</span><span class="opt-text">Network Segmentation — isolate resources to limit lateral movement</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q53">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Verify Explicitly</strong> is the Zero Trust principle that means always authenticate and authorise every request using all available signals — identity, device health, location, app sensitivity, and sign-in risk — regardless of network location. This replaces the "castle and moat" assumption that anything inside the network is safe. M365 tools that implement Verify Explicitly: <strong>MFA</strong> (verifies identity with multiple factors) and <strong>Conditional Access</strong> (evaluates every sign-in using all signals). The phrase "authenticate using all available data points" is the defining behaviour of Verify Explicitly.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q54 -->
+    <div class="q-card" id="p2q54">
+      <div class="q-header">
+        <div class="q-num">Q54</div>
+        <div class="q-text">Contoso invites a new partner from Woodgrove Bank to collaborate on a SharePoint project. The partner should access Contoso's SharePoint site using their existing Woodgrove Bank Microsoft 365 account without needing a new account. Which Entra feature enables this, and which identity provider works out of the box with no additional configuration?</div>
+        <div class="q-domain-tag d3-chip">D3</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q54','A','B')"><span class="opt-letter">A</span><span class="opt-text">Entra B2C — external partner uses their Woodgrove Bank Microsoft Entra ID account (requires configuration)</span></button>
+        <button class="q-option" onclick="answer(this,'p2q54','B','B')"><span class="opt-letter">B</span><span class="opt-text">Entra B2B — external partner uses their Woodgrove Bank Microsoft Entra ID account (works out of the box)</span></button>
+        <button class="q-option" onclick="answer(this,'p2q54','C','B')"><span class="opt-letter">C</span><span class="opt-text">Entra B2B — external partner uses a Google account (works out of the box without configuration)</span></button>
+        <button class="q-option" onclick="answer(this,'p2q54','D','B')"><span class="opt-letter">D</span><span class="opt-text">Active Directory — Woodgrove's on-prem AD is federated with Contoso's tenant directly</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q54">
+        <div class="exp-label"></div>
+        <div class="exp-body">This is <strong>Entra B2B Collaboration</strong> — allowing external partners to access your tenant using their own identities. Microsoft Entra ID (work/school accounts) is one of the two default identity providers that work <strong>out of the box without any additional configuration</strong> (along with Microsoft personal accounts). Google federation and Facebook federation require admin configuration to enable. Active Directory is on-premises only and cannot directly federate to a cloud tenant as a B2B IdP. B2C is for consumer-facing applications, not partner access. Answer: B2B + Microsoft Entra ID = no extra config needed.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q55 -->
+    <div class="q-card" id="p2q55">
+      <div class="q-header">
+        <div class="q-num">Q55</div>
+        <div class="q-text">After a malware alert is triggered on a Windows device, Contoso's security team notices the threat was automatically investigated and the malicious file was quarantined without any manual analyst intervention. Which Microsoft Defender for Endpoint capability performed this action?</div>
+        <div class="q-domain-tag d3-chip">D3</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q55','A','C')"><span class="opt-letter">A</span><span class="opt-text">Attack Surface Reduction (ASR) — blocks malicious behaviours before execution</span></button>
+        <button class="q-option" onclick="answer(this,'p2q55','B','C')"><span class="opt-letter">B</span><span class="opt-text">Network Protection — blocks outbound connections to malicious destinations</span></button>
+        <button class="q-option" onclick="answer(this,'p2q55','C','C')"><span class="opt-letter">C</span><span class="opt-text">Automated Investigation and Remediation (AIR) — auto-triages alerts and remediates threats</span></button>
+        <button class="q-option" onclick="answer(this,'p2q55','D','C')"><span class="opt-letter">D</span><span class="opt-text">Microsoft Secure Score — measures security posture and recommends improvements</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q55">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Automated Investigation and Remediation (AIR)</strong> is the Defender for Endpoint capability that automatically investigates alerts and takes remediation actions (like quarantining files or terminating processes) without manual analyst intervention. AIR mimics what a security analyst would do — inspecting process trees, file behaviour, and network connections — then acts automatically. ASR blocks risky <em>behaviours before</em> they execute. Network Protection blocks <em>outbound connections</em>. Secure Score measures posture but takes no direct remediation action. "Automatically investigated and remediated" = AIR.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q56 -->
+    <div class="q-card" id="p2q56">
+      <div class="q-header">
+        <div class="q-num">Q56</div>
+        <div class="q-text">An organisation needs to ensure that all Teams chat messages and Exchange emails are automatically preserved for 5 years to meet industry regulations, and then deleted after that period. They do not need immutable records — just automated lifecycle management. Which Purview feature should they use?</div>
+        <div class="q-domain-tag d3-chip">D3</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q56','A','B')"><span class="opt-letter">A</span><span class="opt-text">eDiscovery Holds — preserves content for active legal cases and investigations</span></button>
+        <button class="q-option" onclick="answer(this,'p2q56','B','B')"><span class="opt-letter">B</span><span class="opt-text">Retention Policies — define keep/delete lifecycle automatically across M365 services</span></button>
+        <button class="q-option" onclick="answer(this,'p2q56','C','B')"><span class="opt-letter">C</span><span class="opt-text">Records Management — declares content as immutable records with strict controls</span></button>
+        <button class="q-option" onclick="answer(this,'p2q56','D','B')"><span class="opt-letter">D</span><span class="opt-text">DLP Policies — prevent sharing of sensitive data outside the organisation</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q56">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Retention Policies</strong> are the right tool here — they automatically define how long content is kept and when it is deleted across Exchange, Teams, SharePoint, and OneDrive. This is broad, automated lifecycle management at scale. eDiscovery Holds preserve content for an active legal case but are reactive and case-specific — not automated lifecycle management. Records Management is for content that must be <em>immutable</em> (cannot be edited or deleted) — the question says they don't need immutability. DLP prevents sharing, not lifecycle management. "5-year keep then delete, automated" = Retention Policies.</div>
+      </div>
+    </div>
+
   </div><!-- end domain 3 -->
   <!-- DOMAIN 4: Pricing, Licensing & Support (9 questions) -->
   <div class="domain-section" id="section-d4">
     <div class="domain-heading">
       <div class="d-chip d4-chip">Domain 4</div>
       <h2>Pricing, Licensing &amp; Support</h2>
-      <div class="domain-score" id="dscore-4">0 / 9</div>
+      <div class="domain-score" id="dscore-4">0 / 14</div>
     </div>
 
     <!-- P2-Q42 -->
@@ -1111,6 +1225,101 @@ h1 em{font-style:normal;color:var(--amber)}
       </div>
     </div>
 
+    <!-- P2-Q57 -->
+    <div class="q-card" id="p2q57">
+      <div class="q-header">
+        <div class="q-num">Q57</div>
+        <div class="q-text">A hospital wants to view Microsoft's ISO 27001 certification reports and SOC 2 audit documentation to evaluate Microsoft's own security practices before signing an M365 contract. Where should they go?</div>
+        <div class="q-domain-tag d4-chip">D4</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q57','A','C')"><span class="opt-letter">A</span><span class="opt-text">Microsoft 365 Admin Center → Compliance → Compliance Manager</span></button>
+        <button class="q-option" onclick="answer(this,'p2q57','B','C')"><span class="opt-letter">B</span><span class="opt-text">Microsoft Purview compliance portal (compliance.microsoft.com) → Audit</span></button>
+        <button class="q-option" onclick="answer(this,'p2q57','C','C')"><span class="opt-letter">C</span><span class="opt-text">Microsoft Service Trust Portal (servicetrust.microsoft.com)</span></button>
+        <button class="q-option" onclick="answer(this,'p2q57','D','C')"><span class="opt-letter">D</span><span class="opt-text">Microsoft Defender portal (security.microsoft.com) → Threat intelligence</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q57">
+        <div class="exp-label"></div>
+        <div class="exp-body">The <strong>Microsoft Service Trust Portal</strong> (servicetrust.microsoft.com) is Microsoft's public transparency hub containing Microsoft's own compliance certifications, audit reports, and regulatory documentation — ISO 27001, SOC 1/2/3, FedRAMP, GDPR, and more. It is read-only; you view Microsoft's own compliance posture, not yours. <strong>Compliance Manager</strong> (at compliance.microsoft.com) measures <em>your organisation's</em> compliance posture against frameworks. Purview Audit captures your org's activity logs. Defender portal is for threat detection. "View Microsoft's own audit reports and certifications" = Service Trust Portal.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q58 -->
+    <div class="q-card" id="p2q58">
+      <div class="q-header">
+        <div class="q-num">Q58</div>
+        <div class="q-text">A large manufacturing company is migrating from on-premises Office 2019 with active Software Assurance to Microsoft 365 E3 in the cloud. Which USL type should they purchase to reflect their existing SA investment?</div>
+        <div class="q-domain-tag d4-chip">D4</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q58','A','C')"><span class="opt-letter">A</span><span class="opt-text">Full USL — the standard cloud licence for first-time Microsoft customers</span></button>
+        <button class="q-option" onclick="answer(this,'p2q58','B','C')"><span class="opt-letter">B</span><span class="opt-text">Step Up USL — for upgrading from one Microsoft 365 plan to a higher tier</span></button>
+        <button class="q-option" onclick="answer(this,'p2q58','C','C')"><span class="opt-letter">C</span><span class="opt-text">From SA USL — for customers with active Software Assurance transitioning to the cloud</span></button>
+        <button class="q-option" onclick="answer(this,'p2q58','D','C')"><span class="opt-letter">D</span><span class="opt-text">Add-On USL — for adding a specific capability to an existing Microsoft 365 subscription</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q58">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>From SA USL</strong> is designed exactly for this scenario: a customer who <strong>has active Software Assurance on on-premises licences and is transitioning to a cloud subscription</strong>. The SA investment is recognised, resulting in a lower cost than a Full USL. Key exam clue phrases: "has active Software Assurance," "transitioning to cloud," "SA customer." Full USL = no existing Microsoft licences. Step Up = moving to a higher M365 plan tier. Add-On = adding a feature to an existing M365 plan. Remember: SA customer moving to cloud = <strong>From SA USL</strong>.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q59 -->
+    <div class="q-card" id="p2q59">
+      <div class="q-header">
+        <div class="q-num">Q59</div>
+        <div class="q-text">A startup with no existing Microsoft products wants to subscribe to Microsoft 365 Business Premium for the first time. Which USL type should they purchase?</div>
+        <div class="q-domain-tag d4-chip">D4</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q59','A','A')"><span class="opt-letter">A</span><span class="opt-text">Full USL — for customers with no existing Microsoft licences purchasing for the first time</span></button>
+        <button class="q-option" onclick="answer(this,'p2q59','B','A')"><span class="opt-letter">B</span><span class="opt-text">From SA USL — for customers with active Software Assurance transitioning to cloud</span></button>
+        <button class="q-option" onclick="answer(this,'p2q59','C','A')"><span class="opt-letter">C</span><span class="opt-text">Step Up USL — for customers upgrading from a lower Microsoft 365 plan tier</span></button>
+        <button class="q-option" onclick="answer(this,'p2q59','D','A')"><span class="opt-letter">D</span><span class="opt-text">Add-On USL — for adding capabilities to an existing Microsoft 365 subscription</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q59">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Full USL</strong> is for customers with <strong>no prior Microsoft licences purchasing cloud services for the first time</strong>. The startup has no existing Microsoft investment — no Software Assurance, no existing M365 plan — so the Full USL applies. Exam clue phrases: "first time," "no prior Microsoft products," "brand new to Microsoft." From SA USL requires active Software Assurance (this startup has none). Step Up requires an existing M365 plan. Add-On requires an existing M365 subscription to add to. No existing Microsoft history → <strong>Full USL</strong>.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q60 -->
+    <div class="q-card" id="p2q60">
+      <div class="q-header">
+        <div class="q-num">Q60</div>
+        <div class="q-text">An organisation's compliance officer needs to set up a policy that automatically deletes all Exchange Online emails older than 7 years across all employee mailboxes, with no manual intervention required. Which Purview compliance portal feature should they configure?</div>
+        <div class="q-domain-tag d4-chip">D4</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q60','A','C')"><span class="opt-letter">A</span><span class="opt-text">DLP Policy — to prevent sharing of sensitive email content externally</span></button>
+        <button class="q-option" onclick="answer(this,'p2q60','B','C')"><span class="opt-letter">B</span><span class="opt-text">Records Management — to declare emails as immutable records</span></button>
+        <button class="q-option" onclick="answer(this,'p2q60','C','C')"><span class="opt-letter">C</span><span class="opt-text">Retention Policy — to define automated keep/delete lifecycle for Exchange mailboxes</span></button>
+        <button class="q-option" onclick="answer(this,'p2q60','D','C')"><span class="opt-letter">D</span><span class="opt-text">Audit Log — to track which emails were deleted and by whom</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q60">
+        <div class="exp-label"></div>
+        <div class="exp-body">A <strong>Retention Policy</strong> in the Microsoft Purview compliance portal defines the automated lifecycle for content — "keep for X years, then delete" — applied broadly to Exchange mailboxes, Teams chats, SharePoint, or OneDrive. Configured once, it runs automatically without manual intervention. Records Management is for <em>immutable</em> records that cannot be deleted — overkill for routine email lifecycle management. DLP prevents sensitive data from being shared, not from being deleted after a time period. Audit Log records activity but doesn't enforce deletion schedules. "Automatically delete emails after 7 years" = <strong>Retention Policy</strong>.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q61 -->
+    <div class="q-card" id="p2q61">
+      <div class="q-header">
+        <div class="q-num">Q61</div>
+        <div class="q-text">Contoso wants to purchase Microsoft 365 licences and benefit from Software Assurance, which grants upgrade rights to the latest on-premises software versions. Which purchasing channel must they use?</div>
+        <div class="q-domain-tag d4-chip">D4</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q61','A','C')"><span class="opt-letter">A</span><span class="opt-text">MOSP (Web Direct) — purchase at Microsoft.com with a credit card</span></button>
+        <button class="q-option" onclick="answer(this,'p2q61','B','C')"><span class="opt-letter">B</span><span class="opt-text">Cloud Solution Provider (CSP) — purchase through a Microsoft partner with monthly billing</span></button>
+        <button class="q-option" onclick="answer(this,'p2q61','C','C')"><span class="opt-letter">C</span><span class="opt-text">Volume Licensing (Enterprise Agreement) — Software Assurance is only available through Volume Licensing</span></button>
+        <button class="q-option" onclick="answer(this,'p2q61','D','C')"><span class="opt-letter">D</span><span class="opt-text">Microsoft FastTrack — the free onboarding service for qualifying subscriptions</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q61">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Software Assurance (SA) is exclusively available through Volume Licensing</strong> — specifically through the Enterprise Agreement (EA) and Open programs. SA is not available through CSP (Cloud Solution Provider) or MOSP (Web Direct / Microsoft.com). SA grants upgrade rights to the latest version of on-premises Microsoft software while the SA term is active. FastTrack is a free deployment service, not a licensing vehicle. Exam memory rule: <strong>Software Assurance = Volume Licensing only.</strong></div>
+      </div>
+    </div>
+
   </div><!-- end domain 4 -->
 
   <!-- COMPLETION BANNER -->
@@ -1130,11 +1339,11 @@ const STORAGE_KEY = 'ms900_practice2';
 const domainQIds = {
   1: ['p2q1','p2q2','p2q3','p2q4','p2q5','p2q6','p2q7','p2q8'],
   2: ['p2q9','p2q10','p2q11','p2q12','p2q13','p2q14','p2q15','p2q16','p2q17','p2q18','p2q19','p2q20','p2q21','p2q22','p2q23','p2q24','p2q25','p2q26'],
-  3: ['p2q27','p2q28','p2q29','p2q30','p2q31','p2q32','p2q33','p2q34','p2q35','p2q36','p2q37','p2q38','p2q39','p2q40','p2q41'],
-  4: ['p2q42','p2q43','p2q44','p2q45','p2q46','p2q47','p2q48','p2q49','p2q50']
+  3: ['p2q27','p2q28','p2q29','p2q30','p2q31','p2q32','p2q33','p2q34','p2q35','p2q36','p2q37','p2q38','p2q39','p2q40','p2q41','p2q51','p2q52','p2q53','p2q54','p2q55','p2q56'],
+  4: ['p2q42','p2q43','p2q44','p2q45','p2q46','p2q47','p2q48','p2q49','p2q50','p2q57','p2q58','p2q59','p2q60','p2q61']
 };
-const domainTotals = {1:8, 2:18, 3:15, 4:9};
-const TOTAL = 50;
+const domainTotals = {1:8, 2:18, 3:21, 4:14};
+const TOTAL = 61;
 let state = {};
 
 function loadState() {
