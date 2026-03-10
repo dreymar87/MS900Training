@@ -133,11 +133,18 @@ h1 em{font-style:normal;color:var(--c)}
       <li><strong>Support:</strong> admin submits ticket in Admin Center → Microsoft (or CSP) responds. Severity determines response time</li>
       <li><strong>SLA:</strong> Microsoft guarantees 99.9% uptime for most M365 services. Downtime can earn <strong>service credits</strong></li>
       <li><strong>Service health:</strong> check real-time status at admin.microsoft.com or Entra Admin Center</li>
+      <li><strong>Service Lifecycle:</strong> Private Preview (invitation-only, no SLA) → Public Preview (opt-in, no SLA) → <strong>GA</strong> (SLA applies). Track upcoming features at the Microsoft 365 Roadmap portal</li>
     </ul>
   </div>
 
+  <!-- In-page section jump bar -->
+  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px">
+    <a href="#m1-licensing" style="text-decoration:none;font-size:12px;font-weight:600;padding:6px 14px;border-radius:8px;border:1px solid var(--border2);color:var(--muted2);transition:all .2s;font-family:'DM Mono',monospace" onmouseover="this.style.color='#fff';this.style.background='var(--surface2)'" onmouseout="this.style.color='';this.style.background=''">M1 — Pricing &amp; Licensing</a>
+    <a href="#m2-support" style="text-decoration:none;font-size:12px;font-weight:600;padding:6px 14px;border-radius:8px;border:1px solid var(--border2);color:var(--muted2);transition:all .2s;font-family:'DM Mono',monospace" onmouseover="this.style.color='#fff';this.style.background='var(--surface2)'" onmouseout="this.style.color='';this.style.background=''">M2 — Support &amp; Lifecycle</a>
+  </div>
+
   <!-- MODULE 1: Pricing & Licensing -->
-  <div class="module-wrap">
+  <div class="module-wrap" id="m1-licensing">
     <div class="module-header">
       <div class="module-num">M1</div>
       <div>
@@ -291,7 +298,7 @@ h1 em{font-style:normal;color:var(--c)}
   </div>
 
   <!-- MODULE 2: Support -->
-  <div class="module-wrap">
+  <div class="module-wrap" id="m2-support">
     <div class="module-header">
       <div class="module-num">M2</div>
       <div>
@@ -428,6 +435,36 @@ h1 em{font-style:normal;color:var(--c)}
           <div class="callout">
             <span class="callout-icon">💡</span>
             <div class="callout-text"><strong>Message Center</strong>Also in the Admin Center, the Message Center shows planned changes, new features, and maintenance notifications — separate from incident-based service health alerts.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="11">
+          <div class="concept-title">Microsoft 365 Service Lifecycle &amp; Roadmap Portal</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">Features in Microsoft 365 move through a defined <strong>service lifecycle</strong> before becoming fully available. Understanding each stage tells you what to expect in terms of SLA coverage and stability. The <strong>Microsoft 365 Roadmap</strong> is where IT admins track this pipeline for change management planning.</p>
+          <div class="table-wrap"><table class="compare-table">
+            <thead><tr><th>Stage</th><th>Access</th><th>SLA?</th><th>What It Means</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Private Preview</strong></td><td>Invitation-only — selected customers/partners</td><td style="color:#f87171">No</td><td>Very early access; feature may be incomplete; not suitable for production workloads</td></tr>
+              <tr><td><strong>Public Preview</strong></td><td>Opt-in — any tenant can enable it</td><td style="color:#f87171">No</td><td>Broadly available for testing; may be incomplete or subject to change before GA</td></tr>
+              <tr><td><strong style="color:var(--c)">General Availability (GA)</strong></td><td>All tenants — automatic or admin-controlled rollout</td><td style="color:#34d399">Yes ✓</td><td>Fully supported, production-ready; financially-backed SLA applies</td></tr>
+            </tbody>
+          </table></div>
+          <div class="key-terms">
+            <div class="term"><span class="term-key">M365 Roadmap</span><span class="term-val">microsoft.com/microsoft-365/roadmap — filter by In Development, Rolling Out, or Launched</span></div>
+            <div class="term"><span class="term-key">Change Management</span><span class="term-val">IT admins use the Roadmap to anticipate and plan for upcoming feature changes</span></div>
+            <div class="term"><span class="term-key">Message Center</span><span class="term-val">admin.microsoft.com → Message Center — Microsoft-pushed notifications about planned changes in your tenant</span></div>
+          </div>
+          <div class="callout">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Exam tip — SLA only applies at GA</strong>
+            "When does an SLA apply to a new M365 feature?" → Only when it reaches <strong>General Availability (GA)</strong>. Neither Private Preview nor Public Preview carry a financially-backed SLA.<br>
+            "Where do you track upcoming M365 features for change planning?" → <strong>Microsoft 365 Roadmap</strong> (microsoft.com/microsoft-365/roadmap) — not the Admin Center or Service Trust Portal.<br>
+            "What stage gives a select group early access before broader release?" → <strong>Private Preview</strong> (invitation-only).</div>
           </div>
         </div>
       </div>

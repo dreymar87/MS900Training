@@ -128,11 +128,19 @@ h1 em{font-style:normal;color:var(--c)}
       <li><strong>Secure Score</strong> = a numeric measure of your M365 security posture with actionable recommendations</li>
       <li><strong>Purview</strong> = compliance suite — sensitivity labels, DLP, insider risk, eDiscovery, auditing</li>
       <li><strong>Priva</strong> = privacy management — discovers, monitors, and protects personal data</li>
+      <li><strong>Microsoft Privacy Principles</strong> — six commitments: Control, Transparency, Security, Strong Legal Protections, No Content-Based Targeting, Benefits to You</li>
     </ul>
   </div>
 
+  <!-- In-page section jump bar -->
+  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px">
+    <a href="#m1-identity" style="text-decoration:none;font-size:12px;font-weight:600;padding:6px 14px;border-radius:8px;border:1px solid var(--border2);color:var(--muted2);transition:all .2s;font-family:'DM Mono',monospace" onmouseover="this.style.color='#fff';this.style.background='var(--surface2)'" onmouseout="this.style.color='';this.style.background=''">M1 — Identity &amp; Access</a>
+    <a href="#m2-threats" style="text-decoration:none;font-size:12px;font-weight:600;padding:6px 14px;border-radius:8px;border:1px solid var(--border2);color:var(--muted2);transition:all .2s;font-family:'DM Mono',monospace" onmouseover="this.style.color='#fff';this.style.background='var(--surface2)'" onmouseout="this.style.color='';this.style.background=''">M2 — Threat Protection</a>
+    <a href="#m3-trust" style="text-decoration:none;font-size:12px;font-weight:600;padding:6px 14px;border-radius:8px;border:1px solid var(--border2);color:var(--muted2);transition:all .2s;font-family:'DM Mono',monospace" onmouseover="this.style.color='#fff';this.style.background='var(--surface2)'" onmouseout="this.style.color='';this.style.background=''">M3 — Trust &amp; Compliance</a>
+  </div>
+
   <!-- MODULE 1: Identity -->
-  <div class="module-wrap">
+  <div class="module-wrap" id="m1-identity">
     <div class="module-header">
       <div class="module-num">M1</div>
       <div>
@@ -216,8 +224,8 @@ h1 em{font-style:normal;color:var(--c)}
             "Existing org devices with on-premises AD that also need cloud access" → <strong>Hybrid Entra Joined</strong></div>
           </div>
 
-          <p style="font-size:13px;font-weight:700;color:#fff;margin-top:14px;margin-bottom:8px">🌐 External Identities (B2B)</p>
-          <p class="concept-desc" style="margin-bottom:8px">External identities allow partners, vendors, and consultants to access your organization's resources using their own credentials from their home organization or identity provider. No new account needs to be created — the guest authenticates with what they already have. This is called <strong>Entra B2B Collaboration</strong>.</p>
+          <p style="font-size:13px;font-weight:700;color:#fff;margin-top:14px;margin-bottom:8px">🌐 Microsoft Entra External ID <span style="font-weight:400;color:var(--muted)">(formerly Azure AD External Identities)</span></p>
+          <p class="concept-desc" style="margin-bottom:8px"><strong>Microsoft Entra External ID</strong> is the current Microsoft branding for external identity capabilities (previously called Azure AD External Identities / B2B). It allows partners, vendors, and consultants to access your organization's resources using their own credentials from their home organization or identity provider. No new account needs to be created — the guest authenticates with what they already have.</p>
           <div class="key-terms" style="margin-top:0;margin-bottom:10px">
             <div class="term"><span class="term-key">Default IdPs (no config needed)</span><span class="term-val"><strong>Microsoft Entra ID</strong> (work/school accounts) + <strong>Microsoft account</strong> (personal Outlook, Hotmail, Xbox) — available out of the box</span></div>
             <div class="term"><span class="term-key">Optional IdPs (require config)</span><span class="term-val">Google federation, Facebook federation, Email one-time passcode (OTP) — must be enabled by an admin</span></div>
@@ -229,10 +237,10 @@ h1 em{font-style:normal;color:var(--c)}
           </div>
           <div class="callout">
             <span class="callout-icon">📌</span>
-            <div class="callout-text"><strong>B2B vs B2C — common confusion</strong>
-            <strong>B2B (Business-to-Business)</strong> = external <em>partners, vendors, and colleagues</em> accessing your tenant using their existing work or personal identity. They get a guest account in your directory.<br>
-            <strong>B2C (Business-to-Consumer)</strong> = customers and consumers signing in to your published apps using their own social or local accounts (Google, Facebook, email). This is a separate Azure AD B2C service.<br>
-            Exam rule: "partner accessing internal SharePoint" → B2B. "Customer logging into your app" → B2C.</div>
+            <div class="callout-text"><strong>Entra External ID — B2B vs B2C</strong>
+            <strong>B2B (Business-to-Business) / Entra External ID</strong> = external <em>partners, vendors, and colleagues</em> accessing your tenant using their existing work or personal identity. They get a guest account in your directory. This is what the exam calls "Entra External ID" (formerly Azure AD B2B).<br>
+            <strong>B2C (Business-to-Consumer)</strong> = customers and consumers signing in to your published apps using their own social or local accounts (Google, Facebook, email). This is a separate service (Azure AD B2C).<br>
+            Exam rule: "partner accessing internal SharePoint" → <strong>Entra External ID (B2B)</strong>. "Customer logging into your app" → <strong>B2C</strong>.</div>
           </div>
 
           <p style="font-size:13px;font-weight:700;color:#fff;margin-top:14px;margin-bottom:8px">⚙️ Workload Identities</p>
@@ -285,7 +293,7 @@ h1 em{font-style:normal;color:var(--c)}
   </div>
 
   <!-- MODULE 2: Threat Protection -->
-  <div class="module-wrap">
+  <div class="module-wrap" id="m2-threats">
     <div class="module-header">
       <div class="module-num">M2</div>
       <div>
@@ -396,7 +404,7 @@ h1 em{font-style:normal;color:var(--c)}
   </div>
 
   <!-- MODULE 3: Compliance -->
-  <div class="module-wrap">
+  <div class="module-wrap" id="m3-trust">
     <div class="module-header">
       <div class="module-num">M3</div>
       <div>
@@ -568,6 +576,57 @@ h1 em{font-style:normal;color:var(--c)}
           <div class="callout" style="background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.25)">
             <span class="callout-icon">⚠️</span>
             <div class="callout-text"><strong style="color:#fbbf24">Purview vs Priva — easy to mix up</strong><strong>Purview</strong> = protects <em>organizational</em> data (sensitivity labels, DLP, compliance, eDiscovery — think "protecting company secrets"). <strong>Priva</strong> = protects <em>individuals'</em> personal data (GDPR/CCPA rights requests, privacy risk — think "protecting people's private info"). Both live in the Purview portal, but they solve different problems.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="11">
+          <div class="concept-title">Microsoft's Privacy Principles</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc"><strong>Microsoft's six privacy principles</strong> are the foundational commitments that govern how Microsoft handles customer and user data across all its products and services. These are distinct from Priva (a product for managing personal data) and the Service Trust Portal (where Microsoft publishes its own audit reports).</p>
+          <div class="pillars">
+            <div class="pillar">
+              <div class="pillar-icon">🔒</div>
+              <div class="pillar-name">Control</div>
+              <div class="pillar-desc">Customers own their data. Microsoft does not use it without permission or for Microsoft's benefit.</div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-icon">👁️</div>
+              <div class="pillar-name">Transparency</div>
+              <div class="pillar-desc">Microsoft is open about what data is collected, why it is collected, and how it is used.</div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-icon">🛡️</div>
+              <div class="pillar-name">Security</div>
+              <div class="pillar-desc">Customer data is protected by strong technical and operational security measures.</div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-icon">⚖️</div>
+              <div class="pillar-name">Strong Legal Protections</div>
+              <div class="pillar-desc">Microsoft advocates for customers' privacy rights, including challenging overly broad government requests for data.</div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-icon">🚫</div>
+              <div class="pillar-name">No Content-Based Targeting</div>
+              <div class="pillar-desc">Microsoft does not scan or mine customers' email, chat messages, files, or other personal content to serve targeted advertisements.</div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-icon">💡</div>
+              <div class="pillar-name">Benefits to You</div>
+              <div class="pillar-desc">When Microsoft does collect usage data, it is used to improve the services the customer uses — not for third-party advertising.</div>
+            </div>
+          </div>
+          <div class="callout" style="margin-top:12px">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Exam tip — distinguish the three privacy concepts</strong>
+            <strong>Privacy Principles</strong> = Microsoft's six commitments (what Microsoft promises to do).<br>
+            <strong>Microsoft Priva</strong> = a product that helps your organisation manage personal data privacy (GDPR/CCPA compliance, subject rights requests).<br>
+            <strong>Service Trust Portal</strong> = where Microsoft publishes its own audit reports and compliance certifications (read-only; not an admin tool).<br>
+            "Which principle states Microsoft doesn't mine emails for ads?" → <strong>No Content-Based Targeting</strong>.<br>
+            "Which principle means customers own their data?" → <strong>Control</strong>.</div>
           </div>
         </div>
       </div>
