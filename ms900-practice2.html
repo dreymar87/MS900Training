@@ -112,11 +112,11 @@ h1 em{font-style:normal;color:var(--amber)}
 
   <div class="quiz-pill">⚡ Active Recall Quiz</div>
   <h1>MS-900 <em>Practice Quiz 2</em></h1>
-  <p class="hero-sub">61 scenario-style questions covering all 4 exam domains. All fresh scenarios — no repeats from Quiz 1. Click an answer to reveal the explanation.</p>
+  <p class="hero-sub">64 scenario-style questions covering all 4 exam domains. All fresh scenarios — no repeats from Quiz 1. Click an answer to reveal the explanation.</p>
 
   <div class="score-bar">
     <div>
-      <div class="score-display" id="score-display">0 / 61</div>
+      <div class="score-display" id="score-display">0 / 64</div>
       <div class="score-label">Questions correct</div>
     </div>
     <div class="score-track">
@@ -637,6 +637,25 @@ h1 em{font-style:normal;color:var(--amber)}
       </div>
     </div>
 
+    <!-- P2-Q62 -->
+    <div class="q-card" id="p2q62">
+      <div class="q-header">
+        <div class="q-num">Q62</div>
+        <div class="q-text">A large retail chain needs to equip 800 store associates who share tablets on the shop floor and have no dedicated PCs. The associates only need access to Teams, Shifts, and lightweight Office web apps — they do not need desktop Office apps. Which Microsoft 365 plan should the organisation purchase for these workers?</div>
+        <div class="q-domain-tag d2-chip">D2</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q62','A','B')"><span class="opt-letter">A</span><span class="opt-text">Microsoft 365 Business Premium — full security + compliance features</span></button>
+        <button class="q-option" onclick="answer(this,'p2q62','B','B')"><span class="opt-letter">B</span><span class="opt-text">Microsoft 365 F1 — web and mobile apps for deskless/frontline workers</span></button>
+        <button class="q-option" onclick="answer(this,'p2q62','C','B')"><span class="opt-letter">C</span><span class="opt-text">Microsoft 365 F3 — frontline plan that adds desktop Office apps</span></button>
+        <button class="q-option" onclick="answer(this,'p2q62','D','B')"><span class="opt-letter">D</span><span class="opt-text">Microsoft 365 E3 — full enterprise plan for knowledge workers</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q62">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Microsoft 365 F1</strong> is designed exactly for this scenario — deskless, shift-based workers who share devices and only need web and mobile apps. F1 provides Teams, Shifts, web Office apps, and basic M365 services at a lower per-user cost. F3 would also be a valid frontline plan but adds desktop Office apps, which the question states are not needed — making it over-specified. Business Premium and E3 are full knowledge-worker plans priced and designed for employees with dedicated PCs, not cost-effective for 800 shared-tablet users. Exam rule: "shared tablet, no desktop Office needed" → <strong>F1</strong>.</div>
+      </div>
+    </div>
+
   </div><!-- end domain 2 -->
   <!-- DOMAIN 3: Security & Compliance (15 questions) -->
   <div class="domain-section" id="section-d3">
@@ -1045,6 +1064,25 @@ h1 em{font-style:normal;color:var(--amber)}
       </div>
     </div>
 
+    <!-- P2-Q63 -->
+    <div class="q-card" id="p2q63">
+      <div class="q-header">
+        <div class="q-num">Q63</div>
+        <div class="q-text">A compliance officer at a financial services firm wants written assurance that Microsoft does not scan or mine employee emails, Teams messages, or files to serve targeted advertising to Microsoft's own business. Which of Microsoft's privacy principles directly addresses this guarantee?</div>
+        <div class="q-domain-tag d3-chip">D3</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q63','A','C')"><span class="opt-letter">A</span><span class="opt-text">Control — customers own their data and Microsoft does not use it without permission</span></button>
+        <button class="q-option" onclick="answer(this,'p2q63','B','C')"><span class="opt-letter">B</span><span class="opt-text">Transparency — Microsoft is open about what data is collected and why</span></button>
+        <button class="q-option" onclick="answer(this,'p2q63','C','C')"><span class="opt-letter">C</span><span class="opt-text">No Content-Based Targeting — Microsoft does not mine content to serve targeted ads</span></button>
+        <button class="q-option" onclick="answer(this,'p2q63','D','C')"><span class="opt-letter">D</span><span class="opt-text">Security — Microsoft protects customer data with strong technical safeguards</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q63">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>No Content-Based Targeting</strong> is the Microsoft privacy principle that specifically states Microsoft does not scan, mine, or use the content of customers' emails, Teams messages, documents, or other data to serve targeted advertisements. This is distinct from the "Control" principle (which covers data ownership), "Transparency" (which covers disclosure about data collection practices), and "Security" (which covers how data is protected). The question's key phrase is "scan or mine... to serve targeted advertising" — that maps directly to <strong>No Content-Based Targeting</strong>.</div>
+      </div>
+    </div>
+
   </div><!-- end domain 3 -->
   <!-- DOMAIN 4: Pricing, Licensing & Support (9 questions) -->
   <div class="domain-section" id="section-d4">
@@ -1320,6 +1358,25 @@ h1 em{font-style:normal;color:var(--amber)}
       </div>
     </div>
 
+    <!-- P2-Q64 -->
+    <div class="q-card" id="p2q64">
+      <div class="q-header">
+        <div class="q-num">Q64</div>
+        <div class="q-text">Contoso's IT team is evaluating a new Microsoft 365 feature that is currently available for testing to any tenant that chooses to opt in. The feature may still change before final release, and Microsoft has not yet attached a financially-backed SLA to it. Which stage of the Microsoft 365 service lifecycle does this feature represent?</div>
+        <div class="q-domain-tag d4-chip">D4</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q64','A','B')"><span class="opt-letter">A</span><span class="opt-text">Private Preview — invitation-only early access with no SLA</span></button>
+        <button class="q-option" onclick="answer(this,'p2q64','B','B')"><span class="opt-letter">B</span><span class="opt-text">Public Preview — opt-in, broadly available for testing, no SLA</span></button>
+        <button class="q-option" onclick="answer(this,'p2q64','C','B')"><span class="opt-letter">C</span><span class="opt-text">General Availability (GA) — fully released, financially-backed SLA applies</span></button>
+        <button class="q-option" onclick="answer(this,'p2q64','D','B')"><span class="opt-letter">D</span><span class="opt-text">Extended Support — legacy features maintained beyond their end-of-life date</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q64">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Public Preview</strong> is the stage where a Microsoft 365 feature is available to any tenant that opts in — open participation, no invitation required. The feature is still being finalised, may change, and does not carry a financially-backed SLA. Private Preview is earlier (invitation-only, more limited access). General Availability (GA) is the stage where the SLA <em>does</em> apply — the feature is fully released and production-ready. "Extended Support" is not a standard M365 service lifecycle stage. Key signal in the question: "any tenant that opts in" + "no SLA" = <strong>Public Preview</strong>.</div>
+      </div>
+    </div>
+
   </div><!-- end domain 4 -->
 
   <!-- COMPLETION BANNER -->
@@ -1338,12 +1395,12 @@ h1 em{font-style:normal;color:var(--amber)}
 const STORAGE_KEY = 'ms900_practice2';
 const domainQIds = {
   1: ['p2q1','p2q2','p2q3','p2q4','p2q5','p2q6','p2q7','p2q8'],
-  2: ['p2q9','p2q10','p2q11','p2q12','p2q13','p2q14','p2q15','p2q16','p2q17','p2q18','p2q19','p2q20','p2q21','p2q22','p2q23','p2q24','p2q25','p2q26'],
-  3: ['p2q27','p2q28','p2q29','p2q30','p2q31','p2q32','p2q33','p2q34','p2q35','p2q36','p2q37','p2q38','p2q39','p2q40','p2q41','p2q51','p2q52','p2q53','p2q54','p2q55','p2q56'],
-  4: ['p2q42','p2q43','p2q44','p2q45','p2q46','p2q47','p2q48','p2q49','p2q50','p2q57','p2q58','p2q59','p2q60','p2q61']
+  2: ['p2q9','p2q10','p2q11','p2q12','p2q13','p2q14','p2q15','p2q16','p2q17','p2q18','p2q19','p2q20','p2q21','p2q22','p2q23','p2q24','p2q25','p2q26','p2q62'],
+  3: ['p2q27','p2q28','p2q29','p2q30','p2q31','p2q32','p2q33','p2q34','p2q35','p2q36','p2q37','p2q38','p2q39','p2q40','p2q41','p2q51','p2q52','p2q53','p2q54','p2q55','p2q56','p2q63'],
+  4: ['p2q42','p2q43','p2q44','p2q45','p2q46','p2q47','p2q48','p2q49','p2q50','p2q57','p2q58','p2q59','p2q60','p2q61','p2q64']
 };
-const domainTotals = {1:8, 2:18, 3:21, 4:14};
-const TOTAL = 61;
+const domainTotals = {1:8, 2:19, 3:22, 4:15};
+const TOTAL = 64;
 let state = {};
 
 function loadState() {
