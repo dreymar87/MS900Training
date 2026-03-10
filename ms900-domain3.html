@@ -112,8 +112,8 @@ h1 em{font-style:normal;color:var(--c)}
   <h1>Security, Compliance, <em>Privacy &amp; Trust</em></h1>
   <p class="hero-sub">The second-largest domain. Covers identity, threat protection, Zero Trust, and compliance. Focus on understanding what each tool does — not how to configure it.</p>
   <div class="hero-stats">
-    <div class="stat"><div class="stat-val">5</div><div class="stat-key">Learn Modules</div></div>
-    <div class="stat"><div class="stat-val">3</div><div class="stat-key">Topic Areas</div></div>
+    <div class="stat"><div class="stat-val">6</div><div class="stat-key">Learn Modules</div></div>
+    <div class="stat"><div class="stat-val">4</div><div class="stat-key">Topic Areas</div></div>
     <div class="stat"><div class="stat-val">25–30%</div><div class="stat-key">Exam Weight</div></div>
     <div class="stat"><div class="stat-val">~2 hrs</div><div class="stat-key">Estimated Study</div></div>
   </div>
@@ -129,6 +129,7 @@ h1 em{font-style:normal;color:var(--c)}
       <li><strong>Purview</strong> = compliance suite — sensitivity labels, DLP, insider risk, eDiscovery, auditing</li>
       <li><strong>Priva</strong> = privacy management — discovers, monitors, and protects personal data</li>
       <li><strong>Microsoft Privacy Principles</strong> — six commitments: Control, Transparency, Security, Strong Legal Protections, No Content-Based Targeting, Benefits to You</li>
+      <li><strong>Global Secure Access (GSA)</strong> = Microsoft's SSE solution combining <strong>Entra Internet Access</strong> (cloud SWG for internet/SaaS) and <strong>Entra Private Access</strong> (ZTNA replacing VPN with per-app access)</li>
     </ul>
   </div>
 
@@ -137,6 +138,7 @@ h1 em{font-style:normal;color:var(--c)}
     <a href="#m1-identity" style="text-decoration:none;font-size:12px;font-weight:600;padding:6px 14px;border-radius:8px;border:1px solid var(--border2);color:var(--muted2);transition:all .2s;font-family:'DM Mono',monospace" onmouseover="this.style.color='#fff';this.style.background='var(--surface2)'" onmouseout="this.style.color='';this.style.background=''">M1 — Identity &amp; Access</a>
     <a href="#m2-threats" style="text-decoration:none;font-size:12px;font-weight:600;padding:6px 14px;border-radius:8px;border:1px solid var(--border2);color:var(--muted2);transition:all .2s;font-family:'DM Mono',monospace" onmouseover="this.style.color='#fff';this.style.background='var(--surface2)'" onmouseout="this.style.color='';this.style.background=''">M2 — Threat Protection</a>
     <a href="#m3-trust" style="text-decoration:none;font-size:12px;font-weight:600;padding:6px 14px;border-radius:8px;border:1px solid var(--border2);color:var(--muted2);transition:all .2s;font-family:'DM Mono',monospace" onmouseover="this.style.color='#fff';this.style.background='var(--surface2)'" onmouseout="this.style.color='';this.style.background=''">M3 — Trust &amp; Compliance</a>
+    <a href="#m4-gsa" style="text-decoration:none;font-size:12px;font-weight:600;padding:6px 14px;border-radius:8px;border:1px solid var(--border2);color:var(--muted2);transition:all .2s;font-family:'DM Mono',monospace" onmouseover="this.style.color='#fff';this.style.background='var(--surface2)'" onmouseout="this.style.color='';this.style.background=''">M4 — Global Secure Access</a>
   </div>
 
   <!-- MODULE 1: Identity -->
@@ -658,6 +660,92 @@ h1 em{font-style:normal;color:var(--c)}
             "Where do you review Microsoft's own ISO 27001 audit reports?" → <strong>servicetrust.microsoft.com</strong> (Service Trust Portal — it contains Microsoft's documentation about their own compliance, not yours)<br>
             "Where do you check if Exchange Online is having an outage?" → <strong>admin.microsoft.com</strong> → Service Health<br>
             Key distinction: <strong>Compliance Manager</strong> (your org's compliance posture) is at compliance.microsoft.com. <strong>Service Trust Portal</strong> (Microsoft's own audit docs) is at servicetrust.microsoft.com. These two are commonly confused.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODULE 4: Global Secure Access -->
+  <div class="module-wrap" id="m4-gsa">
+    <div class="module-header">
+      <div class="module-num">M4</div>
+      <div>
+        <div class="module-title">Microsoft Global Secure Access (GSA)</div>
+        <div class="module-desc">Security Service Edge · Entra Internet Access · Entra Private Access · Zero Trust networking</div>
+      </div>
+      <a class="module-link" href="https://learn.microsoft.com/en-us/entra/global-secure-access/overview-what-is-global-secure-access" target="_blank">📖 Open in Learn ↗</a>
+    </div>
+    <div class="module-body">
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="13">
+          <div class="concept-title">What is Global Secure Access?</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc"><strong>Microsoft Global Secure Access (GSA)</strong> is Microsoft's unified <strong>Security Service Edge (SSE)</strong> solution — a cloud-delivered security stack that controls access to internet, SaaS, and private/internal apps using identity as the primary decision point. It is built on Zero Trust principles: verify explicitly, use least privilege, and assume breach.</p>
+          <p class="concept-desc" style="margin-top:8px">GSA is the umbrella that combines two services:</p>
+          <div class="key-terms">
+            <div class="term">
+              <div class="term-key">IEA</div>
+              <div class="term-val">Microsoft Entra Internet Access — cloud Secure Web Gateway for internet &amp; SaaS</div>
+            </div>
+            <div class="term">
+              <div class="term-key">EPA</div>
+              <div class="term-val">Microsoft Entra Private Access — Zero Trust, VPN-less access to private/internal apps</div>
+            </div>
+            <div class="term">
+              <div class="term-key">SSE</div>
+              <div class="term-val">Security Service Edge — cloud-delivered stack combining SWG + CASB + ZTNA</div>
+            </div>
+          </div>
+          <div class="callout" style="margin-top:12px">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>MS-900 takeaway</strong>
+            GSA = Microsoft's identity-driven SSE. It secures access to internet, SaaS, and private apps using Conditional Access and Microsoft's global network — replacing traditional VPNs and perimeter security.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="14">
+          <div class="concept-title">The Two GSA Components: IEA vs EPA</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc"><strong>Microsoft Entra Internet Access (IEA)</strong> is a cloud <strong>Secure Web Gateway (SWG)</strong> that sits between users and the internet. It filters web traffic, blocks malicious sites and unsafe content, enforces tenant restrictions, and provides deep logging — all driven by identity and risk, not just IP address or URL. It replaces legacy web filtering proxies.</p>
+          <p class="concept-desc" style="margin-top:8px"><strong>Microsoft Entra Private Access (EPA)</strong> is a <strong>Zero Trust Network Access (ZTNA)</strong> solution that replaces VPN. Instead of granting full network access like a VPN, EPA grants <em>per-application</em> access only — enforced by Conditional Access, MFA, and identity-based policies. Internal resources are never exposed to the open internet.</p>
+          <div class="callout" style="margin-top:12px">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Exam angle — VPN vs EPA</strong>
+            "VPN gives full network access; EPA gives per-app access." Know that EPA is Microsoft's ZTNA replacement for VPN. Exam may describe a scenario about accessing internal apps without a VPN — answer is <strong>Microsoft Entra Private Access</strong>.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-top">
+          <input type="checkbox" class="skill-check" data-skill="15">
+          <div class="concept-title">GSA vs Traditional VPN — Key Differences</div>
+        </div>
+        <div class="concept-body">
+          <p class="concept-desc">Exam questions often highlight contrasts between legacy tools and modern Zero Trust approaches. Know these differences for GSA vs VPN.</p>
+          <div class="table-wrap"><table class="compare-table">
+            <thead><tr><th>Feature</th><th>Traditional VPN</th><th>Global Secure Access (GSA)</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Trust model</strong></td><td>Perimeter-based — trusts the network</td><td>Zero Trust — trusts the identity, not the network</td></tr>
+              <tr><td><strong>Access scope</strong></td><td>Full network access once connected</td><td>Per-app access only (least privilege)</td></tr>
+              <tr><td><strong>User experience</strong></td><td>Manual, slow, can disrupt productivity</td><td>Always-on, seamless, cloud-delivered</td></tr>
+              <tr><td><strong>Lateral movement risk</strong></td><td>High — attacker reaching the VPN can roam the network</td><td>Low — access is isolated per application</td></tr>
+              <tr><td><strong>Enforcement</strong></td><td>IP/port-based firewall rules</td><td>Identity, Conditional Access, device compliance, risk signals</td></tr>
+            </tbody>
+          </table></div>
+          <div class="callout" style="margin-top:12px">
+            <span class="callout-icon">📌</span>
+            <div class="callout-text"><strong>Architecture — where GSA lives</strong>
+            GSA is integrated into <strong>Microsoft Entra ID</strong> — managed through the Entra admin center, enforced via Conditional Access and MFA, and delivered over Microsoft's <strong>global private WAN</strong> (70+ regions, 190+ access locations). This gives both performance and security benefits.</div>
           </div>
         </div>
       </div>

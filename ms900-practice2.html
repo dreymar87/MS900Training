@@ -112,11 +112,11 @@ h1 em{font-style:normal;color:var(--amber)}
 
   <div class="quiz-pill">⚡ Active Recall Quiz</div>
   <h1>MS-900 <em>Practice Quiz 2</em></h1>
-  <p class="hero-sub">64 scenario-style questions covering all 4 exam domains. All fresh scenarios — no repeats from Quiz 1. Click an answer to reveal the explanation.</p>
+  <p class="hero-sub">67 scenario-style questions covering all 4 exam domains. All fresh scenarios — no repeats from Quiz 1. Click an answer to reveal the explanation.</p>
 
   <div class="score-bar">
     <div>
-      <div class="score-display" id="score-display">0 / 64</div>
+      <div class="score-display" id="score-display">0 / 67</div>
       <div class="score-label">Questions correct</div>
     </div>
     <div class="score-track">
@@ -657,7 +657,7 @@ h1 em{font-style:normal;color:var(--amber)}
     </div>
 
   </div><!-- end domain 2 -->
-  <!-- DOMAIN 3: Security & Compliance (15 questions) -->
+  <!-- DOMAIN 3: Security & Compliance (25 questions) -->
   <div class="domain-section" id="section-d3">
     <div class="domain-heading">
       <div class="d-chip d3-chip">Domain 3</div>
@@ -1083,6 +1083,63 @@ h1 em{font-style:normal;color:var(--amber)}
       </div>
     </div>
 
+    <!-- P2-Q67 -->
+    <div class="q-card" id="p2q67">
+      <div class="q-header">
+        <div class="q-num">Q67</div>
+        <div class="q-text">A company wants to replace their VPN solution so that remote employees can access internal line-of-business apps without gaining access to the entire corporate network. Which Microsoft product provides this capability using Zero Trust principles?</div>
+        <div class="q-domain-tag d3-chip">D3</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q67','A','B')"><span class="opt-letter">A</span><span class="opt-text">Microsoft Entra Internet Access — a cloud Secure Web Gateway for internet traffic</span></button>
+        <button class="q-option" onclick="answer(this,'p2q67','B','B')"><span class="opt-letter">B</span><span class="opt-text">Microsoft Entra Private Access — a Zero Trust Network Access solution granting per-app access to internal resources</span></button>
+        <button class="q-option" onclick="answer(this,'p2q67','C','B')"><span class="opt-letter">C</span><span class="opt-text">Microsoft Defender for Endpoint — endpoint threat detection and response</span></button>
+        <button class="q-option" onclick="answer(this,'p2q67','D','B')"><span class="opt-letter">D</span><span class="opt-text">Microsoft Intune — mobile device management and app protection</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q67">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Microsoft Entra Private Access (EPA)</strong> is Microsoft's Zero Trust Network Access (ZTNA) solution designed to replace VPNs. Unlike VPNs — which grant full network access once connected — EPA grants <strong>per-application access only</strong>, enforced by Conditional Access, MFA, and identity-based policies. Internal apps are never exposed to the open internet. EPA is the private-app component of <strong>Microsoft Global Secure Access (GSA)</strong>. Entra Internet Access (A) handles internet/SaaS traffic, not internal app access.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q68 -->
+    <div class="q-card" id="p2q68">
+      <div class="q-header">
+        <div class="q-num">Q68</div>
+        <div class="q-text">Which two services together form Microsoft Global Secure Access (GSA)?</div>
+        <div class="q-domain-tag d3-chip">D3</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q68','A','C')"><span class="opt-letter">A</span><span class="opt-text">Microsoft Defender for Cloud Apps and Microsoft Intune</span></button>
+        <button class="q-option" onclick="answer(this,'p2q68','B','C')"><span class="opt-letter">B</span><span class="opt-text">Microsoft Entra ID and Microsoft Defender for Endpoint</span></button>
+        <button class="q-option" onclick="answer(this,'p2q68','C','C')"><span class="opt-letter">C</span><span class="opt-text">Microsoft Entra Internet Access and Microsoft Entra Private Access</span></button>
+        <button class="q-option" onclick="answer(this,'p2q68','D','C')"><span class="opt-letter">D</span><span class="opt-text">Microsoft Purview and Microsoft Priva</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q68">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Microsoft Global Secure Access (GSA)</strong> is the unified Security Service Edge (SSE) umbrella that combines exactly two services: <strong>Microsoft Entra Internet Access (IEA)</strong> — the cloud Secure Web Gateway protecting internet and SaaS traffic — and <strong>Microsoft Entra Private Access (EPA)</strong> — the Zero Trust Network Access solution replacing VPN for private/internal app access. Together they secure access to internet, SaaS, and private apps using identity, Conditional Access, and Microsoft's global private network.</div>
+      </div>
+    </div>
+
+    <!-- P2-Q69 -->
+    <div class="q-card" id="p2q69">
+      <div class="q-header">
+        <div class="q-num">Q69</div>
+        <div class="q-text">A security architect explains that their new network access solution grants employees access only to the specific application they need — not the entire network — and enforces this through identity, device compliance, and Conditional Access on every request. What type of solution is this describing?</div>
+        <div class="q-domain-tag d3-chip">D3</div>
+      </div>
+      <div class="q-options">
+        <button class="q-option" onclick="answer(this,'p2q69','A','B')"><span class="opt-letter">A</span><span class="opt-text">Traditional VPN — encrypts network traffic between the user and corporate network</span></button>
+        <button class="q-option" onclick="answer(this,'p2q69','B','B')"><span class="opt-letter">B</span><span class="opt-text">Zero Trust Network Access (ZTNA) — per-app identity-verified access replacing VPN</span></button>
+        <button class="q-option" onclick="answer(this,'p2q69','C','B')"><span class="opt-letter">C</span><span class="opt-text">Secure Web Gateway (SWG) — filters outbound internet and SaaS traffic</span></button>
+        <button class="q-option" onclick="answer(this,'p2q69','D','B')"><span class="opt-letter">D</span><span class="opt-text">Network Detection and Response (NDR) — monitors internal network for threats</span></button>
+      </div>
+      <div class="q-explanation" id="exp-p2q69">
+        <div class="exp-label"></div>
+        <div class="exp-body"><strong>Zero Trust Network Access (ZTNA)</strong> is the model described — it grants access only to the specific application requested, not the whole network, and verifies every request using identity, device state, and Conditional Access. This is in direct contrast to traditional VPNs, which grant broad network access after a single authentication. Microsoft's ZTNA implementation is <strong>Microsoft Entra Private Access (EPA)</strong>, part of <strong>Global Secure Access</strong>. A Secure Web Gateway (C) handles outbound internet/SaaS traffic, not access to private internal apps.</div>
+      </div>
+    </div>
+
   </div><!-- end domain 3 -->
   <!-- DOMAIN 4: Pricing, Licensing & Support (9 questions) -->
   <div class="domain-section" id="section-d4">
@@ -1396,11 +1453,11 @@ const STORAGE_KEY = 'ms900_practice2';
 const domainQIds = {
   1: ['p2q1','p2q2','p2q3','p2q4','p2q5','p2q6','p2q7','p2q8'],
   2: ['p2q9','p2q10','p2q11','p2q12','p2q13','p2q14','p2q15','p2q16','p2q17','p2q18','p2q19','p2q20','p2q21','p2q22','p2q23','p2q24','p2q25','p2q26','p2q62'],
-  3: ['p2q27','p2q28','p2q29','p2q30','p2q31','p2q32','p2q33','p2q34','p2q35','p2q36','p2q37','p2q38','p2q39','p2q40','p2q41','p2q51','p2q52','p2q53','p2q54','p2q55','p2q56','p2q63'],
+  3: ['p2q27','p2q28','p2q29','p2q30','p2q31','p2q32','p2q33','p2q34','p2q35','p2q36','p2q37','p2q38','p2q39','p2q40','p2q41','p2q51','p2q52','p2q53','p2q54','p2q55','p2q56','p2q63','p2q67','p2q68','p2q69'],
   4: ['p2q42','p2q43','p2q44','p2q45','p2q46','p2q47','p2q48','p2q49','p2q50','p2q57','p2q58','p2q59','p2q60','p2q61','p2q64']
 };
-const domainTotals = {1:8, 2:19, 3:22, 4:15};
-const TOTAL = 64;
+const domainTotals = {1:8, 2:19, 3:25, 4:15};
+const TOTAL = 67;
 let state = {};
 
 function loadState() {
