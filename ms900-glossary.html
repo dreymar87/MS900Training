@@ -121,7 +121,7 @@ h1 em{font-style:normal;color:var(--amber)}
 
   <div class="glos-pill">📖 Reference Glossary</div>
   <h1>MS-900 <em>Glossary</em></h1>
-  <p class="hero-sub">117 terms across all 4 exam domains. Use the search or jump to a letter. Every term links back to the study page where it's explained in full context.</p>
+  <p class="hero-sub">124 terms across all 4 exam domains. Use the search or jump to a letter. Every term links back to the study page where it's explained in full context.</p>
   <p style="font-size:13px;color:var(--muted2);margin-bottom:24px">⭐ = high-priority exam term — know these cold before sitting the exam.</p>
 
   <div class="legend">
@@ -134,7 +134,7 @@ h1 em{font-style:normal;color:var(--amber)}
   <div class="search-wrap">
     <span class="search-icon">🔍</span>
     <input type="text" class="search-input" id="search" placeholder="Search terms, acronyms, or definitions..." oninput="onSearchInput()">
-    <span class="search-count" id="search-count">117 terms</span>
+    <span class="search-count" id="search-count">124 terms</span>
   </div>
 
   <div class="alpha-bar" id="alpha-bar"></div>
@@ -634,6 +634,14 @@ h1 em{font-style:normal;color:var(--amber)}
       <div class="term-right"><span class="d-tag d4-tag">D4</span><a class="study-link" href="ms900-domain4.html">→ Domain 4</a></div>
     </div>
 
+    <div class="term-card" data-term="global secure access GSA security service edge SSE microsoft entra internet private access zero trust network">
+      <div class="term-left">
+        <div class="term-name">⭐ Global Secure Access <span class="term-acronym">GSA</span></div>
+        <div class="term-def">Microsoft's unified <strong>Security Service Edge (SSE)</strong> solution that combines <strong>Microsoft Entra Internet Access</strong> (cloud SWG for internet/SaaS traffic) and <strong>Microsoft Entra Private Access</strong> (ZTNA replacing VPN). Built on Zero Trust principles — identity is the control plane, not the network perimeter. Delivered over Microsoft's global private WAN across 70+ regions.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html#m4-gsa">→ Domain 3</a></div>
+    </div>
+
     <div class="term-card" data-term="microsoft 365 groups shared mailbox teams sharepoint group backbone">
       <div class="term-left">
         <div class="term-name">⭐ Microsoft 365 Groups</div>
@@ -880,6 +888,22 @@ h1 em{font-style:normal;color:var(--amber)}
         <div class="term-def">A Microsoft 365 Apps update channel that delivers <strong>new features monthly on a predictable, tested schedule</strong>. Ideal for organizations that need <strong>frequent updates with a reliable, consistent release date</strong> — more stable than Current Channel (features ship immediately when ready) but more frequent than Semi-Annual Enterprise Channel (twice a year). Exam key: "organization requires frequent feature updates for Microsoft 365 Apps on a predictable release schedule" → <strong>Monthly Enterprise Channel</strong>.</div>
       </div>
       <div class="term-right"><span class="d-tag d2-tag">D2</span><a class="study-link" href="ms900-domain2.html">→ Domain 2</a></div>
+    </div>
+
+    <div class="term-card" data-term="microsoft entra internet access IEA secure web gateway SWG internet SaaS traffic filter identity-driven cloud proxy web filtering">
+      <div class="term-left">
+        <div class="term-name">Microsoft Entra Internet Access <span class="term-acronym">IEA</span></div>
+        <div class="term-def">The cloud <strong>Secure Web Gateway (SWG)</strong> component of Microsoft Global Secure Access. Protects internet and SaaS traffic by blocking threats, filtering malicious sites and unsafe content, enforcing tenant restrictions, and providing deep traffic logging — all driven by <strong>identity and risk signals</strong> rather than simple IP/URL rules. Replaces legacy web filtering proxies.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html#m4-gsa">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="microsoft entra private access EPA zero trust network access ZTNA VPN replacement per-app internal private apps conditional access">
+      <div class="term-left">
+        <div class="term-name">Microsoft Entra Private Access <span class="term-acronym">EPA</span></div>
+        <div class="term-def">The <strong>Zero Trust Network Access (ZTNA)</strong> component of Microsoft Global Secure Access. Provides secure, VPN-less access to private and internal apps by granting <strong>per-application access only</strong> — enforced via Conditional Access, MFA, and identity-based policies. Unlike VPNs (which expose the whole network), EPA limits access to only the specific app the user needs.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html#m4-gsa">→ Domain 3</a></div>
     </div>
 
   </div>
@@ -1192,6 +1216,22 @@ h1 em{font-style:normal;color:var(--amber)}
       <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
     </div>
 
+    <div class="term-card" data-term="security service edge SSE cloud-delivered SWG CASB ZTNA network security global secure access">
+      <div class="term-left">
+        <div class="term-name">Security Service Edge <span class="term-acronym">SSE</span></div>
+        <div class="term-def">A cloud-delivered network security architecture that combines <strong>Secure Web Gateway (SWG)</strong>, <strong>Cloud Access Security Broker (CASB)</strong>, and <strong>Zero Trust Network Access (ZTNA)</strong> into a unified platform. Microsoft's SSE offering is <strong>Global Secure Access (GSA)</strong>, which integrates these capabilities with Microsoft Entra identity.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html#m4-gsa">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="secure web gateway SWG internet traffic filter cloud proxy malicious sites web filtering identity-driven IEA">
+      <div class="term-left">
+        <div class="term-name">Secure Web Gateway <span class="term-acronym">SWG</span></div>
+        <div class="term-def">A cloud security component that filters and inspects <strong>outbound internet and SaaS traffic</strong>, blocking access to malicious sites, unsafe content, and policy-violating destinations. Microsoft's SWG is <strong>Microsoft Entra Internet Access (IEA)</strong>, which uses identity and risk signals rather than IP rules to make access decisions.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html#m4-gsa">→ Domain 3</a></div>
+    </div>
+
   </div>
 
   <!-- ═══════════════════ T ═══════════════════ -->
@@ -1380,6 +1420,14 @@ h1 em{font-style:normal;color:var(--amber)}
         <div class="term-def">A security philosophy replacing the "castle and moat" model — instead of trusting all traffic inside the network, Zero Trust <strong>assumes breach and verifies every request explicitly</strong>. Three principles: <strong>Verify Explicitly</strong> (always authenticate using all signals), <strong>Least Privilege Access</strong> (minimum permissions needed), <strong>Assume Breach</strong> (design for containment, encrypt, segment). MFA and Conditional Access are practical Zero Trust implementations.</div>
       </div>
       <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html">→ Domain 3</a></div>
+    </div>
+
+    <div class="term-card" data-term="ZTNA zero trust network access per-app VPN replacement private access EPA conditional access identity">
+      <div class="term-left">
+        <div class="term-name">ZTNA <span class="term-acronym">Zero Trust Network Access</span></div>
+        <div class="term-def">A Zero Trust approach to network access that grants <strong>per-application access only</strong> — not full network access like a VPN. Each access request is verified against identity, device compliance, and policy before the specific app is reachable. Microsoft's ZTNA implementation is <strong>Microsoft Entra Private Access (EPA)</strong>, part of Global Secure Access.</div>
+      </div>
+      <div class="term-right"><span class="d-tag d3-tag">D3</span><a class="study-link" href="ms900-domain3.html#m4-gsa">→ Domain 3</a></div>
     </div>
 
   </div>
