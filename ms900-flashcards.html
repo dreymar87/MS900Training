@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MS-900 Flashcards · Practice by Domain</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f1117;--surface:#181c27;--surface2:#1e2535;--surface3:#242a3a;
+  --text:#e2e8f0;--muted:#64748b;--muted2:#8898aa;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.12);
+  --d1:#4f8ef7;--d2:#a78bfa;--d3:#34d399;--d4:#fb923c;
+  --amber:#fbbf24;--correct:#34d399;--wrong:#f87171;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;min-height:100vh;padding-bottom:80px}
+
+/* NAV */
+.topnav{position:sticky;top:0;z-index:100;background:rgba(15,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;gap:4px;height:52px;overflow-x:auto}
+.topnav a{text-decoration:none;white-space:nowrap;font-size:12px;font-weight:600;padding:5px 11px;border-radius:8px;transition:all .2s;color:var(--muted)}
+.topnav a:hover{background:var(--surface2);color:var(--text)}
+.topnav a.active{background:#2a2f42;color:var(--amber)}
+.topnav .brand{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2);margin-right:8px;flex-shrink:0}
+.topnav .sep{color:var(--border2);margin:0 2px}
+
+/* HERO */
+.hero{max-width:860px;margin:0 auto;padding:40px 24px 0}
+.hero-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.25);border-radius:20px;padding:4px 12px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--amber);margin-bottom:16px}
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(26px,5vw,40px);font-weight:600;line-height:1.15;margin-bottom:10px}
+.hero h1 em{font-style:italic;font-weight:300;color:var(--amber)}
+.hero p{color:var(--muted2);font-size:15px;max-width:560px;line-height:1.65;margin-bottom:28px}
+
+/* DOMAIN STATS ROW */
+.domain-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:32px}
+.ds-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;text-align:center}
+.ds-card .ds-label{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.ds-card .ds-nums{font-size:20px;font-weight:700;line-height:1}
+.ds-card .ds-sub{font-size:11px;color:var(--muted);margin-top:3px}
+.ds-card.d1 .ds-label{color:var(--d1)} .ds-card.d1 .ds-nums{color:var(--d1)}
+.ds-card.d2 .ds-label{color:var(--d2)} .ds-card.d2 .ds-nums{color:var(--d2)}
+.ds-card.d3 .ds-label{color:var(--d3)} .ds-card.d3 .ds-nums{color:var(--d3)}
+.ds-card.d4 .ds-label{color:var(--d4)} .ds-card.d4 .ds-nums{color:var(--d4)}
+
+/* CONTROLS */
+.controls{max-width:860px;margin:0 auto;padding:0 24px 24px}
+.ctrl-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+
+/* DOMAIN TABS */
+.domain-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.dtab{background:var(--surface);border:1px solid var(--border2);color:var(--muted);font-size:12px;font-weight:600;padding:6px 14px;border-radius:20px;cursor:pointer;transition:all .2s;font-family:'Plus Jakarta Sans',sans-serif}
+.dtab:hover{background:var(--surface2);color:var(--text)}
+.dtab.active-all{background:rgba(251,191,36,.15);border-color:rgba(251,191,36,.4);color:var(--amber)}
+.dtab.active-d1{background:rgba(79,142,247,.15);border-color:rgba(79,142,247,.4);color:var(--d1)}
+.dtab.active-d2{background:rgba(167,139,250,.15);border-color:rgba(167,139,250,.4);color:var(--d2)}
+.dtab.active-d3{background:rgba(52,211,153,.15);border-color:rgba(52,211,153,.4);color:var(--d3)}
+.dtab.active-d4{background:rgba(251,146,60,.15);border-color:rgba(251,146,60,.4);color:var(--d4)}
+
+/* STUDY MODE + SHUFFLE */
+.mode-select{background:var(--surface);border:1px solid var(--border2);color:var(--text);font-size:12px;font-weight:600;padding:6px 12px;border-radius:20px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;outline:none;-webkit-appearance:none;appearance:none;padding-right:28px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+.mode-select:hover{border-color:var(--border2)}
+.btn-shuffle{background:var(--surface);border:1px solid var(--border2);color:var(--muted);font-size:12px;font-weight:600;padding:6px 14px;border-radius:20px;cursor:pointer;transition:all .2s;font-family:'Plus Jakarta Sans',sans-serif}
+.btn-shuffle:hover{background:var(--surface2);color:var(--text)}
+.btn-shuffle.on{background:rgba(251,191,36,.1);border-color:rgba(251,191,36,.3);color:var(--amber)}
+.ctrl-right{margin-left:auto;font-family:'DM Mono',monospace;font-size:12px;color:var(--muted)}
+
+/* CARD STAGE */
+.card-stage{max-width:860px;margin:0 auto;padding:0 24px}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:60px 24px;color:var(--muted)}
+.empty-state .big{font-size:40px;margin-bottom:12px}
+.empty-state p{font-size:14px;line-height:1.6}
+
+/* CARD SCENE */
+.card-scene{perspective:1200px;width:100%;height:320px;margin-bottom:20px;cursor:pointer}
+.card-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,.2,.2,1)}
+.card-inner.flipped{transform:rotateY(180deg)}
+.card-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:18px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:36px 40px;text-align:center;border:1px solid var(--border2)}
+.card-front{background:var(--surface)}
+.card-back{background:var(--surface2);transform:rotateY(180deg)}
+
+/* Card domain accent bar at top */
+.card-face::before{content:'';position:absolute;top:0;left:24px;right:24px;height:3px;border-radius:0 0 4px 4px}
+.card-scene.dom-1 .card-face::before{background:var(--d1)}
+.card-scene.dom-2 .card-face::before{background:var(--d2)}
+.card-scene.dom-3 .card-face::before{background:var(--d3)}
+.card-scene.dom-4 .card-face::before{background:var(--d4)}
+
+.card-type-badge{position:absolute;top:18px;left:20px;font-family:'DM Mono',monospace;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;padding:3px 9px;border-radius:10px;background:rgba(255,255,255,.06);color:var(--muted)}
+.card-domain-badge{position:absolute;top:18px;right:20px;font-family:'DM Mono',monospace;font-size:10px;font-weight:600;padding:3px 9px;border-radius:10px}
+.dom-1 .card-domain-badge{background:rgba(79,142,247,.15);color:var(--d1)}
+.dom-2 .card-domain-badge{background:rgba(167,139,250,.15);color:var(--d2)}
+.dom-3 .card-domain-badge{background:rgba(52,211,153,.15);color:var(--d3)}
+.dom-4 .card-domain-badge{background:rgba(251,146,60,.15);color:var(--d4)}
+
+.card-hint{position:absolute;bottom:18px;font-size:11px;color:var(--muted);font-family:'DM Mono',monospace}
+.card-front .card-question{font-family:'Fraunces',serif;font-size:clamp(16px,3.5vw,22px);font-weight:600;line-height:1.4;color:var(--text)}
+.card-back .card-answer{font-size:clamp(13px,2.5vw,15px);line-height:1.7;color:var(--text);max-width:600px}
+.card-back .card-answer strong{color:var(--amber)}
+
+/* STATUS BADGE on known cards */
+.card-status-badge{position:absolute;top:50px;right:20px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:10px;display:none}
+.status-known .card-status-badge{display:block;background:rgba(52,211,153,.15);color:var(--correct)}
+.status-review .card-status-badge{display:block;background:rgba(248,113,113,.15);color:var(--wrong)}
+
+/* CARD ACTIONS */
+.card-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.btn{font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:13px;padding:9px 20px;border-radius:12px;border:none;cursor:pointer;transition:all .2s}
+.btn-got-it{background:rgba(52,211,153,.15);color:var(--correct);border:1px solid rgba(52,211,153,.3)}
+.btn-got-it:hover{background:rgba(52,211,153,.25)}
+.btn-review{background:rgba(248,113,113,.12);color:var(--wrong);border:1px solid rgba(248,113,113,.25)}
+.btn-review:hover{background:rgba(248,113,113,.22)}
+.btn-nav{background:var(--surface);color:var(--muted);border:1px solid var(--border2)}
+.btn-nav:hover{background:var(--surface2);color:var(--text)}
+.btn-nav:disabled{opacity:.3;cursor:not-allowed}
+.card-counter{margin-left:auto;font-family:'DM Mono',monospace;font-size:13px;color:var(--muted)}
+
+/* PROGRESS SECTION */
+.progress-section{max-width:860px;margin:40px auto 0;padding:0 24px}
+.progress-section h2{font-family:'DM Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:16px}
+.prog-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.prog-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px}
+.prog-item-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.prog-item-label{font-size:13px;font-weight:600}
+.prog-item-nums{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted)}
+.prog-bar{height:6px;background:var(--surface2);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;border-radius:3px;transition:width .4s ease}
+.prog-item.d1 .prog-item-label{color:var(--d1)} .prog-item.d1 .prog-fill{background:var(--d1)}
+.prog-item.d2 .prog-item-label{color:var(--d2)} .prog-item.d2 .prog-fill{background:var(--d2)}
+.prog-item.d3 .prog-item-label{color:var(--d3)} .prog-item.d3 .prog-fill{background:var(--d3)}
+.prog-item.d4 .prog-item-label{color:var(--d4)} .prog-item.d4 .prog-fill{background:var(--d4)}
+
+/* RESET BUTTON */
+.reset-row{max-width:860px;margin:24px auto 0;padding:0 24px;display:flex;justify-content:flex-end}
+.btn-reset{background:transparent;border:1px solid var(--border2);color:var(--muted);font-size:12px;font-weight:600;padding:7px 14px;border-radius:10px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s}
+.btn-reset:hover{border-color:var(--wrong);color:var(--wrong)}
+
+@media(max-width:600px){
+  .domain-stats{grid-template-columns:repeat(2,1fr)}
+  .prog-grid{grid-template-columns:1fr}
+  .card-scene{height:280px}
+  .card-face{padding:28px 20px}
+  .card-actions{justify-content:center}
+  .card-counter{margin-left:0;width:100%;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <span class="brand">MS-900</span>
+  <span class="sep">·</span>
+  <a href="index.html">🏠 Hub</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain1.html">01 Cloud Concepts</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain2.html">02 M365 Apps &amp; Services</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain3.html">03 Security &amp; Compliance</a>
+  <span class="sep">·</span>
+  <a href="ms900-domain4.html">04 Pricing &amp; Licensing</a>
+  <span class="sep">·</span>
+  <a href="ms900-practice.html">⚡ Practice Quiz</a>
+  <span class="sep">·</span>
+  <a href="ms900-practice2.html">⚡ Practice 2</a>
+  <span class="sep">·</span>
+  <a href="ms900-glossary.html">📖 Glossary</a>
+  <span class="sep">·</span>
+  <a href="ms900-flashcards.html" class="active">🃏 Flashcards</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-pill">🃏 Flashcard Practice</div>
+  <h1>Study by <em>flashcard</em>,<br>master every domain.</h1>
+  <p>Flip cards to test your recall, mark what you know, and focus on what needs more work. Broken up by domain so you can target your weak spots.</p>
+
+  <div class="domain-stats">
+    <div class="ds-card d1">
+      <div class="ds-label">D1 · Cloud</div>
+      <div class="ds-nums" id="stat-d1">0/15</div>
+      <div class="ds-sub">cards known</div>
+    </div>
+    <div class="ds-card d2">
+      <div class="ds-label">D2 · M365 Apps</div>
+      <div class="ds-nums" id="stat-d2">0/20</div>
+      <div class="ds-sub">cards known</div>
+    </div>
+    <div class="ds-card d3">
+      <div class="ds-label">D3 · Security</div>
+      <div class="ds-nums" id="stat-d3">0/20</div>
+      <div class="ds-sub">cards known</div>
+    </div>
+    <div class="ds-card d4">
+      <div class="ds-label">D4 · Pricing</div>
+      <div class="ds-nums" id="stat-d4">0/15</div>
+      <div class="ds-sub">cards known</div>
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <div class="ctrl-row">
+    <div class="domain-tabs" id="domainTabs">
+      <button class="dtab active-all" data-domain="0">All Domains</button>
+      <button class="dtab" data-domain="1">D1 · Cloud</button>
+      <button class="dtab" data-domain="2">D2 · M365 Apps</button>
+      <button class="dtab" data-domain="3">D3 · Security</button>
+      <button class="dtab" data-domain="4">D4 · Pricing</button>
+    </div>
+  </div>
+  <div class="ctrl-row">
+    <select class="mode-select" id="modeSelect">
+      <option value="all">All Cards</option>
+      <option value="unseen">Not Yet Seen</option>
+      <option value="review">Review Pile</option>
+      <option value="known">Already Know</option>
+    </select>
+    <button class="btn-shuffle" id="shuffleBtn">🔀 Shuffle</button>
+    <span class="ctrl-right" id="deckInfo"></span>
+  </div>
+</div>
+
+<div class="card-stage" id="cardStage">
+  <!-- card rendered by JS -->
+</div>
+
+<div class="progress-section">
+  <h2>Progress by Domain</h2>
+  <div class="prog-grid">
+    <div class="prog-item d1">
+      <div class="prog-item-header">
+        <span class="prog-item-label">D1 · Cloud Concepts</span>
+        <span class="prog-item-nums" id="prog-nums-1">0 / 15</span>
+      </div>
+      <div class="prog-bar"><div class="prog-fill" id="prog-fill-1" style="width:0%"></div></div>
+    </div>
+    <div class="prog-item d2">
+      <div class="prog-item-header">
+        <span class="prog-item-label">D2 · M365 Apps &amp; Services</span>
+        <span class="prog-item-nums" id="prog-nums-2">0 / 20</span>
+      </div>
+      <div class="prog-bar"><div class="prog-fill" id="prog-fill-2" style="width:0%"></div></div>
+    </div>
+    <div class="prog-item d3">
+      <div class="prog-item-header">
+        <span class="prog-item-label">D3 · Security &amp; Compliance</span>
+        <span class="prog-item-nums" id="prog-nums-3">0 / 20</span>
+      </div>
+      <div class="prog-bar"><div class="prog-fill" id="prog-fill-3" style="width:0%"></div></div>
+    </div>
+    <div class="prog-item d4">
+      <div class="prog-item-header">
+        <span class="prog-item-label">D4 · Pricing &amp; Licensing</span>
+        <span class="prog-item-nums" id="prog-nums-4">0 / 15</span>
+      </div>
+      <div class="prog-bar"><div class="prog-fill" id="prog-fill-4" style="width:0%"></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="reset-row">
+  <button class="btn-reset" id="resetBtn">↺ Reset all progress</button>
+</div>
+
+<script>
+// ─── FLASHCARD DATA ────────────────────────────────────────────────────────
+const FLASHCARDS = [
+
+  // ── DOMAIN 1: Cloud Concepts (15 cards) ──────────────────────────────────
+  {id:"d1-01",domain:1,type:"term",
+   front:"What is Cloud Computing?",
+   back:"The delivery of computing services (servers, storage, databases, networking, software) over the internet on a <strong>pay-as-you-go</strong> basis. You rent resources instead of owning them."},
+  {id:"d1-02",domain:1,type:"term",
+   front:"What is IaaS?",
+   back:"<strong>Infrastructure as a Service</strong> — the cloud provider manages physical hardware, networking, and virtualization. <em>You</em> manage the OS, middleware, and apps. Example: Azure Virtual Machines."},
+  {id:"d1-03",domain:1,type:"term",
+   front:"What is PaaS?",
+   back:"<strong>Platform as a Service</strong> — the cloud provider manages infrastructure AND the OS/runtime. You manage only your applications and data. Example: Azure App Service, Azure SQL Database."},
+  {id:"d1-04",domain:1,type:"term",
+   front:"What is SaaS?",
+   back:"<strong>Software as a Service</strong> — the cloud provider manages everything. You just use the software via a browser or app. Example: Microsoft 365, Outlook, Teams. No patching or updates needed from you."},
+  {id:"d1-05",domain:1,type:"comparison",
+   front:"What is the key difference between Public, Private, and Hybrid cloud?",
+   back:"<strong>Public:</strong> Shared infrastructure owned by provider (Azure, AWS). <strong>Private:</strong> Dedicated infrastructure for one org (on-prem or hosted). <strong>Hybrid:</strong> Mix of both, connected together—allows workloads to run where best suited."},
+  {id:"d1-06",domain:1,type:"concept",
+   front:"What is the Shared Responsibility Model?",
+   back:"Security responsibilities are <strong>split</strong> between you and the cloud provider. The provider always owns physical security. As you move from IaaS → PaaS → SaaS, the provider takes on more responsibility (OS, runtime, etc.), and you own less."},
+  {id:"d1-07",domain:1,type:"comparison",
+   front:"CapEx vs OpEx — what's the cloud-relevant difference?",
+   back:"<strong>CapEx</strong> (Capital Expenditure): Large upfront spend on physical hardware you own. <strong>OpEx</strong> (Operational Expenditure): Ongoing pay-as-you-go costs. Cloud shifts spending from CapEx → OpEx, freeing capital and allowing cost to scale with usage."},
+  {id:"d1-08",domain:1,type:"concept",
+   front:"What are the main benefits of cloud computing?",
+   back:"<strong>High availability</strong> (uptime SLAs), <strong>Scalability</strong> (grow on demand), <strong>Elasticity</strong> (auto-scale up/down), <strong>Agility</strong> (deploy fast), <strong>Geo-distribution</strong> (deploy globally), <strong>Disaster recovery</strong>, and <strong>reduced maintenance</strong> burden."},
+  {id:"d1-09",domain:1,type:"concept",
+   front:"What does 'elasticity' mean in cloud computing?",
+   back:"The ability to <strong>automatically scale resources up or down</strong> in response to changing demand. Unlike scalability (planned growth), elasticity is dynamic and immediate — resources expand during peak load and shrink when demand drops, so you only pay for what you use."},
+  {id:"d1-10",domain:1,type:"comparison",
+   front:"What is Microsoft 365 vs Office 365?",
+   back:"<strong>Office 365</strong> = just the productivity apps (Word, Excel, Teams, etc.) and cloud services. <strong>Microsoft 365</strong> = Office 365 + <strong>Windows 10/11 Enterprise</strong> + <strong>EMS (Enterprise Mobility + Security)</strong>. M365 is the fuller, more security-focused bundle."},
+  {id:"d1-11",domain:1,type:"concept",
+   front:"What is a 'consumption-based model' in cloud?",
+   back:"You <strong>pay only for the resources you use</strong> — no upfront cost, no wasted spend on idle capacity. Usage is metered (CPU hours, storage GB, API calls). This is the core cloud billing model, contrasted with fixed-price on-premises licensing."},
+  {id:"d1-12",domain:1,type:"concept",
+   front:"What is 'lift and shift' cloud migration?",
+   back:"Moving an existing workload to the cloud <strong>without redesigning it</strong> — you take it as-is and run it on cloud VMs. Fast and low-risk but doesn't fully leverage cloud-native capabilities. Also called <strong>rehost</strong>. Contrast with refactor (re-architect for cloud)."},
+  {id:"d1-13",domain:1,type:"exam-tip",
+   front:"Exam tip: Who is responsible for physical data center security in a public cloud?",
+   back:"Always the <strong>cloud provider</strong> (Microsoft). In the shared responsibility model, Microsoft is always responsible for the physical data center, network, and hosts. You are responsible for your data, identities, and (in IaaS) your OS and apps."},
+  {id:"d1-14",domain:1,type:"concept",
+   front:"What is high availability (HA) in cloud?",
+   back:"The ability of a service to remain <strong>operational and accessible</strong> with minimal downtime. Measured by SLA uptime percentages (e.g., 99.9% = ~8.7 hrs downtime/year, 99.99% = ~52 mins). Achieved via redundancy, failover, and geo-replication."},
+  {id:"d1-15",domain:1,type:"term",
+   front:"What is a geo-redundant cloud deployment?",
+   back:"Deploying resources across <strong>multiple geographic regions</strong> so that if one region fails, the other continues serving users. Microsoft's datacenters are organized into <strong>regions</strong> (e.g., East US, West Europe) and <strong>availability zones</strong> within regions for fault isolation."},
+
+  // ── DOMAIN 2: M365 Apps & Services (20 cards) ────────────────────────────
+  {id:"d2-01",domain:2,type:"term",
+   front:"What is Microsoft Teams?",
+   back:"Microsoft's <strong>hub for teamwork</strong> in M365. Combines <strong>chat, video meetings, voice calling, file sharing, and app integration</strong> in one place. Channels organize conversations by topic. Replaces Skype for Business. Tightly integrated with SharePoint and OneDrive."},
+  {id:"d2-02",domain:2,type:"comparison",
+   front:"SharePoint vs OneDrive — when do you use each?",
+   back:"<strong>OneDrive</strong> = personal cloud storage for individual files (your My Documents in the cloud). <strong>SharePoint</strong> = team/organizational sites for <strong>collaboration</strong>, intranet portals, document libraries shared across a team. Teams channels use SharePoint document libraries behind the scenes."},
+  {id:"d2-03",domain:2,type:"term",
+   front:"What is Exchange Online?",
+   back:"The <strong>cloud-hosted email and calendar service</strong> in M365. Provides email, shared calendars, contacts, and tasks. Replaces on-premises Exchange Server. Accessed via Outlook (desktop, web, mobile). Includes 50 GB+ mailbox storage per user."},
+  {id:"d2-04",domain:2,type:"term",
+   front:"What is Microsoft Intune?",
+   back:"Microsoft's <strong>cloud-based Mobile Device Management (MDM) and Mobile Application Management (MAM)</strong> solution. Lets IT enroll, configure, and remotely wipe devices. Can enforce policies (require PIN, encrypt disk). Part of Microsoft Endpoint Manager."},
+  {id:"d2-05",domain:2,type:"comparison",
+   front:"Windows 365 vs Azure Virtual Desktop — what's the difference?",
+   back:"<strong>Windows 365</strong>: Fixed per-user, per-month pricing. Your Windows PC streamed from the cloud — simple, no Azure expertise needed. <strong>Azure Virtual Desktop (AVD)</strong>: More flexible, pay-per-usage, supports multi-session, requires Azure setup. AVD is for IT pros who need customization."},
+  {id:"d2-06",domain:2,type:"term",
+   front:"What is Microsoft Viva?",
+   back:"An <strong>Employee Experience Platform</strong> built on top of M365 and Teams. Key modules: <strong>Viva Connections</strong> (company intranet in Teams), <strong>Viva Learning</strong> (L&D in Teams), <strong>Viva Insights</strong> (productivity analytics), <strong>Viva Engage</strong> (enterprise social, formerly Yammer)."},
+  {id:"d2-07",domain:2,type:"concept",
+   front:"What does Microsoft Copilot in M365 do?",
+   back:"An AI assistant powered by large language models + your M365 data (emails, docs, meetings). Embedded in Word, Excel, PowerPoint, Outlook, Teams. Can <strong>draft documents, summarize meetings, analyze data, and generate content</strong>. Requires a separate <strong>Microsoft 365 Copilot add-on license</strong>."},
+  {id:"d2-08",domain:2,type:"concept",
+   front:"What is Windows as a Service (WaaS)?",
+   back:"Microsoft's model for delivering <strong>continuous Windows 10/11 updates</strong> rather than major OS releases every few years. Uses <strong>update channels</strong>: <strong>Windows Insider</strong> (early preview), <strong>General Availability Channel</strong> (production), and <strong>Long-Term Servicing Channel (LTSC)</strong> for fixed devices."},
+  {id:"d2-09",domain:2,type:"term",
+   front:"What is the Microsoft 365 Admin Center?",
+   back:"The <strong>web-based administration portal</strong> for Microsoft 365 (admin.microsoft.com). Admins use it to manage users, assign licenses, configure services, view reports, and access service health. Sub-portals exist for Teams, Exchange, Compliance, Security, and Entra ID."},
+  {id:"d2-10",domain:2,type:"term",
+   front:"What is the Power Platform?",
+   back:"A suite of <strong>low-code/no-code tools</strong> built on M365 data: <strong>Power Apps</strong> (build custom apps), <strong>Power Automate</strong> (automate workflows), <strong>Power BI</strong> (data analytics & dashboards), <strong>Power Pages</strong> (external-facing websites). Connects to hundreds of data sources via connectors."},
+  {id:"d2-11",domain:2,type:"concept",
+   front:"What is Microsoft Bookings?",
+   back:"An <strong>online appointment scheduling app</strong> in M365. Customers book appointments via a public web page; staff calendars are automatically updated. Useful for businesses like clinics, consulting firms, and IT help desks. Integrates with Exchange/Outlook calendars."},
+  {id:"d2-12",domain:2,type:"term",
+   front:"What is Yammer / Viva Engage?",
+   back:"Microsoft's <strong>enterprise social networking</strong> platform — think internal Facebook/Twitter for your organization. Now branded as <strong>Viva Engage</strong>. Enables company-wide announcements, communities of interest, and open conversation beyond small team channels."},
+  {id:"d2-13",domain:2,type:"concept",
+   front:"What is Microsoft Stream?",
+   back:"The <strong>video streaming service</strong> in M365. Teams meeting recordings are stored in Stream (or OneDrive/SharePoint). Supports uploading, sharing, and watching video content within your organization — like an internal YouTube."},
+  {id:"d2-14",domain:2,type:"concept",
+   front:"What is Microsoft Forms?",
+   back:"A tool to create <strong>surveys, quizzes, and polls</strong>. Responses collected in real-time with built-in charts/reports. Can be shared with internal users or external respondents. Results can be exported to Excel or analyzed in Power BI. Included in most M365 plans."},
+  {id:"d2-15",domain:2,type:"concept",
+   front:"What is Microsoft Planner?",
+   back:"A <strong>visual task management tool</strong> (kanban board style) for team work. Teams create plans, assign tasks, set due dates, and track progress. Integrated into Teams as a tab. Part of the Microsoft 365 productivity stack (alongside To Do for personal tasks)."},
+  {id:"d2-16",domain:2,type:"exam-tip",
+   front:"Exam tip: What M365 tool would you use for an org-wide intranet?",
+   back:"<strong>SharePoint</strong> (communication sites) for the intranet content, and <strong>Viva Connections</strong> to surface that intranet inside Microsoft Teams so employees don't need to leave Teams to access it."},
+  {id:"d2-17",domain:2,type:"concept",
+   front:"What is Microsoft Defender for Endpoint? (context: M365 Apps domain)",
+   back:"An <strong>endpoint security platform</strong> included in some M365 plans (like M365 Business Premium). Provides threat detection, investigation, and response (EDR) for Windows, macOS, iOS, Android devices. Part of the Microsoft Defender XDR suite."},
+  {id:"d2-18",domain:2,type:"term",
+   front:"What is Universal Print?",
+   back:"A <strong>cloud-based print solution</strong> in M365 that eliminates the need for on-premises print servers. Printers are registered with Universal Print; users print from anywhere via the cloud. IT manages printers and access through the M365 Admin Center."},
+  {id:"d2-19",domain:2,type:"concept",
+   front:"What is Microsoft To Do?",
+   back:"A <strong>personal task management app</strong> in M365. Syncs across devices, integrates with Outlook tasks and Planner. The 'My Day' feature helps prioritize daily work. Separate from Planner (which is team-based) — To Do is for individual task lists."},
+  {id:"d2-20",domain:2,type:"exam-tip",
+   front:"Exam tip: What M365 product provides MDM + MAM?",
+   back:"<strong>Microsoft Intune</strong>. MDM (Mobile Device Management) = manage the whole device. MAM (Mobile Application Management) = manage only the apps/data on a device (useful for BYOD where you don't control the device itself). Both capabilities are in Intune."},
+
+  // ── DOMAIN 3: Security, Compliance & Trust (20 cards) ────────────────────
+  {id:"d3-01",domain:3,type:"concept",
+   front:"What are the three Zero Trust principles?",
+   back:"<strong>1. Verify explicitly</strong> — always authenticate and authorize based on all available signals (identity, device, location, etc.). <strong>2. Least privilege access</strong> — limit user rights to only what's needed. <strong>3. Assume breach</strong> — design as if the network is already compromised; minimize blast radius."},
+  {id:"d3-02",domain:3,type:"term",
+   front:"What is Microsoft Entra ID?",
+   back:"Microsoft's <strong>cloud-based identity and access management (IAM) service</strong>, formerly known as Azure Active Directory (Azure AD). Provides <strong>single sign-on (SSO), MFA, Conditional Access</strong>, and identity governance for users accessing M365 and other cloud apps."},
+  {id:"d3-03",domain:3,type:"comparison",
+   front:"MFA vs SSPR — what does each do?",
+   back:"<strong>MFA (Multi-Factor Authentication)</strong>: Requires a second verification step at login (authenticator app, SMS, phone call) to confirm identity — prevents stolen passwords from being enough. <strong>SSPR (Self-Service Password Reset)</strong>: Lets users reset their own passwords without calling IT helpdesk."},
+  {id:"d3-04",domain:3,type:"concept",
+   front:"What is Conditional Access in Microsoft Entra?",
+   back:"A policy engine that evaluates <strong>signals</strong> (user, device, location, app, risk level) and enforces <strong>access controls</strong> (allow, block, require MFA, require compliant device). Example: 'Require MFA for all users accessing Exchange Online from outside the corporate network.'"},
+  {id:"d3-05",domain:3,type:"term",
+   front:"What is Microsoft Defender XDR?",
+   back:"An <strong>extended detection and response (XDR)</strong> suite that correlates signals across: <strong>Defender for Endpoint</strong> (devices), <strong>Defender for Office 365</strong> (email/Teams), <strong>Defender for Identity</strong> (on-prem AD), <strong>Defender for Cloud Apps</strong> (SaaS apps). Unified view in Microsoft 365 Defender portal."},
+  {id:"d3-06",domain:3,type:"term",
+   front:"What is Microsoft Purview?",
+   back:"Microsoft's <strong>unified data governance and compliance</strong> solution. Covers: <strong>Information Protection</strong> (classify & label data), <strong>Data Loss Prevention (DLP)</strong>, <strong>Records Management</strong>, <strong>eDiscovery</strong>, <strong>Audit</strong>, and <strong>Communication Compliance</strong>. Replaced the old Microsoft 365 Compliance Center."},
+  {id:"d3-07",domain:3,type:"comparison",
+   front:"Sensitivity Labels vs Retention Labels — what's the difference?",
+   back:"<strong>Sensitivity Labels</strong>: Classify and <strong>protect</strong> content (encrypt, restrict access, add visual markings). Applied by users or auto-classification. <strong>Retention Labels</strong>: Control <strong>how long</strong> content is kept or when it must be deleted. Used for records management and regulatory compliance. Both are part of Microsoft Purview."},
+  {id:"d3-08",domain:3,type:"term",
+   front:"What is Microsoft Priva?",
+   back:"A Microsoft solution for <strong>privacy risk management</strong>. Helps organizations find personal data, understand privacy risks (oversharing, data transfers), and fulfill <strong>data subject requests (DSRs)</strong> — like GDPR right-to-access or right-to-erasure requests. Separate from Purview compliance tools."},
+  {id:"d3-09",domain:3,type:"concept",
+   front:"What is RBAC (Role-Based Access Control)?",
+   back:"A security model where permissions are assigned to <strong>roles</strong>, and users are assigned to roles — not granted permissions directly. Enforces <strong>least privilege</strong> (users get only the access they need for their job). In M365, admin roles include Global Admin, User Admin, Billing Admin, etc."},
+  {id:"d3-10",domain:3,type:"concept",
+   front:"What is Compliance Manager?",
+   back:"A tool in Microsoft Purview that <strong>tracks your compliance posture</strong> against regulatory standards (GDPR, ISO 27001, NIST, HIPAA). Provides a <strong>Compliance Score</strong>, lists improvement actions with step-by-step guidance, and maps Microsoft controls vs your responsibilities."},
+  {id:"d3-11",domain:3,type:"term",
+   front:"What is the Service Trust Portal?",
+   back:"Microsoft's public portal (servicetrust.microsoft.com) providing <strong>audit reports, compliance documents, and trust information</strong> about Microsoft cloud services — SOC reports, ISO certifications, penetration test results, data protection details. Used by compliance and legal teams."},
+  {id:"d3-12",domain:3,type:"concept",
+   front:"What is Data Loss Prevention (DLP) in Purview?",
+   back:"Policies that <strong>detect and prevent</strong> sensitive data (credit card numbers, SSNs, health info) from being shared inappropriately — via email, Teams messages, SharePoint, or device upload. DLP rules can warn users, block actions, or notify admins when violations occur."},
+  {id:"d3-13",domain:3,type:"concept",
+   front:"What is Microsoft Defender for Cloud Apps?",
+   back:"A <strong>Cloud Access Security Broker (CASB)</strong> — it provides visibility and control over <strong>SaaS app usage</strong> in your organization. Can discover shadow IT (apps used without IT approval), enforce policies (block downloads from unmanaged devices), and investigate suspicious activity in cloud apps."},
+  {id:"d3-14",domain:3,type:"term",
+   front:"What is Microsoft Entra Privileged Identity Management (PIM)?",
+   back:"A service that manages, controls, and monitors <strong>privileged admin roles</strong>. Provides <strong>just-in-time access</strong> — admins request elevated access for a limited time rather than having it permanently. Reduces risk from compromised admin accounts. Requires Entra ID P2 license."},
+  {id:"d3-15",domain:3,type:"exam-tip",
+   front:"Exam tip: What's the difference between authentication and authorization?",
+   back:"<strong>Authentication</strong> = proving <em>who you are</em> (login with credentials, MFA). <strong>Authorization</strong> = determining <em>what you can access</em> (permissions, roles). Entra ID handles both. Authentication happens first; authorization decisions follow based on identity + policy."},
+  {id:"d3-16",domain:3,type:"concept",
+   front:"What is Microsoft Secure Score?",
+   back:"A <strong>measurement of your organization's security posture</strong> in the Microsoft 365 Defender portal. Higher = more security controls enabled. Provides a prioritized list of recommended actions (enable MFA, block legacy auth, etc.) to improve your score. Updated as you implement changes."},
+  {id:"d3-17",domain:3,type:"term",
+   front:"What is eDiscovery in Microsoft Purview?",
+   back:"Tools for <strong>identifying, preserving, collecting, and exporting</strong> content for legal investigations or compliance requests. Admins can place <strong>Legal Holds</strong> to preserve content, run <strong>Content Searches</strong> across M365 (mailboxes, Teams, SharePoint), and export results for legal counsel."},
+  {id:"d3-18",domain:3,type:"concept",
+   front:"What is Microsoft Defender for Identity?",
+   back:"A security solution that monitors <strong>on-premises Active Directory (AD)</strong> for threats. Detects suspicious behaviors like pass-the-hash attacks, lateral movement, and compromised credentials by analyzing domain controller traffic. Part of the Defender XDR suite."},
+  {id:"d3-19",domain:3,type:"concept",
+   front:"What is Insider Risk Management in Purview?",
+   back:"Detects and investigates <strong>risky activities by internal users</strong> — like data theft before an employee resignation, policy violations, or IP leakage. Uses machine learning to correlate signals from M365 activities. Designed to catch insider threats while respecting privacy."},
+  {id:"d3-20",domain:3,type:"exam-tip",
+   front:"Exam tip: Which M365 feature would help detect a compromised user account?",
+   back:"<strong>Microsoft Entra ID Protection</strong> (part of Entra ID P2). It uses machine learning to detect <strong>risky sign-ins</strong> (impossible travel, unfamiliar locations, leaked credentials) and can automatically enforce MFA or block sign-ins based on risk level. Also integrates with Conditional Access."},
+
+  // ── DOMAIN 4: Pricing, Licensing & Support (15 cards) ─────────────────────
+  {id:"d4-01",domain:4,type:"comparison",
+   front:"Microsoft 365 Business vs Enterprise plans — what's the key difference?",
+   back:"<strong>Business plans</strong> (Basic/Standard/Premium): Up to <strong>300 users</strong>. Designed for SMBs. Simpler feature set. <strong>Enterprise plans</strong> (F1, E1, E3, E5): <strong>Unlimited users</strong>. Designed for large orgs. More advanced security, compliance, and analytics features. E5 is the most comprehensive."},
+  {id:"d4-02",domain:4,type:"comparison",
+   front:"M365 Business Basic vs Standard vs Premium — key differences?",
+   back:"<strong>Basic</strong>: Web/mobile apps only + Teams + Exchange + SharePoint. No desktop Office apps. <strong>Standard</strong>: Adds desktop Office apps (Word, Excel, etc.) + Bookings. <strong>Premium</strong>: Adds <strong>advanced security</strong> (Intune, Defender for Business, Entra P1, Azure AD P1, Information Protection)."},
+  {id:"d4-03",domain:4,type:"comparison",
+   front:"Enterprise Agreement (EA) vs Cloud Solution Provider (CSP) — what's the difference?",
+   back:"<strong>EA</strong>: 3-year commitment, typically 500+ users/devices, purchased directly from Microsoft. Best for large orgs wanting price stability. <strong>CSP</strong>: Month-to-month or annual subscription through a Microsoft partner. More flexible, partner provides support. Best for SMBs and orgs wanting managed services."},
+  {id:"d4-04",domain:4,type:"concept",
+   front:"What is a Microsoft SLA?",
+   back:"A <strong>Service Level Agreement</strong> — Microsoft's contractual commitment to uptime. If Microsoft fails to meet the SLA, customers get <strong>service credits</strong> (billing credits). MS-900 key SLAs: Most M365 services = <strong>99.9% uptime</strong> (some = 99.99%). Read the SLA for each service."},
+  {id:"d4-05",domain:4,type:"concept",
+   front:"99.9% vs 99.99% uptime — how much downtime is allowed per month?",
+   back:"<strong>99.9%</strong> = up to ~<strong>43.8 minutes</strong> of downtime per month (~8.7 hrs/year). <strong>99.99%</strong> = up to ~<strong>4.4 minutes</strong> per month (~52 mins/year). The more 9s, the less downtime allowed. Exam may ask you to know which tier a service falls under."},
+  {id:"d4-06",domain:4,type:"concept",
+   front:"When does Microsoft issue service credits?",
+   back:"When Microsoft <strong>fails to meet the SLA uptime guarantee</strong>. Credits are applied to your future bill — not a cash refund. You must <strong>file a claim</strong> within a certain timeframe. Credits are a percentage of your monthly fee based on how far uptime fell below the SLA."},
+  {id:"d4-07",domain:4,type:"comparison",
+   front:"Microsoft Unified Support vs Premier Support",
+   back:"<strong>Premier Support</strong>: Legacy, high-cost enterprise support with dedicated technical account manager. <strong>Unified Support</strong>: Replaced Premier. Three tiers: <strong>Developer</strong> (community + 1 business-hr response), <strong>Standard</strong> (faster response), <strong>Pro Direct</strong> (fastest, proactive services). All include 24/7 critical support."},
+  {id:"d4-08",domain:4,type:"term",
+   front:"What is FastTrack for Microsoft 365?",
+   back:"A <strong>free Microsoft service</strong> for eligible M365 customers (150+ licenses) that provides <strong>guided onboarding and adoption assistance</strong>. Microsoft engineers and partners help you deploy and configure M365 services at no extra cost. Available through the FastTrack portal."},
+  {id:"d4-09",domain:4,type:"concept",
+   front:"What is the Microsoft 365 Message Center?",
+   back:"Found in the M365 Admin Center, Message Center provides <strong>advance notices of planned changes</strong> to Microsoft 365 services — new features, deprecations, and action required items. Admins should monitor it regularly to prepare for upcoming changes before they roll out."},
+  {id:"d4-10",domain:4,type:"concept",
+   front:"What is the M365 Service Health Dashboard?",
+   back:"A real-time view in the M365 Admin Center showing the <strong>current health status of all M365 services</strong> — active incidents, advisories, and history. If a service is degraded, it appears here with root cause analysis and resolution updates. First place to check during outages."},
+  {id:"d4-11",domain:4,type:"exam-tip",
+   front:"Exam tip: Which M365 license includes advanced security features like Intune and Defender?",
+   back:"<strong>Microsoft 365 Business Premium</strong> (for ≤300 users) and <strong>Microsoft 365 E3/E5</strong> (enterprise). Business Basic and Standard do NOT include Intune or advanced security. E5 adds Defender for Endpoint P2, Entra ID P2, Purview E5 compliance. Know the feature tiers!"},
+  {id:"d4-12",domain:4,type:"concept",
+   front:"What is the Microsoft 365 Admin Center billing section used for?",
+   back:"Admins can: <strong>view subscriptions and licenses, assign/remove licenses, purchase new services, set up billing profiles, view invoices, and manage payment methods</strong>. Also shows license counts and allows toggling between annual and monthly billing where available."},
+  {id:"d4-13",domain:4,type:"concept",
+   front:"What is the Microsoft Azure Pricing Calculator?",
+   back:"A <strong>free web tool</strong> to estimate monthly costs for Azure services. While more relevant to Azure, the MS-900 exam expects you to know that Microsoft provides cost estimation tools. For M365, costs are per-user/per-month based on the selected plan — no calculator needed."},
+  {id:"d4-14",domain:4,type:"comparison",
+   front:"Monthly vs Annual M365 subscription commitment — what's the trade-off?",
+   back:"<strong>Annual (paid monthly)</strong>: Lower per-user price, but 12-month commitment. Best for stable headcount. <strong>Annual (paid upfront)</strong>: Additional discount. <strong>Monthly (no commitment)</strong>: Highest per-user price, but full flexibility — cancel anytime. Good for seasonal workers or uncertain headcount."},
+  {id:"d4-15",domain:4,type:"exam-tip",
+   front:"Exam tip: Where can you find Microsoft's compliance certifications and audit reports?",
+   back:"The <strong>Service Trust Portal</strong> (servicetrust.microsoft.com). It contains SOC 1/2/3 reports, ISO certifications, GDPR resources, penetration test results, and compliance guides for Microsoft cloud services. Free to access, though some documents require sign-in."}
+];
+
+// ─── STATE & DECK ──────────────────────────────────────────────────────────
+const LS_KEY = 'ms900_flashcards';
+let state = {};      // { cardId: "known" | "review" }
+let deck  = [];      // current filtered & ordered card list
+let deckIdx = 0;
+let activeDomain = 0;  // 0 = all
+let activeMode = 'all';
+let shuffleOn = false;
+
+function loadState() {
+  try { state = JSON.parse(localStorage.getItem(LS_KEY)) || {}; } catch { state = {}; }
+}
+function saveState() {
+  localStorage.setItem(LS_KEY, JSON.stringify(state));
+}
+
+// ─── DECK BUILDING ─────────────────────────────────────────────────────────
+function buildDeck() {
+  let cards = FLASHCARDS;
+  if (activeDomain > 0) cards = cards.filter(c => c.domain === activeDomain);
+  if (activeMode === 'unseen')  cards = cards.filter(c => !state[c.id]);
+  if (activeMode === 'review')  cards = cards.filter(c => state[c.id] === 'review');
+  if (activeMode === 'known')   cards = cards.filter(c => state[c.id] === 'known');
+  if (shuffleOn) cards = shuffle([...cards]);
+  deck = cards;
+  deckIdx = 0;
+}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+// ─── RENDERING ─────────────────────────────────────────────────────────────
+const TYPE_LABELS = {term:'Term', concept:'Concept', comparison:'Compare', 'exam-tip':'Exam Tip'};
+const DOMAIN_LABELS = {1:'D1 · Cloud', 2:'D2 · M365', 3:'D3 · Security', 4:'D4 · Pricing'};
+
+function renderCard() {
+  const stage = document.getElementById('cardStage');
+  const infoEl = document.getElementById('deckInfo');
+
+  if (deck.length === 0) {
+    stage.innerHTML = `<div class="empty-state"><div class="big">🃏</div><p>No cards match this filter.<br>Try switching to <strong>All Cards</strong> or a different domain.</p></div>`;
+    infoEl.textContent = '0 cards';
+    return;
+  }
+
+  const card = deck[deckIdx];
+  const cardStatus = state[card.id];
+  const domClass = `dom-${card.domain}`;
+  const statusClass = cardStatus === 'known' ? 'status-known' : cardStatus === 'review' ? 'status-review' : '';
+  const statusBadgeText = cardStatus === 'known' ? '✓ Got it' : cardStatus === 'review' ? '↩ Review' : '';
+
+  stage.innerHTML = `
+    <div class="card-scene ${domClass}" id="cardScene">
+      <div class="card-inner ${statusClass}" id="cardInner">
+        <div class="card-face card-front">
+          <span class="card-type-badge">${TYPE_LABELS[card.type] || card.type}</span>
+          <span class="card-domain-badge">${DOMAIN_LABELS[card.domain]}</span>
+          <span class="card-status-badge">${statusBadgeText}</span>
+          <div class="card-question">${card.front}</div>
+          <span class="card-hint">click to reveal answer</span>
+        </div>
+        <div class="card-face card-back">
+          <span class="card-type-badge">${TYPE_LABELS[card.type] || card.type}</span>
+          <span class="card-domain-badge">${DOMAIN_LABELS[card.domain]}</span>
+          <div class="card-answer">${card.back}</div>
+          <span class="card-hint">click to flip back</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-actions">
+      <button class="btn btn-got-it" onclick="markCard('known')">✓ Got it</button>
+      <button class="btn btn-review" onclick="markCard('review')">↩ Still Learning</button>
+      <button class="btn btn-nav" id="btnPrev" onclick="navigate(-1)" ${deckIdx === 0 ? 'disabled' : ''}>← Prev</button>
+      <button class="btn btn-nav" id="btnNext" onclick="navigate(1)" ${deckIdx >= deck.length - 1 ? 'disabled' : ''}>Next →</button>
+      <span class="card-counter">Card ${deckIdx + 1} of ${deck.length}</span>
+    </div>
+  `;
+
+  // Wire up flip
+  document.getElementById('cardScene').addEventListener('click', function() {
+    document.getElementById('cardInner').classList.toggle('flipped');
+  });
+
+  infoEl.textContent = `${deck.length} card${deck.length !== 1 ? 's' : ''}`;
+}
+
+function navigate(dir) {
+  deckIdx = Math.max(0, Math.min(deck.length - 1, deckIdx + dir));
+  renderCard();
+}
+
+function markCard(status) {
+  if (deck.length === 0) return;
+  const card = deck[deckIdx];
+  state[card.id] = status;
+  saveState();
+  updateProgress();
+  // Auto-advance on 'known', stay on 'review'
+  if (status === 'known' && deckIdx < deck.length - 1) {
+    deckIdx++;
+  }
+  renderCard();
+}
+
+// ─── PROGRESS ──────────────────────────────────────────────────────────────
+const DOMAIN_COUNTS = {1:15, 2:20, 3:20, 4:15};
+
+function updateProgress() {
+  [1,2,3,4].forEach(d => {
+    const total = DOMAIN_COUNTS[d];
+    const domainCards = FLASHCARDS.filter(c => c.domain === d);
+    const known = domainCards.filter(c => state[c.id] === 'known').length;
+    const pct = total > 0 ? Math.round((known / total) * 100) : 0;
+
+    // Hero stats
+    const statEl = document.getElementById(`stat-d${d}`);
+    if (statEl) statEl.textContent = `${known}/${total}`;
+
+    // Progress bars
+    const fillEl = document.getElementById(`prog-fill-${d}`);
+    const numsEl = document.getElementById(`prog-nums-${d}`);
+    if (fillEl) fillEl.style.width = `${pct}%`;
+    if (numsEl) numsEl.textContent = `${known} / ${total}`;
+  });
+}
+
+// ─── CONTROLS ──────────────────────────────────────────────────────────────
+function initControls() {
+  // Domain tabs
+  document.getElementById('domainTabs').addEventListener('click', function(e) {
+    const btn = e.target.closest('.dtab');
+    if (!btn) return;
+    activeDomain = parseInt(btn.dataset.domain);
+
+    // Update active class
+    document.querySelectorAll('.dtab').forEach(b => {
+      b.classList.remove('active-all','active-d1','active-d2','active-d3','active-d4');
+    });
+    const cls = activeDomain === 0 ? 'active-all' : `active-d${activeDomain}`;
+    btn.classList.add(cls);
+
+    buildDeck();
+    renderCard();
+  });
+
+  // Mode select
+  document.getElementById('modeSelect').addEventListener('change', function() {
+    activeMode = this.value;
+    buildDeck();
+    renderCard();
+  });
+
+  // Shuffle
+  document.getElementById('shuffleBtn').addEventListener('click', function() {
+    shuffleOn = !shuffleOn;
+    this.classList.toggle('on', shuffleOn);
+    this.textContent = shuffleOn ? '🔀 Shuffled' : '🔀 Shuffle';
+    buildDeck();
+    renderCard();
+  });
+
+  // Reset
+  document.getElementById('resetBtn').addEventListener('click', function() {
+    if (!confirm('Reset all flashcard progress? This cannot be undone.')) return;
+    state = {};
+    saveState();
+    updateProgress();
+    buildDeck();
+    renderCard();
+  });
+}
+
+// ─── KEYBOARD NAV ──────────────────────────────────────────────────────────
+document.addEventListener('keydown', function(e) {
+  if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT') return;
+  if (e.key === 'ArrowLeft')  navigate(-1);
+  if (e.key === 'ArrowRight') navigate(1);
+  if (e.key === ' ' || e.key === 'Enter') {
+    e.preventDefault();
+    const inner = document.getElementById('cardInner');
+    if (inner) inner.classList.toggle('flipped');
+  }
+  if (e.key === '1') markCard('known');
+  if (e.key === '2') markCard('review');
+});
+
+// ─── INIT ──────────────────────────────────────────────────────────────────
+loadState();
+buildDeck();
+renderCard();
+updateProgress();
+initControls();
+</script>
+</body>
+</html>
