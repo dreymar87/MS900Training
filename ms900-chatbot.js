@@ -175,9 +175,32 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
     }
   }
 
+  // ─── MOBILE DETECTION ────────────────────────────────────────────────────
+  function isMobileDevice() {
+    var ua = navigator.userAgent || '';
+    return /Android|iPhone|iPad|iPod|Mobile/i.test(ua) ||
+      (navigator.userAgentData && navigator.userAgentData.mobile);
+  }
+
   // ─── MODEL LOADING ───────────────────────────────────────────────────────
   function startModelLoad() {
     if (modelLoading || modelReady) return;
+
+    // Mobile devices can't reliably run WebGPU compute pipelines — show a clear message
+    if (isMobileDevice()) {
+      setLoadText('');
+      var errEl = document.getElementById('chatbot-load-error');
+      var retryBtn = document.getElementById('chatbot-load-retry');
+      var prog = document.getElementById('chatbot-load-progress');
+      if (prog) prog.style.display = 'none';
+      if (retryBtn) retryBtn.style.display = 'none';
+      if (errEl) {
+        errEl.textContent = 'The AI chatbot requires a desktop browser. WebGPU compute is not yet reliable on mobile — please visit on a PC or Mac.';
+        errEl.style.display = 'block';
+      }
+      return;
+    }
+
     modelLoading = true;
 
     // Hide retry button and error if visible
@@ -188,7 +211,6 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
 
     setLoadText('Loading AI model... (first load may take a while)');
 
-    // Detect GPU f16 compute shader support; fall back to f32 on mobile/limited GPUs
     var modelIdPromise = (navigator.gpu
       ? navigator.gpu.requestAdapter().then(function(adapter) {
           if (!adapter) return MODEL_ID_F32;
