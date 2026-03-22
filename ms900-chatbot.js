@@ -207,6 +207,10 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
     setLoadText('Loading AI model for mobile... (~400 MB, first visit only)');
 
     import('https://esm.run/@huggingface/transformers').then(function(tf) {
+      // Brave and some mobile browsers block cross-origin fetches to huggingface.co;
+      // use a public mirror instead.
+      tf.env.remoteHost = 'https://hf-mirror.com/';
+
       var prog = document.getElementById('chatbot-load-progress');
       var txt = document.getElementById('chatbot-load-text');
 
@@ -287,7 +291,19 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
     var msg = err && err.message ? err.message : String(err);
     var errEl = document.getElementById('chatbot-load-error');
     var retryBtn = document.getElementById('chatbot-load-retry');
-    if (errEl) { errEl.textContent = 'Failed to load model: ' + msg; errEl.style.display = 'block'; }
+
+    // Detect Brave Shields blocking cross-origin model downloads
+    var isBrave = typeof navigator.brave !== 'undefined';
+    var isFetchBlock = /unauthorized|fetch|network|failed to fetch|cors/i.test(msg);
+    var displayMsg;
+    if (isMobileDevice() && (isBrave || isFetchBlock)) {
+      displayMsg = 'Brave Shields is blocking the AI model download. '
+        + 'Tap the Brave lion icon \uD83E\uDD81 in the address bar, turn off Shields for this page, then tap Retry.';
+    } else {
+      displayMsg = 'Failed to load model: ' + msg;
+    }
+
+    if (errEl) { errEl.textContent = displayMsg; errEl.style.display = 'block'; }
     if (retryBtn) retryBtn.style.display = 'inline-block';
     setLoadText('Model failed to load.');
     console.error('Model load error:', err);
