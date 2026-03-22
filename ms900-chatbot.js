@@ -207,9 +207,6 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
     setLoadText('Loading AI model for mobile... (~400 MB, first visit only)');
 
     import('https://esm.run/@huggingface/transformers').then(function(tf) {
-      // Brave and some mobile browsers block cross-origin fetches to huggingface.co;
-      // use a public mirror instead.
-      tf.env.remoteHost = 'https://hf-mirror.com/';
 
       var prog = document.getElementById('chatbot-load-progress');
       var txt = document.getElementById('chatbot-load-text');
@@ -292,13 +289,23 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
     var errEl = document.getElementById('chatbot-load-error');
     var retryBtn = document.getElementById('chatbot-load-retry');
 
-    // Detect Brave Shields blocking cross-origin model downloads
+    // Some privacy-focused browsers block cross-origin fetches to huggingface.co
+    var isFetchBlock = /unauthorized|failed to fetch|networkerror|cors/i.test(msg);
+    var ua = navigator.userAgent || '';
     var isBrave = typeof navigator.brave !== 'undefined';
-    var isFetchBlock = /unauthorized|fetch|network|failed to fetch|cors/i.test(msg);
+    var isDDG = /DuckDuckGo/i.test(ua);
     var displayMsg;
-    if (isMobileDevice() && (isBrave || isFetchBlock)) {
-      displayMsg = 'Brave Shields is blocking the AI model download. '
-        + 'Tap the Brave lion icon \uD83E\uDD81 in the address bar, turn off Shields for this page, then tap Retry.';
+    if (isFetchBlock) {
+      if (isBrave) {
+        displayMsg = 'Brave Shields is blocking the AI model download. '
+          + 'Tap the Brave lion \uD83E\uDD81 in the address bar, turn off Shields for this page, then tap Retry.';
+      } else if (isDDG) {
+        displayMsg = 'DuckDuckGo\u2019s privacy protection is blocking the AI model download. '
+          + 'Try opening this page in Chrome or Firefox instead.';
+      } else {
+        displayMsg = 'Your browser\u2019s privacy settings are blocking the AI model download from huggingface.co. '
+          + 'Try Chrome or Firefox, or disable tracking protection for this page, then tap Retry.';
+      }
     } else {
       displayMsg = 'Failed to load model: ' + msg;
     }
