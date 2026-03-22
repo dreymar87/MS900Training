@@ -203,44 +203,81 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
   }
 
   function loadMobileModel() {
-    // transformers.js runs via WebAssembly (CPU) — no WebGPU required, works on all mobile browsers
+    // Run transformers.js in a Web Worker so WASM inference never blocks the main thread
     setLoadText('Loading AI model for mobile... (~400 MB, first visit only)');
 
-    import('https://esm.run/@huggingface/transformers').then(function(tf) {
+    var workerSrc = [
+      'import { pipeline } from "https://esm.run/@huggingface/transformers";',
+      'let generator = null;',
+      'self.onmessage = async function(e) {',
+      '  const { type, payload } = e.data;',
+      '  if (type === "load") {',
+      '    try {',
+      '      generator = await pipeline("text-generation", payload.modelId, {',
+      '        dtype: "q4", device: "wasm",',
+      '        progress_callback: function(d) { self.postMessage({ type: "progress", data: d }); }',
+      '      });',
+      '      self.postMessage({ type: "ready" });',
+      '    } catch(err) { self.postMessage({ type: "error", message: err.message || String(err) }); }',
+      '  } else if (type === "generate") {',
+      '    try {',
+      '      const result = await generator(payload.messages, { max_new_tokens: 200 });',
+      '      const gen = result[0].generated_text;',
+      '      const reply = Array.isArray(gen) ? gen[gen.length - 1].content : String(gen);',
+      '      self.postMessage({ type: "result", reply: reply });',
+      '    } catch(err) { self.postMessage({ type: "error", message: err.message || String(err) }); }',
+      '  }',
+      '};'
+    ].join('\n');
 
-      var prog = document.getElementById('chatbot-load-progress');
-      var txt = document.getElementById('chatbot-load-text');
+    var blob = new Blob([workerSrc], { type: 'application/javascript' });
+    var worker = new Worker(URL.createObjectURL(blob), { type: 'module' });
 
-      var progressCb = function(data) {
-        if (data.status === 'progress' && prog && txt) {
-          prog.value = (data.progress || 0) / 100;
-          txt.textContent = 'Downloading ' + (data.file || 'model') + '… ' + Math.round(data.progress || 0) + '%';
-        } else if (data.status === 'initiate' && txt) {
-          txt.textContent = 'Preparing ' + (data.file || 'model') + '…';
+    worker.postMessage({ type: 'load', payload: { modelId: MOBILE_MODEL_ID } });
+
+    var prog = document.getElementById('chatbot-load-progress');
+    var txt = document.getElementById('chatbot-load-text');
+
+    worker.onmessage = function(e) {
+      var msg = e.data;
+      if (msg.type === 'progress') {
+        var d = msg.data;
+        if (d.status === 'progress' && prog && txt) {
+          prog.value = (d.progress || 0) / 100;
+          txt.textContent = 'Downloading ' + (d.file || 'model') + '… ' + Math.round(d.progress || 0) + '%';
+        } else if (d.status === 'initiate' && txt) {
+          txt.textContent = 'Preparing ' + (d.file || 'model') + '…';
         }
-      };
+      } else if (msg.type === 'ready') {
+        chatFn = function(allMessages) {
+          return new Promise(function(resolve, reject) {
+            worker.postMessage({ type: 'generate', payload: { messages: allMessages } });
+            worker.addEventListener('message', function handler(ev) {
+              if (ev.data.type === 'result') {
+                worker.removeEventListener('message', handler);
+                resolve(ev.data.reply);
+              } else if (ev.data.type === 'error') {
+                worker.removeEventListener('message', handler);
+                reject(new Error(ev.data.message));
+              }
+            });
+          });
+        };
+        modelReady = true;
+        modelLoading = false;
+        showChatView();
+        loadHistory();
+        addSystemMessage('Ready! Ask me anything about MS-900 exam topics.');
+      } else if (msg.type === 'error') {
+        worker.terminate();
+        onLoadError(new Error(msg.message));
+      }
+    };
 
-      return tf.pipeline('text-generation', MOBILE_MODEL_ID, {
-        dtype: 'q4',
-        device: 'wasm',
-        progress_callback: progressCb
-      });
-    }).then(function(generator) {
-      chatFn = function(allMessages) {
-        return generator(allMessages, { max_new_tokens: 600 }).then(function(result) {
-          var generated = result[0].generated_text;
-          // generated_text is the full message array; last entry is the assistant reply
-          return Array.isArray(generated)
-            ? generated[generated.length - 1].content
-            : String(generated);
-        });
-      };
-      modelReady = true;
-      modelLoading = false;
-      showChatView();
-      loadHistory();
-      addSystemMessage('Ready! Ask me anything about MS-900 exam topics.');
-    }).catch(onLoadError);
+    worker.onerror = function(e) {
+      worker.terminate();
+      onLoadError(new Error(e.message || 'Worker failed'));
+    };
   }
 
   function loadDesktopModel() {
