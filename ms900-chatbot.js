@@ -1,6 +1,7 @@
 /* ─── MS-900 AI Study Assistant ─────────────────────────────────────────────
-   Floating chatbot widget powered by OpenAI GPT.
-   - API key stored in sessionStorage (cleared on tab close)
+   Floating chatbot widget powered by WebLLM (runs offline in your browser).
+   - No API key required — the model runs locally using WebGPU
+   - Model is cached after first download (no re-download on page reload)
    - Extracts current page content for context-aware answers
    - Includes condensed MS-900 knowledge base for cross-page questions
    ──────────────────────────────────────────────────────────────────────────── */
@@ -8,10 +9,9 @@
 (function() {
   'use strict';
 
-  const SESSION_KEY = 'ms900_chatbot_apikey';
   const HISTORY_KEY = 'ms900_chatbot_history';
-  const MAX_HISTORY = 20; // max message pairs to keep in conversation
-  const MODEL = 'gpt-4o-mini'; // cost-effective, fast, good quality
+  const MAX_HISTORY = 10; // max message pairs to keep in conversation
+  const MODEL_ID = 'Llama-3.2-1B-Instruct-q4f16_1-MLC'; // ~800MB, cached after first load
 
   // ─── KNOWLEDGE BASE (condensed from all training pages) ──────────────────
   const KNOWLEDGE_BASE = `
@@ -78,9 +78,11 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
 - Adoption Score (Admin Center) vs Secure Score (Defender Portal) vs Compliance Manager (Purview) — three different scores measuring different things.`;
 
   // ─── CONVERSATION STATE ──────────────────────────────────────────────────
-  let messages = []; // OpenAI message format: [{role, content}, ...]
+  let messages = []; // chat message history: [{role, content}, ...]
   let isOpen = false;
-  let isSetup = true; // show API key setup initially
+  let engine = null;      // WebLLM engine instance
+  let modelReady = false; // true once model is loaded
+  let modelLoading = false;
 
   // ─── DOM CREATION ────────────────────────────────────────────────────────
   function createWidget() {
@@ -108,7 +110,7 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
         <div class="chatbot-header-icon">🤖</div>
         <div class="chatbot-header-text">
           <h3>MS-900 Study Assistant</h3>
-          <span>Powered by GPT &middot; Ask anything about MS-900</span>
+          <span>Offline AI &middot; Runs in your browser</span>
         </div>
         <div class="chatbot-header-actions">
           <button class="chatbot-header-btn" id="chatbot-clear" title="Clear chat">🗑</button>
@@ -116,18 +118,17 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
         </div>
       </div>
       <div id="chatbot-setup" class="chatbot-setup">
-        <h4>Enter your OpenAI API Key</h4>
-        <p>Your key is stored in sessionStorage and is automatically cleared when you close this browser tab. It is only sent directly to OpenAI over HTTPS.</p>
-        <input type="password" id="chatbot-key-input" placeholder="sk-..." autocomplete="off" spellcheck="false">
-        <button id="chatbot-key-submit">Start Studying</button>
-        <div class="chatbot-key-note">Your key never leaves your browser except to call the OpenAI API directly. It is not stored permanently or sent to any other server.</div>
+        <div class="chatbot-load-icon">🧠</div>
+        <h4>Loading AI Model</h4>
+        <p>The AI runs entirely in your browser — no internet needed after the first download (~800 MB, cached automatically).</p>
+        <progress id="chatbot-load-progress" value="0" max="1" style="width:100%;margin:10px 0;accent-color:#6366f1"></progress>
+        <div id="chatbot-load-text" class="chatbot-key-note" style="text-align:center">Waiting to start...</div>
+        <div id="chatbot-load-error" style="display:none;color:#f87171;margin-top:8px;font-size:0.85em;text-align:center"></div>
+        <button id="chatbot-load-retry" style="display:none;margin-top:10px">Retry</button>
       </div>
       <div class="chatbot-messages" id="chatbot-messages" style="display:none">
       </div>
       <div class="chatbot-input-area" id="chatbot-input-area" style="display:none">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <button class="chatbot-clear-key" id="chatbot-remove-key">Remove API key</button>
-        </div>
         <div class="chatbot-input-row">
           <textarea class="chatbot-input" id="chatbot-input" placeholder="Ask about MS-900 topics..." rows="1"></textarea>
           <button class="chatbot-send" id="chatbot-send" title="Send">➤</button>
@@ -140,8 +141,7 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
     toggle.addEventListener('click', togglePanel);
     document.getElementById('chatbot-close').addEventListener('click', togglePanel);
     document.getElementById('chatbot-clear').addEventListener('click', clearChat);
-    document.getElementById('chatbot-key-submit').addEventListener('click', submitKey);
-    document.getElementById('chatbot-remove-key').addEventListener('click', removeKey);
+    document.getElementById('chatbot-load-retry').addEventListener('click', startModelLoad);
     document.getElementById('chatbot-send').addEventListener('click', sendMessage);
 
     const input = document.getElementById('chatbot-input');
@@ -157,17 +157,8 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
       this.style.height = Math.min(this.scrollHeight, 100) + 'px';
     });
 
-    // Allow Enter on API key input
-    document.getElementById('chatbot-key-input').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') submitKey();
-    });
-
-    // Check for existing session key
-    if (getApiKey()) {
-      isSetup = false;
-      showChatView();
-      addSystemMessage('Welcome back! Ask me anything about MS-900.');
-    }
+    // Start loading the model in the background immediately
+    startModelLoad();
   }
 
   // ─── PANEL TOGGLE ────────────────────────────────────────────────────────
@@ -178,59 +169,65 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
     panel.classList.toggle('visible', isOpen);
     toggle.classList.toggle('open', isOpen);
     toggle.innerHTML = isOpen ? '✕' : '💬';
-    if (isOpen && !isSetup) {
+    if (isOpen && modelReady) {
       setTimeout(function() { document.getElementById('chatbot-input').focus(); }, 200);
     }
   }
 
-  // ─── API KEY MANAGEMENT ──────────────────────────────────────────────────
-  function getApiKey() {
-    try { return sessionStorage.getItem(SESSION_KEY) || ''; }
-    catch(e) { return ''; }
+  // ─── MODEL LOADING ───────────────────────────────────────────────────────
+  function startModelLoad() {
+    if (modelLoading || modelReady) return;
+    modelLoading = true;
+
+    // Hide retry button and error if visible
+    var retryBtn = document.getElementById('chatbot-load-retry');
+    var errEl = document.getElementById('chatbot-load-error');
+    if (retryBtn) retryBtn.style.display = 'none';
+    if (errEl) errEl.style.display = 'none';
+
+    setLoadText('Loading AI model... (first load may take a while)');
+
+    import('https://esm.run/@mlc-ai/web-llm').then(function(webllm) {
+      var progressCb = function(report) {
+        var prog = document.getElementById('chatbot-load-progress');
+        var txt = document.getElementById('chatbot-load-text');
+        if (prog) prog.value = report.progress || 0;
+        if (txt) txt.textContent = report.text || 'Loading...';
+      };
+
+      return webllm.CreateMLCEngine(MODEL_ID, { initProgressCallback: progressCb });
+    }).then(function(eng) {
+      engine = eng;
+      modelReady = true;
+      modelLoading = false;
+      showChatView();
+      loadHistory();
+      addSystemMessage('Ready! Ask me anything about MS-900 exam topics.');
+    }).catch(function(err) {
+      modelLoading = false;
+      var msg = err && err.message ? err.message : String(err);
+      var errEl = document.getElementById('chatbot-load-error');
+      var retryBtn = document.getElementById('chatbot-load-retry');
+      if (errEl) {
+        errEl.textContent = 'Failed to load model: ' + msg;
+        errEl.style.display = 'block';
+      }
+      if (retryBtn) retryBtn.style.display = 'inline-block';
+      setLoadText('Model failed to load.');
+      console.error('WebLLM load error:', err);
+    });
   }
 
-  function setApiKey(key) {
-    try { sessionStorage.setItem(SESSION_KEY, key); }
-    catch(e) { /* sessionStorage blocked */ }
+  function setLoadText(text) {
+    var el = document.getElementById('chatbot-load-text');
+    if (el) el.textContent = text;
   }
 
-  function submitKey() {
-    const input = document.getElementById('chatbot-key-input');
-    const key = (input.value || '').trim();
-    if (!key.startsWith('sk-') || key.length < 20) {
-      input.style.borderColor = '#f87171';
-      input.setAttribute('placeholder', 'Key must start with sk-...');
-      return;
-    }
-    setApiKey(key);
-    input.value = '';
-    isSetup = false;
-    showChatView();
-    addSystemMessage('Ready! Ask me anything about MS-900 exam topics.');
-  }
-
-  function removeKey() {
-    if (!confirm('Remove your API key? You will need to re-enter it to continue chatting.')) return;
-    try { sessionStorage.removeItem(SESSION_KEY); } catch(e) {}
-    messages = [];
-    try { sessionStorage.removeItem(HISTORY_KEY); } catch(e) {}
-    isSetup = true;
-    showSetupView();
-  }
-
+  // ─── VIEW SWITCHING ──────────────────────────────────────────────────────
   function showChatView() {
     document.getElementById('chatbot-setup').style.display = 'none';
     document.getElementById('chatbot-messages').style.display = 'flex';
     document.getElementById('chatbot-input-area').style.display = 'block';
-    // Restore history
-    loadHistory();
-  }
-
-  function showSetupView() {
-    document.getElementById('chatbot-setup').style.display = 'flex';
-    document.getElementById('chatbot-messages').style.display = 'none';
-    document.getElementById('chatbot-input-area').style.display = 'none';
-    document.getElementById('chatbot-messages').innerHTML = '';
   }
 
   // ─── HISTORY PERSISTENCE (sessionStorage) ────────────────────────────────
@@ -242,10 +239,10 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
 
   function loadHistory() {
     try {
-      const saved = JSON.parse(sessionStorage.getItem(HISTORY_KEY) || '[]');
+      var saved = JSON.parse(sessionStorage.getItem(HISTORY_KEY) || '[]');
       if (saved.length > 0) {
         messages = saved;
-        const container = document.getElementById('chatbot-messages');
+        var container = document.getElementById('chatbot-messages');
         container.innerHTML = '';
         messages.forEach(function(msg) {
           if (msg.role === 'user') appendBubble(msg.content, 'user');
@@ -257,9 +254,8 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
 
   // ─── PAGE CONTEXT EXTRACTION ─────────────────────────────────────────────
   function extractPageContext() {
-    // Get meaningful text from the current page
-    const title = document.title || '';
-    const selectors = [
+    var title = document.title || '';
+    var selectors = [
       '.tldr', '.concept-title', '.concept-desc', '.callout-text',
       '.term-key', '.term-val', '.module-title', '.module-desc',
       '.compare-table', '.hero-sub', '.domain-pill',
@@ -268,38 +264,35 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
       'h1', 'h2', 'h3'
     ];
 
-    let contextParts = ['Current page: ' + title];
+    var contextParts = ['Current page: ' + title];
 
     selectors.forEach(function(sel) {
-      const els = document.querySelectorAll(sel);
+      var els = document.querySelectorAll(sel);
       els.forEach(function(el) {
-        const text = (el.textContent || '').trim();
+        var text = (el.textContent || '').trim();
         if (text.length > 3 && text.length < 2000) {
           contextParts.push(text);
         }
       });
     });
 
-    // Also grab table content
     document.querySelectorAll('.compare-table').forEach(function(table) {
-      const text = table.textContent.replace(/\s+/g, ' ').trim();
+      var text = table.textContent.replace(/\s+/g, ' ').trim();
       if (text.length > 5) contextParts.push('Table: ' + text);
     });
 
-    // Limit total context to avoid token bloat
-    let context = contextParts.join('\n');
-    if (context.length > 6000) context = context.substring(0, 6000) + '...';
+    var context = contextParts.join('\n');
+    if (context.length > 4000) context = context.substring(0, 4000) + '...';
     return context;
   }
 
   // ─── MESSAGE DISPLAY ────────────────────────────────────────────────────
   function appendBubble(text, type) {
-    const container = document.getElementById('chatbot-messages');
-    const div = document.createElement('div');
+    var container = document.getElementById('chatbot-messages');
+    var div = document.createElement('div');
     div.className = 'chatbot-msg ' + type;
 
     if (type === 'bot') {
-      // Basic markdown-like formatting
       div.innerHTML = formatResponse(text);
     } else {
       div.textContent = text;
@@ -310,16 +303,17 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
   }
 
   function addSystemMessage(text) {
-    const container = document.getElementById('chatbot-messages');
-    const div = document.createElement('div');
+    var container = document.getElementById('chatbot-messages');
+    var div = document.createElement('div');
     div.className = 'chatbot-msg system';
     div.textContent = text;
     container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
   }
 
   function showTyping() {
-    const container = document.getElementById('chatbot-messages');
-    const div = document.createElement('div');
+    var container = document.getElementById('chatbot-messages');
+    var div = document.createElement('div');
     div.className = 'chatbot-typing show';
     div.id = 'chatbot-typing';
     div.innerHTML = '<span></span><span></span><span></span>';
@@ -328,12 +322,11 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
   }
 
   function hideTyping() {
-    const el = document.getElementById('chatbot-typing');
+    var el = document.getElementById('chatbot-typing');
     if (el) el.remove();
   }
 
   function formatResponse(text) {
-    // Convert basic markdown patterns to HTML
     return text
       .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*(.+?)\*/g, '<em>$1</em>')
@@ -344,96 +337,46 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
 
   // ─── SEND MESSAGE ────────────────────────────────────────────────────────
   function sendMessage() {
-    const input = document.getElementById('chatbot-input');
-    const text = (input.value || '').trim();
+    if (!modelReady) return;
+
+    var input = document.getElementById('chatbot-input');
+    var text = (input.value || '').trim();
     if (!text) return;
 
-    const apiKey = getApiKey();
-    if (!apiKey) {
-      isSetup = true;
-      showSetupView();
-      return;
-    }
-
-    // Show user message
     appendBubble(text, 'user');
     input.value = '';
     input.style.height = 'auto';
 
-    // Add to conversation
     messages.push({ role: 'user', content: text });
 
-    // Disable input while loading
     input.disabled = true;
     document.getElementById('chatbot-send').disabled = true;
     showTyping();
 
-    // Build API request
-    const pageContext = extractPageContext();
-    const systemMessage = KNOWLEDGE_BASE + '\n\nADDITIONAL CONTEXT FROM CURRENT PAGE:\n' + pageContext;
+    var pageContext = extractPageContext();
+    var systemContent = KNOWLEDGE_BASE + '\n\nADDITIONAL CONTEXT FROM CURRENT PAGE:\n' + pageContext;
+    var recentMessages = messages.slice(-MAX_HISTORY * 2);
 
-    // Keep conversation manageable
-    const recentMessages = messages.slice(-MAX_HISTORY * 2);
-
-    const body = {
-      model: MODEL,
+    engine.chat.completions.create({
       messages: [
-        { role: 'system', content: systemMessage },
-        ...recentMessages
-      ],
+        { role: 'system', content: systemContent }
+      ].concat(recentMessages),
       temperature: 0.3,
-      max_tokens: 800
-    };
-
-    callOpenAI(apiKey, body)
-      .then(function(reply) {
-        hideTyping();
-        messages.push({ role: 'assistant', content: reply });
-        appendBubble(reply, 'bot');
-        saveHistory();
-      })
-      .catch(function(err) {
-        hideTyping();
-        let errorMsg = 'Sorry, something went wrong.';
-        if (err.status === 401) {
-          errorMsg = 'Invalid API key. Please remove and re-enter your key.';
-        } else if (err.status === 429) {
-          errorMsg = 'Rate limited. Please wait a moment and try again.';
-        } else if (err.status === 402) {
-          errorMsg = 'Insufficient API credits. Please check your OpenAI billing.';
-        } else if (err.message) {
-          errorMsg = 'Error: ' + err.message;
-        }
-        addSystemMessage(errorMsg);
-      })
-      .finally(function() {
-        input.disabled = false;
-        document.getElementById('chatbot-send').disabled = false;
-        input.focus();
-      });
-  }
-
-  // ─── OPENAI API CALL ────────────────────────────────────────────────────
-  function callOpenAI(apiKey, body) {
-    return fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + apiKey
-      },
-      body: JSON.stringify(body)
-    }).then(function(res) {
-      if (!res.ok) {
-        var err = new Error('API error');
-        err.status = res.status;
-        throw err;
-      }
-      return res.json();
-    }).then(function(data) {
-      if (data.choices && data.choices[0] && data.choices[0].message) {
-        return data.choices[0].message.content;
-      }
-      throw new Error('Unexpected response format');
+      max_tokens: 600
+    }).then(function(response) {
+      hideTyping();
+      var reply = response.choices[0].message.content;
+      messages.push({ role: 'assistant', content: reply });
+      appendBubble(reply, 'bot');
+      saveHistory();
+    }).catch(function(err) {
+      hideTyping();
+      var msg = err && err.message ? err.message : 'Unknown error';
+      addSystemMessage('Error: ' + msg);
+    }).finally(function() {
+      input.disabled = false;
+      document.getElementById('chatbot-send').disabled = false;
+      input.focus();
     });
   }
 
