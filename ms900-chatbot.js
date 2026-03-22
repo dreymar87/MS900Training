@@ -11,8 +11,9 @@
 
   const HISTORY_KEY = 'ms900_chatbot_history';
   const MAX_HISTORY = 10; // max message pairs to keep in conversation
-  const MODEL_ID_F16 = 'Llama-3.2-1B-Instruct-q4f16_1-MLC'; // ~800MB, requires GPU f16 support
-  const MODEL_ID_F32 = 'Llama-3.2-1B-Instruct-q4f32_1-MLC'; // ~800MB, wider GPU compatibility (mobile)
+  const MODEL_ID_F16 = 'Llama-3.2-1B-Instruct-q4f16_1-MLC';   // ~800MB, requires GPU f16 support
+  const MODEL_ID_F32 = 'Llama-3.2-1B-Instruct-q4f32_1-MLC';   // ~800MB, wider GPU compatibility
+  const MOBILE_MODEL_ID = 'Xenova/Qwen2-0.5B-Instruct';         // ~400MB, CPU/WASM for mobile
 
   // ─── KNOWLEDGE BASE (condensed from all training pages) ──────────────────
   const KNOWLEDGE_BASE = `
@@ -81,7 +82,8 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
   // ─── CONVERSATION STATE ──────────────────────────────────────────────────
   let messages = []; // chat message history: [{role, content}, ...]
   let isOpen = false;
-  let engine = null;      // WebLLM engine instance
+  let engine = null;      // WebLLM engine instance (desktop)
+  let chatFn = null;      // unified chat function, set after either engine loads
   let modelReady = false; // true once model is loaded
   let modelLoading = false;
 
@@ -185,22 +187,6 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
   // ─── MODEL LOADING ───────────────────────────────────────────────────────
   function startModelLoad() {
     if (modelLoading || modelReady) return;
-
-    // Mobile devices can't reliably run WebGPU compute pipelines — show a clear message
-    if (isMobileDevice()) {
-      setLoadText('');
-      var errEl = document.getElementById('chatbot-load-error');
-      var retryBtn = document.getElementById('chatbot-load-retry');
-      var prog = document.getElementById('chatbot-load-progress');
-      if (prog) prog.style.display = 'none';
-      if (retryBtn) retryBtn.style.display = 'none';
-      if (errEl) {
-        errEl.textContent = 'The AI chatbot requires a desktop browser. WebGPU compute is not yet reliable on mobile — please visit on a PC or Mac.';
-        errEl.style.display = 'block';
-      }
-      return;
-    }
-
     modelLoading = true;
 
     // Hide retry button and error if visible
@@ -209,6 +195,54 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
     if (retryBtn) retryBtn.style.display = 'none';
     if (errEl) errEl.style.display = 'none';
 
+    if (isMobileDevice()) {
+      loadMobileModel();
+    } else {
+      loadDesktopModel();
+    }
+  }
+
+  function loadMobileModel() {
+    // transformers.js runs via WebAssembly (CPU) — no WebGPU required, works on all mobile browsers
+    setLoadText('Loading AI model for mobile... (~400 MB, first visit only)');
+
+    import('https://esm.run/@huggingface/transformers').then(function(tf) {
+      var prog = document.getElementById('chatbot-load-progress');
+      var txt = document.getElementById('chatbot-load-text');
+
+      var progressCb = function(data) {
+        if (data.status === 'progress' && prog && txt) {
+          prog.value = (data.progress || 0) / 100;
+          txt.textContent = 'Downloading ' + (data.file || 'model') + '… ' + Math.round(data.progress || 0) + '%';
+        } else if (data.status === 'initiate' && txt) {
+          txt.textContent = 'Preparing ' + (data.file || 'model') + '…';
+        }
+      };
+
+      return tf.pipeline('text-generation', MOBILE_MODEL_ID, {
+        dtype: 'q4',
+        device: 'wasm',
+        progress_callback: progressCb
+      });
+    }).then(function(generator) {
+      chatFn = function(allMessages) {
+        return generator(allMessages, { max_new_tokens: 600 }).then(function(result) {
+          var generated = result[0].generated_text;
+          // generated_text is the full message array; last entry is the assistant reply
+          return Array.isArray(generated)
+            ? generated[generated.length - 1].content
+            : String(generated);
+        });
+      };
+      modelReady = true;
+      modelLoading = false;
+      showChatView();
+      loadHistory();
+      addSystemMessage('Ready! Ask me anything about MS-900 exam topics.');
+    }).catch(onLoadError);
+  }
+
+  function loadDesktopModel() {
     setLoadText('Loading AI model... (first load may take a while)');
 
     var modelIdPromise = (navigator.gpu
@@ -227,29 +261,36 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
           if (prog) prog.value = report.progress || 0;
           if (txt) txt.textContent = report.text || 'Loading...';
         };
-
         return webllm.CreateMLCEngine(modelId, { initProgressCallback: progressCb });
       });
     }).then(function(eng) {
       engine = eng;
+      chatFn = function(allMessages) {
+        return engine.chat.completions.create({
+          messages: allMessages,
+          temperature: 0.3,
+          max_tokens: 600
+        }).then(function(response) {
+          return response.choices[0].message.content;
+        });
+      };
       modelReady = true;
       modelLoading = false;
       showChatView();
       loadHistory();
       addSystemMessage('Ready! Ask me anything about MS-900 exam topics.');
-    }).catch(function(err) {
-      modelLoading = false;
-      var msg = err && err.message ? err.message : String(err);
-      var errEl = document.getElementById('chatbot-load-error');
-      var retryBtn = document.getElementById('chatbot-load-retry');
-      if (errEl) {
-        errEl.textContent = 'Failed to load model: ' + msg;
-        errEl.style.display = 'block';
-      }
-      if (retryBtn) retryBtn.style.display = 'inline-block';
-      setLoadText('Model failed to load.');
-      console.error('WebLLM load error:', err);
-    });
+    }).catch(onLoadError);
+  }
+
+  function onLoadError(err) {
+    modelLoading = false;
+    var msg = err && err.message ? err.message : String(err);
+    var errEl = document.getElementById('chatbot-load-error');
+    var retryBtn = document.getElementById('chatbot-load-retry');
+    if (errEl) { errEl.textContent = 'Failed to load model: ' + msg; errEl.style.display = 'block'; }
+    if (retryBtn) retryBtn.style.display = 'inline-block';
+    setLoadText('Model failed to load.');
+    console.error('Model load error:', err);
   }
 
   function setLoadText(text) {
@@ -391,15 +432,9 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
     var systemContent = KNOWLEDGE_BASE + '\n\nADDITIONAL CONTEXT FROM CURRENT PAGE:\n' + pageContext;
     var recentMessages = messages.slice(-MAX_HISTORY * 2);
 
-    engine.chat.completions.create({
-      messages: [
-        { role: 'system', content: systemContent }
-      ].concat(recentMessages),
-      temperature: 0.3,
-      max_tokens: 600
-    }).then(function(response) {
+    chatFn([{ role: 'system', content: systemContent }].concat(recentMessages))
+    .then(function(reply) {
       hideTyping();
-      var reply = response.choices[0].message.content;
       messages.push({ role: 'assistant', content: reply });
       appendBubble(reply, 'bot');
       saveHistory();
