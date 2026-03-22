@@ -13,7 +13,7 @@
   const MAX_HISTORY = 10; // max message pairs to keep in conversation
   const MODEL_ID_F16 = 'Llama-3.2-1B-Instruct-q4f16_1-MLC';   // ~800MB, requires GPU f16 support
   const MODEL_ID_F32 = 'Llama-3.2-1B-Instruct-q4f32_1-MLC';   // ~800MB, wider GPU compatibility
-  const MOBILE_MODEL_ID = 'Xenova/Qwen2-0.5B-Instruct';         // ~400MB, CPU/WASM for mobile
+  const MOBILE_MODEL_ID = 'onnx-community/Qwen2.5-0.5B-Instruct'; // ~400MB, CPU/WASM for mobile
 
   // ─── KNOWLEDGE BASE (condensed from all training pages) ──────────────────
   const KNOWLEDGE_BASE = `
@@ -207,9 +207,6 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
     setLoadText('Loading AI model for mobile... (~400 MB, first visit only)');
 
     import('https://esm.run/@huggingface/transformers').then(function(tf) {
-      // Brave and some mobile browsers block cross-origin fetches to huggingface.co;
-      // use a public mirror instead.
-      tf.env.remoteHost = 'https://hf-mirror.com/';
 
       var prog = document.getElementById('chatbot-load-progress');
       var txt = document.getElementById('chatbot-load-text');
@@ -292,16 +289,7 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
     var errEl = document.getElementById('chatbot-load-error');
     var retryBtn = document.getElementById('chatbot-load-retry');
 
-    // Detect Brave Shields blocking cross-origin model downloads
-    var isBrave = typeof navigator.brave !== 'undefined';
-    var isFetchBlock = /unauthorized|fetch|network|failed to fetch|cors/i.test(msg);
-    var displayMsg;
-    if (isMobileDevice() && (isBrave || isFetchBlock)) {
-      displayMsg = 'Brave Shields is blocking the AI model download. '
-        + 'Tap the Brave lion icon \uD83E\uDD81 in the address bar, turn off Shields for this page, then tap Retry.';
-    } else {
-      displayMsg = 'Failed to load model: ' + msg;
-    }
+    var displayMsg = 'Failed to load model: ' + msg;
 
     if (errEl) { errEl.textContent = displayMsg; errEl.style.display = 'block'; }
     if (retryBtn) retryBtn.style.display = 'inline-block';
