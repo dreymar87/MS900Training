@@ -11,7 +11,8 @@
 
   const HISTORY_KEY = 'ms900_chatbot_history';
   const MAX_HISTORY = 10; // max message pairs to keep in conversation
-  const MODEL_ID = 'Llama-3.2-1B-Instruct-q4f16_1-MLC'; // ~800MB, cached after first load
+  const MODEL_ID_F16 = 'Llama-3.2-1B-Instruct-q4f16_1-MLC'; // ~800MB, requires GPU f16 support
+  const MODEL_ID_F32 = 'Llama-3.2-1B-Instruct-q4f32_1-MLC'; // ~800MB, wider GPU compatibility (mobile)
 
   // ─── KNOWLEDGE BASE (condensed from all training pages) ──────────────────
   const KNOWLEDGE_BASE = `
@@ -187,15 +188,26 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
 
     setLoadText('Loading AI model... (first load may take a while)');
 
-    import('https://esm.run/@mlc-ai/web-llm').then(function(webllm) {
-      var progressCb = function(report) {
-        var prog = document.getElementById('chatbot-load-progress');
-        var txt = document.getElementById('chatbot-load-text');
-        if (prog) prog.value = report.progress || 0;
-        if (txt) txt.textContent = report.text || 'Loading...';
-      };
+    // Detect GPU f16 compute shader support; fall back to f32 on mobile/limited GPUs
+    var modelIdPromise = (navigator.gpu
+      ? navigator.gpu.requestAdapter().then(function(adapter) {
+          if (!adapter) return MODEL_ID_F32;
+          return adapter.features.has('shader-f16') ? MODEL_ID_F16 : MODEL_ID_F32;
+        }).catch(function() { return MODEL_ID_F32; })
+      : Promise.resolve(MODEL_ID_F32)
+    );
 
-      return webllm.CreateMLCEngine(MODEL_ID, { initProgressCallback: progressCb });
+    modelIdPromise.then(function(modelId) {
+      return import('https://esm.run/@mlc-ai/web-llm').then(function(webllm) {
+        var progressCb = function(report) {
+          var prog = document.getElementById('chatbot-load-progress');
+          var txt = document.getElementById('chatbot-load-text');
+          if (prog) prog.value = report.progress || 0;
+          if (txt) txt.textContent = report.text || 'Loading...';
+        };
+
+        return webllm.CreateMLCEngine(modelId, { initProgressCallback: progressCb });
+      });
     }).then(function(eng) {
       engine = eng;
       modelReady = true;
