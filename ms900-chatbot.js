@@ -13,7 +13,7 @@
   const MAX_HISTORY = 10; // max message pairs to keep in conversation
   const MODEL_ID_F16 = 'Llama-3.2-1B-Instruct-q4f16_1-MLC';   // ~800MB, requires GPU f16 support
   const MODEL_ID_F32 = 'Llama-3.2-1B-Instruct-q4f32_1-MLC';   // ~800MB, wider GPU compatibility
-  const MOBILE_MODEL_ID = 'Xenova/Qwen2-0.5B-Instruct';         // ~400MB, CPU/WASM for mobile
+  const MOBILE_MODEL_ID = 'onnx-community/Qwen2.5-0.5B-Instruct'; // ~400MB, CPU/WASM for mobile
 
   // ─── KNOWLEDGE BASE (condensed from all training pages) ──────────────────
   const KNOWLEDGE_BASE = `
@@ -289,26 +289,7 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
     var errEl = document.getElementById('chatbot-load-error');
     var retryBtn = document.getElementById('chatbot-load-retry');
 
-    // Some privacy-focused browsers block cross-origin fetches to huggingface.co
-    var isFetchBlock = /unauthorized|failed to fetch|networkerror|cors/i.test(msg);
-    var ua = navigator.userAgent || '';
-    var isBrave = typeof navigator.brave !== 'undefined';
-    var isDDG = /DuckDuckGo/i.test(ua);
-    var displayMsg;
-    if (isFetchBlock) {
-      if (isBrave) {
-        displayMsg = 'Brave Shields is blocking the AI model download. '
-          + 'Tap the Brave lion \uD83E\uDD81 in the address bar, turn off Shields for this page, then tap Retry.';
-      } else if (isDDG) {
-        displayMsg = 'DuckDuckGo\u2019s privacy protection is blocking the AI model download. '
-          + 'Try opening this page in Chrome or Firefox instead.';
-      } else {
-        displayMsg = 'Your browser\u2019s privacy settings are blocking the AI model download from huggingface.co. '
-          + 'Try Chrome or Firefox, or disable tracking protection for this page, then tap Retry.';
-      }
-    } else {
-      displayMsg = 'Failed to load model: ' + msg;
-    }
+    var displayMsg = 'Failed to load model: ' + msg;
 
     if (errEl) { errEl.textContent = displayMsg; errEl.style.display = 'block'; }
     if (retryBtn) retryBtn.style.display = 'inline-block';
