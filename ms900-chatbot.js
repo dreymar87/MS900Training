@@ -207,7 +207,7 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
     setLoadText('Loading AI model for mobile... (~400 MB, first visit only)');
 
     var workerSrc = [
-      'import { pipeline } from "https://esm.run/@huggingface/transformers";',
+      'import { pipeline, TextStreamer } from "https://esm.run/@huggingface/transformers";',
       'let generator = null;',
       'self.onmessage = async function(e) {',
       '  const { type, payload } = e.data;',
@@ -221,10 +221,12 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
       '    } catch(err) { self.postMessage({ type: "error", message: err.message || String(err) }); }',
       '  } else if (type === "generate") {',
       '    try {',
-      '      const result = await generator(payload.messages, { max_new_tokens: 200 });',
-      '      const gen = result[0].generated_text;',
-      '      const reply = Array.isArray(gen) ? gen[gen.length - 1].content : String(gen);',
-      '      self.postMessage({ type: "result", reply: reply });',
+      '      const streamer = new TextStreamer(generator.tokenizer, {',
+      '        skip_prompt: true, skip_special_tokens: true,',
+      '        callback_function: function(text) { self.postMessage({ type: "token", chunk: text }); }',
+      '      });',
+      '      await generator(payload.messages, { max_new_tokens: 200, streamer: streamer });',
+      '      self.postMessage({ type: "result" });',
       '    } catch(err) { self.postMessage({ type: "error", message: err.message || String(err) }); }',
       '  }',
       '};'
@@ -249,13 +251,17 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
           txt.textContent = 'Preparing ' + (d.file || 'model') + '…';
         }
       } else if (msg.type === 'ready') {
-        chatFn = function(allMessages) {
+        chatFn = function(allMessages, onToken) {
           return new Promise(function(resolve, reject) {
             worker.postMessage({ type: 'generate', payload: { messages: allMessages } });
+            var accumulated = '';
             worker.addEventListener('message', function handler(ev) {
-              if (ev.data.type === 'result') {
+              if (ev.data.type === 'token') {
+                accumulated += ev.data.chunk;
+                if (onToken) onToken(ev.data.chunk);
+              } else if (ev.data.type === 'result') {
                 worker.removeEventListener('message', handler);
-                resolve(ev.data.reply);
+                resolve(accumulated);
               } else if (ev.data.type === 'error') {
                 worker.removeEventListener('message', handler);
                 reject(new Error(ev.data.message));
@@ -473,11 +479,29 @@ DOMAIN 4 — PRICING & LICENSING (10-15% of exam):
     var systemContent = KNOWLEDGE_BASE + '\n\nADDITIONAL CONTEXT FROM CURRENT PAGE:\n' + pageContext;
     var recentMessages = messages.slice(-MAX_HISTORY * 2);
 
-    chatFn([{ role: 'system', content: systemContent }].concat(recentMessages))
-    .then(function(reply) {
-      hideTyping();
+    var streamBubble = null;
+    var container = document.getElementById('chatbot-messages');
+
+    chatFn(
+      [{ role: 'system', content: systemContent }].concat(recentMessages),
+      function(chunk) {
+        if (!streamBubble) {
+          hideTyping();
+          streamBubble = appendBubble('', 'bot');
+        }
+        streamBubble.textContent += chunk;
+        container.scrollTop = container.scrollHeight;
+      }
+    ).then(function(reply) {
+      if (streamBubble) {
+        // Replace plain streamed text with formatted version
+        streamBubble.innerHTML = formatResponse(reply);
+        container.scrollTop = container.scrollHeight;
+      } else {
+        hideTyping();
+        appendBubble(reply, 'bot');
+      }
       messages.push({ role: 'assistant', content: reply });
-      appendBubble(reply, 'bot');
       saveHistory();
     }).catch(function(err) {
       hideTyping();
